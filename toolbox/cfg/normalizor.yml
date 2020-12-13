@@ -1,0 +1,12 @@
+pseudo:
+ rename: pseudo
+email:
+ rename: adresse mail
+password:
+ rename: mot de passe
+title:
+ rename: titre
+paf:
+ rename: prix d'entrée
+link:
+ rename: url

@@ -1,0 +1,121 @@
+check_mail: &schemail   # Verifie que la syntax est correcte
+  schema: email scheme
+  required: False
+valid_mail:  &mail  # Verifie qu'il s'agit d'un adresse mail valide
+ check_with: email
+ required: true
+valid_pwd : &password
+ schema: sch_password
+link: &link
+ check_with: url
+ required: False
+media_link: &media
+ coerce: medialink
+ check_with: medialink
+ required: False
+info_art: &info
+ type: string
+ required: true
+ maxlength: 500
+ coerce: clean_string
+info_evt: &info_pan
+ type: string
+ required: true
+ maxlength: 200
+ coerce: clean_string
+txt_required: &txt_required
+ type: string
+ required: true
+ coerce: clean_string
+article_categorie: &article_cat
+ check_with: artcat
+ required: true
+evt_dte: &evt_dte
+ type: integer
+ default: 0
+ coerce: event
+pan_dte: &pan_dte
+ type: integer
+ default: 0
+ coerce: panel
+txt_optional: &txt_optional
+ type: string
+ required: false
+ coerce: clean_string
+form_reset_password:
+ email: *mail
+ password: *password
+form_request_password:
+ pseudo: *txt_required
+ email: *mail
+valid_reset_password:
+ c: *txt_required
+ e: *mail
+form_konnet :
+ pseudo : *txt_required
+ email: *mail
+ password: *password
+form_auth_register :
+ client_id : *txt_required
+ client_secret : *txt_required
+ pseudo : *txt_required
+ email: *mail
+ password: *password
+form_timoun :
+ password: *txt_required
+ email: *schemail
+form_activate:
+ email: *mail
+ code: *txt_required
+form_event:
+ title: *txt_required
+ categorie: *txt_required
+ commune: *txt_required
+ info: *info
+ no_paf:
+  excludes: 'paf'
+  coerce: int
+  type: integer
+  allowed: [-1]
+  rename: paf
+ paf:
+  excludes: 'no_paf'
+  type: integer
+  coerce: int
+  min: -1
+ link: *link
+ lieu: *txt_required
+ addr_1: *txt_optional
+ addr_2: *txt_optional
+ email:
+  check_with: email
+ phone:
+  schema: gf phone
+  required: False
+ org: *txt_optional
+ dte_evt: *evt_dte
+ end_evt: *evt_dte
+form_panneau:
+ commune: *txt_required
+ content: *info_pan
+ dte_evt: *pan_dte
+ end_evt: *pan_dte
+form_article :
+ title : *txt_required
+ categorie: *article_cat
+ info: *info
+ content: *txt_optional
+ link: *link
+ media: *media
+ publish:
+  type: integer
+  default: 0
+  coerce: publish
+form_publish :
+ categorie: *article_cat
+ publish:
+  type: integer
+  default: 0
+  coerce: publish
+ valid:
+  default: true

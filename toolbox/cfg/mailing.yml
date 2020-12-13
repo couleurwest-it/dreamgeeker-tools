@@ -1,0 +1,228 @@
+footer:
+ txt: >
+  À bientôt,
+  ---
+  Le monde est vieux, mais l'avenir sort du passé.  (Djibril Tamsir Niane)
+  ---
+      
+       ##########  LES COULEURS DE L'OUEST
+     ##    ###      Premier magazine participatif de Lagwiyann 973
+    ##    ## ##
+   ##   ##     ##
+  ==  ##        ##  Mag'Ouest : http://lescouleursdelouest.fr
+   ##   ##     ##   Agenda : https://lescoulerusdelouest.fr/agenda
+    ##   ##   ##    News : https://lescoulerusdelouest.fr/news
+     ##    ###      telegram : https://t.me/lescouleursdelouest
+       ##########
+   
+  contacts : info@lescouleursdelouest.fr | https://t.me/dreamgeeker
+
+  ----
+  Cet email vous est envoyé de manière automatique. Merci de ne pas y répondre.
+  En cas de réclamation envoyer un mail à reclamation@lescouleursdelouest.fr
+
+  Pour votre sécurité :
+    - Nous ne vous demanderons jamais aucunes informations d'ordre privée par mail
+    - Nous ne partageons ni ne diffusons aucune de vos données
+    - Votre adresse mail n'est utilisée que pour vous identifier et échanger avec vous
+    - Nous n'envoyons aucune publicité
+
+  N'hésitez pas à supprimer tous mail vous paraissant suspicieux
+  
+  Bon à savoir : Selon L’ADEME un mail d'1 Mo envoyé correspont à environ à 15 grammes de CO2 ! Ainsi, l'envoie de 30 mails par jour à différents destinataires pendant un an correspond à presque 330 kg de CO2, soit plusieurs milliers de km d’essence utilisés en voiture.
+  Le stockage des mails et des pièces jointes sur un serveur est aussi un enjeu important : plus le courriel est conservé longtemps, plus son impact sur le changement climatique sera fort.
+  Rédiusez l'impact environnemental :
+    - classez vos mails dès leur arrivée et nettoyez vos spams et vos mails obsolètes
+    - archivez (de préférence de manière locale) vos mails "importants"
+    - stockez vos documents administratifs dans des espaces cloud telque Digipost et partagez vos documents par lien.
+    - supprimez les pièces jointes des messages auxquels vous répondez, ciblez et ne multipliez pas les destinataires lors de vos envois de mails.
+    - désabonnez-vous des newsletters inutiles (vous trouverez les lien en bas de mail)
+  Vous souhaitez des informations ou des conseil sur le numérique : contact@couleurwest-it.com
+ html: |
+  <footer>
+  <table >
+  <tbody style="font-size: 11px;">
+  <tr>
+  <td  rowspan="6"><img src="http://lescouleursdelouest.fr/logo" alt="CdO 973F" /></td>
+  <td style="font-size: 20px; font-weight: bold; color: #dc0000; font-variant: small-caps; "><sub style="font-size: 0.5em; vertical-align: bottom; font-variant: none;">Les</sub> <br />Couleurs De <sup style="font-size: 0.5em; vertical-align: top; font-variant: none;">l'</sup>Ouest</td>
+  </tr>
+  <tr>
+  <td style="font-size: 12px; font-variant: small-caps; ">Premier Magazine Participatif de Lagwiyann</td>
+  </tr>
+  <tr>
+  <td style="text-align:center; font-size: 11px;"><br />Retrouvez tous nos services sur notre site</td>
+  </tr>
+  <tr>
+  <td  style="text-align:center"><a style="text-decoration: none; font-size: 11px;" href="http://lescouleursdelouest.fr">lescouleursdelouest.fr : Le Mag'Ouest |</a> <a style="text-decoration: none; font-size: 11px;" href="http://lescouleursdelouest.fr/agenda">L'Agenda</a> | <a style="text-decoration: none; font-size: 11px;" href="http://lescouleursdelouest.fr/lagalerie">La Galerie</a></td>
+  </tr>
+  <tr>
+    <td style="font-size: 11px; text-align: center;" ><br />Retrouvez toute l'actualit&eacute; d'ici et d'ailleurs :</td></tr><tr><td><a style="text-decoration: none;font-size: 11px;" href="http://lescouleursdelouest.fr/news"> https://lescouleursdelouest.fr/news</a> | <a style="text-decoration: none;font-size: 11px;" href="http://t.me/lescouleursdelouest"> https://t.me/lescouleursdelouest</a></td>
+  </tr>
+  <tr>
+    <td style="text-decoration: none; font-size: 11px; width: 526px; text-align: center;" colspan="2"><br />Pour plus d'infos n'h&eacute;sitez pas &agrave; nous contacter :</td></tr>
+    <tr><td style="font-size: 11px; text-align:center" colspan="2">
+      <span style="font-weight: bold; font-variant: small-caps;">mail :</span> <a href="mailto:info@lescoueleursdelouest.fr">info@lescouleursdelouest.fr</a> | <span style="font-size: 11px; font-weight: bold; font-variant: small-caps;"> Telegram :</span> <a href="https://t.me/lescouleursdelouest">dreamgeeker</a> <span style="font-size: 11px; font-weight: bold; font-variant: small-caps;">
+    </td></tr><tr><td style="text-decoration: none; font-size: 11px; width: 526px; text-align: center;" colspan="2"><em>Telephone :</em> <a href="https://t.me/lescouleursdelouest">+594 (0) 694 949 842</a></td>
+  </tr>
+  </tbody>
+  </table>
+  <p>
+  <cite style="float: right; text-align: right; font-size: 10px;"> Le monde est vieux, mais l'avenir sort du passé.<br /> (Djibril Tamsir Niane)</cite>
+  </p>
+  <br />
+  <article>
+  <i style="font-size: 10px; background-color:ghostwhite; color: darkgrey">
+  <p>Cet email vous est envoyé de manière automatique, ne pas y répondre car votre demande ne sera pas traitée.<br />
+  En cas de réclamation envoyer un mail à <a href="mailto://reclamation@lescouleursdelouest.fr">reclamation@lescouleursdelouest.fr</a>
+  </p>
+  <p>Pour votre sécurité :
+  <ul>
+  <li>Nous ne vous demanderons jamais par mail aucunes informations d'ordre privées</li>
+  <li>Nous ne partageons ni ne diffusons aucune de vos données</li>
+  <li>Votre adresse mail n'est utilisée que pour vous identifier et échanger avec vous.</li>
+  <li>Nous n'envoyons aucunes publicité</li>
+  </ul>
+  N'hésitez pas à supprimer tous mail vous paraissant suspicieux.
+  </p><br/>
+  <p>
+  Bon à savoir : Selon L’ADEME un mail d'1 Mo envoyé correspont à environ à 15 grammes de CO2 ! Ainsi, l'envoie de 30 mails par jour à différents destinataires pendant un an correspond à presque 330 kg de CO2, soit plusieurs milliers de km d’essence utilisés en voiture.
+   Le stockage des mails et des pièces jointes sur un serveur est aussi un enjeu important : plus le courriel est conservé longtemps, plus son impact sur le changement climatique sera fort.
+   <br/>
+   Réduisez l'impact environnemental :<ul>
+     <li>>classez vos mails dès leur arrivée, nettoyez régulièrement vos spams et tous vos mails obsolètes</li>
+     <li>archivez (de préférence de manière locale) vos mail "important"</li>
+     <li>>stockez vos documents administratifs dans des espaces cloud telque Digipost et partagez vos documents par lien.</li>
+     <li>supprimez les pièces jointes des messages auxquels vous répondez, ciblez et ne multipliez pas les destinataires lors de vos envois de mails.</li>
+     <li>désabonnez vous des newsletter inutiles</li>
+  </ul>
+   Vous souhaitez savoir plus ? Quoi faire ? Comment faire ? => <a href="contact@couleurwest-it.com">contact@couleurwest-it.com</a>
+  </p>
+  
+  </i>
+  </article>
+  </footer>
+message_confirm:
+  object: CdO - Email vériifié
+  txt: >
+    Bienvenu {pseudo}
+
+    Encore une dernière étape afin de valider votre compte.
+    Connectez-vous avec vos identifiants et saisissez le code suivant : {code}
+    Le code est valide 72h, au-delà votre compte sera supprimé. Vous pourrez refaire une demande.
+
+    N'oubliez pas d'enregistrer notre adresse pour ne pas finir dans vos courriers indésirables (spam) et rester connecté.
+  html : |
+    <h4>Bienvenu {pseudo}</h4><br />
+    <p>Encore une dernière étape afin de valider votre compte.<br/>
+    Connectez-vous avec vos identifiants et saisissez le code suivant :<strong>{code}</strong>.<br/></p>
+    <p><span style="color:#0046AA">Le code est valide 72h, au-delà votre compte sera supprimé.</span>
+    Vous pourrez refaire une demande.<br />
+    <i>N'oubliez pas d'enregistrer notre adresse pour ne pas finir dans vos courriers indésirables (spam) et rester connecté</i></p>
+published_article:
+  object: !!str CdO - Publication validée
+  txt: >
+    Bien le Bien le bonjour {pseudo}
+
+    Tout d'abord vous vous remercions de votre participation et c'est avec plaisir que nous vous informons que votre article "{title}" a été validé et sera publié le {date}.
+  html : >
+    <h4>Bien le Bien le bonjour {pseudo}</h4><br />
+    <p>
+    Tout d'abord vous vous remercions de votre participation ;
+    C'est avec plaisir que nous vous informons que votre article "<strong>{title}</strong>" sera publié le <strong>{date}</strong>
+    </p>
+published_event:
+  object: !!str CdO - Publication validée
+  txt: >
+    Bien le Bien le bonjour {pseudo}
+
+    Tout d'abord vous vous remercions de votre participation et c'est avec plaisir que nous vous informons que nous avons ajouté l'événement "{title}" à l'agenda.
+    ---
+  html : >
+    <h4>Bien le Bien le bonjour {pseudo}</h4><br />
+    <p>Tout d'abord vous vous remercions de votre participation et c'est avec plaisir que nous vous informons que nous avons ajouter l'événement "<strong>{title}</strong>" à l'agenda.</p>
+revoque_event:
+  object: !!str CdO - Publication rejetée
+  txt: >
+    Bien le Bien le bonjour {pseudo}
+
+    Tout d'abord vous vous remercions de votre participation et c'est avec regret que nous vous informons que l'événement "{title}" ne sera pas publié et a été supprimé du site.
+
+    Les raisons possibles :
+          - L'événement est déjà enregistré dans l'agenda
+          - Les informations indiquées ne permettent pas la publication de l'événement
+  html : |
+    <h4>Bien le Bien le bonjour {pseudo}</h4><br/>
+    <p>Tout d'abord vous vous remercions de votre participation et c'est avec regret que nous vous informons que l'événement "<strong>{title}</strong>" ne sera pas publié et a été supprimé du site.</p>
+    <br /><p><u>Les raisons possibles</u> :<ul>
+    <li> L'événement existe dans l'agenda</li>
+    <li>Les informations indiquées ne permettent pas la publication de l'événement</li>
+    </ul></p>
+revoque_article:
+  object: !!str CdO - Publication rejetée
+  txt: >
+    Bien le Bien le bonjour {pseudo}
+
+    Tout d'abord vous vous remercions de votre participation ; c'est avec regret que nous vous informons que l'article "{title}" ne sera pas publié et a été supprimé de site.
+
+    Les raisons possibles :
+        - L'article existe déjà
+        - Le contenu de l'article ne permet pas sa publication
+  html : |
+    <h4>Bien le Bien le bonjour {pseudo}</h4><br />
+    <p>Tout d'abord vous vous remercions de votre participation ; c'est avec regret que nous vous informons que l'article "<strong>{title}</strong>" ne sera pas publié et a été supprimé du site</p><br/>
+    <p><u>Les raisons possibles</u> :<ul>
+        <li>L'article existe déjà.</li>
+        <li>Le contenu de l'article ne permet pas sa publication</li>
+        </ul>
+    </p>
+code_reset:
+  object: !!str CdO - Code d'activation
+  txt: |
+    Bien le Bien le bonjour {pseudo},
+
+    Votre nouveau code : {code}
+  html : |
+    <h4>Bon'jou {pseudo}</h4><br/>
+    <p>Votre nouveau code : <strong>{code}</strong>.</p>
+recovery_password:
+  object: !!str CdO - Réinitilisez votre mot de passe
+  txt: >
+   Bien le bonjour {pseudo},
+   
+   Vous avez oublié votre mot de passe et demandé sa réinitialisation. Copiez le lien ci-dessous dans votre navigateur
+   {link}
+   
+   -- Si vous n'êtes pas à l'origine de cette demande, ne tenez pas compte de ce mail.
+  html : |
+   <h4>Bien le Bien le bonjour {pseudo}</h4><br />
+   <p>Vous avez oublié votre mot de passe et demandé sa réinitialisation.
+   Cliquez sur le lien ci-dessous ou copiez le dans votre navigateur : <br/>
+   <a herf="{link}">{link}</a><br/>
+   </p>
+   <p><em>Si vous n'êtes pas à l'origine de cette demande, ne tenez pas compte de ce mail</em></p>
+uncounted:
+  object: !!str CdO - Désactivation de votre compte
+  txt: >
+   Bonjour {pseudo},
+ 
+   Voilà plus de trois mois que vous ne vous êtes pas connectés, voilà pourquoi nous avons désactivé votre compte.
+   Vous avez toujours accès au site en ligne, le Mag'ouest, l'Agenda, La Galerie, Les News...
+   
+   Pour annoncer un évenement ou proposer un article il suffira de vous reconnecter.
+   
+   Nous supprimerons définitivement votre compte dans 90 jours si vous ne vous êtes toujours pas connecté.
+
+
+  html : |
+   <h4>Bonjour {pseudo}</h4><br />
+   <p>Voilà plus de trois mois que vous ne vous êtes pas connectés, voilà pourquoi nous avons désactivé votre compte.</p>
+   <p>Vous avez toujours accès au site en ligne, le Mag'ouest, l'Agenda, La Galerie, Les News...<br/>
+   Pour annoncer un évenement ou proposer un article il suffira de vous reconnecter.</p>
+   <p>Nous supprimerons définitivement votre compte dans 90 jours si vous ne vous êtes toujours pas connecté.</p>
+   <hr/>
+mail_admin:
+  object: !!str CDO - Automan
+  txt: |
+    Bien le bonjour Mama,
+
+    {message}
