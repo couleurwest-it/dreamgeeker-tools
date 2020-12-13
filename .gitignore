@@ -1,0 +1,13 @@
+
+toolbox/.idea/inspectionProfiles/profiles_settings.xml
+toolbox/.idea/inspectionProfiles/Project_Default.xml
+toolbox/.idea/misc.xml
+toolbox/.idea/modules.xml
+toolbox/.idea/toolbox.iml
+toolbox/.idea/vcs.xml
+toolbox/.idea/workspace.xml
+toolbox/app/__pycache__/toolbox.cpython-38.pyc
+toolbox/app/__pycache__/logmng.cpython-38.pyc
+toolbox/app/__pycache__/config.cpython-38.pyc
+toolbox/app/__pycache__/cfgmng.cpython-38.pyc
+toolbox/app/__pycache__/__init__.cpython-38.pyc

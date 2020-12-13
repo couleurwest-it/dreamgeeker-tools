@@ -1,0 +1,51 @@
+version: 1
+formatters:
+ default:
+  format: '%(asctime)s|%(levelname)s|[%(name)s.%(module)s] %(message)s'
+  datefmt: '%Y%m%d%H%M%S'
+ simple:
+  format: '%(asctime)s|%(levelname)s|[%(name)s.%(module)s] %(message)s'
+  datefmt: '%Y%m%d%H%M%S'
+ server:
+  format: '%(asctime)s|%(levelname)s| %(status)d - %(request)s'
+  datefmt: '%Y%m%d%H%M%S'
+ complet:
+  format: '%(asctime)s.%(msecs)d|[%(levelname)s %(code)s]|[%(title)s] %(message)s'
+  datefmt: '%Y%m%d%H%M%S'
+handlers:
+ default:
+  class: logging.StreamHandler
+  formatter: default
+  level: DEBUG
+  stream: ext://sys.stdout
+ console:
+  class: logging.StreamHandler
+  level: DEBUG
+  formatter: simple
+  stream: ext://sys.stdout
+ file:
+  class: logging.handlers.TimedRotatingFileHandler
+  formatter: complet
+  level: INFO
+  filename: logs/traces.log
+  backupCount: 30   #30 jours de backup
+  when: midnight
+  interval: 1
+  encoding: utf8
+loggers:
+ telegram:
+  level: INFO
+  handlers: [console, file]
+  propagate: no
+ cdo:
+  level: DEBUG
+  handlers: [console, file]
+  propagate: no
+ testeur:
+  level: DEBUG
+  handlers: [console]
+  propagate: no
+root:
+ level: NOTSET
+ handlers: [console]
+ propogate: yes

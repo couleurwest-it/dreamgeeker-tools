@@ -1,0 +1,39 @@
+SECRET_KEY : 'Lat3rreDuM!lieuLaouT0utcommence$'
+EXTERN_SECRET_KEY : 'C0ule'
+API_KEY : '!lyI$MyLove'
+OAUTH_TOKEN_URL : 'https://couleurswest-it.alwaysdata.net/token'
+OAUTH_REGISTER_URL : 'https://couleurswest-it.alwaysdata.net/register'
+OAUTH_AUTHORIZE_URL : 'https://couleurswest-it.alwaysdata.net/authorize'
+OAUTH_AUTHENTICATION_URL : 'https://couleurswest-it.alwaysdata.net/api/authorization'
+OAUTH_CLIENT_ID : 'mqxbeKJczcBR9cnYRhggqpU1'
+OAUTH_CLIENT_SECRET : 'oxw1BSYyhWyqbE5ZtbQKfCRryNIQZQ4ATsVfFXAI5DbHIY74'
+smtp_data:
+ m: ne-pas-repondre@lescouleursdelouest.fr
+ po: 465  # For SSL
+ pw: CW!cdo76
+ h: smtp-couleurswest-it.alwaysdata.net
+ h_s: Les couleurs de l'ouest <ne-pas-repondre@lescouleursdelouest.fr>
+cgf:
+ dev:
+  host : 198.168.1.70
+  port : 8076
+  debug : true
+  workers  : 1
+  access_log : True
+ prod:
+  host: 127.0.0.1
+  port: 8000
+  debug: false
+  workers: 2
+  access_log: False
+pusher:
+ app_id: '1041770'
+ key: '832d7f09370d7e03ccec'
+ secret: 'd63da1c3500d05975ad8'
+ cluster: 'eu'
+ ssl: True
+tweet:
+ api_key:  'tlSp4wCvinxZSCmPgE8xFDE9I'
+ api_secret: 'ZwO2pxfBv4VerJ9hijng4wFfw5DSlXitbDyOdUsb2kG2dl8d1w'
+ token: '1215031734691094535-m24JXQtM5fKRmdMS5U6ANIHaO2ZNLl'
+ token_secret: 'cd4zZpm7GVRRgI3001RUgzlYLcScDrlprp7SQ6RSlAMMc'
