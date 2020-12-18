@@ -1,9 +1,10 @@
 import unittest
-from app import tools
-from app.config import CConfig
-from app.logmng import CTracker
 
-CConfig('app')
+from toolbox import tools
+from toolbox.config import CConfig
+from toolbox.logmng import CTracker
+
+CConfig('toolbox')
 
 
 class MyTestCase(unittest.TestCase):

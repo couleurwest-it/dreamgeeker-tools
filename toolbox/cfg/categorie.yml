@@ -1,17 +1,2 @@
-event:
- exps: exposition/vernissage
- conf: conférence/rencontre
- fstv: festival/événement culturel
- scen: Art scénique (théatre,humour, danse..)
- muzk: musique/concert
- soir: soirée (animation, repas dansant...)
- oart: autre (jeunesse,art de rue...)
- jobs: emploi/formation
-article:
- artc: art et culture de l'ouest
- orgn: hommes et femmes de l'ouest
- past: mémoires de l'ouest
- tals: brèves, nouvelles, contes...
- tips: remèdes d'antan, recettes
- actu: actualité, news, info...
- cqfd: conseil, astuces...
+categories:
+  key: value

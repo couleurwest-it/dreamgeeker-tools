@@ -7,11 +7,9 @@ Gestion des Images
 """
 
 import os
-import shutil
-
 from io import BytesIO
 
-from PIL import Image, TiffImagePlugin, TiffTags
+from PIL import Image
 from PIL.ExifTags import TAGS
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
 
@@ -85,9 +83,9 @@ class CImager(object):
     def resize(self, s=None, mn=None, mx=None):
         """ Redimensionnement de l'image au format jpg
         =================================
-        :app tuple(int, int): si indiqué, (w,h) de redimensionnement
-        :app int mn, default 250: taille maximum (carré), optional
-        :app int mx, default 250: taille maximum de l'image, optional
+        :param tuple(int, int): si indiqué, (w,h) de redimensionnement
+        :param int mn, default 250: taille maximum (carré), optional
+        :param int mx, default 250: taille maximum de l'image, optional
         :return:
         """
 
@@ -137,7 +135,7 @@ class CImager(object):
         # Image File Directory
         ifd = ImageFileDirectory_v2()
         ifd[_TAGS_r["Artist"]] = artist
-        ifd[_TAGS_r["Copyright"]] = '2020 Tous droits reserves'
+        ifd[_TAGS_r["Copyright"]] = 'Tous droits reserves'
 
         out = BytesIO()
         ifd.save(out)
@@ -169,38 +167,3 @@ def treat_img(s, f):
     o = CImager(s, f)
     o.resize()
     o.thumbed()
-
-
-def make_gallery(artist, src, dst, t=None):
-    """
-        Redimensionne toutes les images contenu dans un répertoire donné + thumb
-        :param src: dossier des images uploadé
-        :param dst : Rertoire gallery
-        :param y: Siez (w, h)
-    """
-    s = '{:0>' + str(3) + '}'
-    v = 0
-    g = []
-    for f in os.listdir(src):
-        f_path = os.path.join(src, f)
-        if os.path.isfile(f_path):
-            if f.startswith('photo'):
-                f = s.format('photo')
-            else:
-                v += 1
-                f = s.format(v)
-                g.append(f)
-
-            d = os.path.join(dst, f)
-            with CImager(f_path, d) as o:
-                o.protected(artist)
-                o.thumbed(t)
-                os.remove(f_path)
-
-            #shutil.move(f_path, d)
-    return g
-
-
-
-
-

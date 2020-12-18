@@ -1,22 +1,23 @@
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
-# toolbox/krypt.py
+# krypt.py
 
-"""Gestion  kryptage"""
+"""
+Module de cryptage
+"""
 
-import crypt, random, string, getpass
-import hashlib
+import crypt
 
-from . import toolsconfig
+from . import cfgloader
 
 
-class Krypting:
+class CKrypting:
     """
     Gestion kryptage des données
     """
     PREFIX = "$5$"
-    SALT = toolsconfig.app_cfg('SECRET_KEY', mode='r')
-    SALT_EXT = toolsconfig.app_cfg('EXTERN_SECRET_KEY', mode='r')
+    SALT = cfgloader.app_cfg('SECRET_KEY')
+    SALT_EXT = cfgloader.app_cfg('SALT')
 
     @staticmethod
     def __encrypt(password, prefix):
@@ -34,18 +35,19 @@ class Krypting:
     @staticmethod
     def encrypt(password):
         """This is used in place of `mkpasswd --sha-512`"""
-        return Krypting.__encrypt(password, Krypting.PREFIX + Krypting.SALT)
+        return CKrypting.__encrypt(password, CKrypting.PREFIX + CKrypting.SALT)
 
     @staticmethod
     def extern_encrypt(password):
         '''
         Cryptage chaine pour utilisation extrene (suppression prefix)
+
         :param str password:
         :return: mot de passe crypté
         '''
         """This is used in place of `mkpasswd --sha-512`"""
-        s = Krypting.__encrypt(password, Krypting.PREFIX + Krypting.SALT_EXT)
-        i = len(Krypting.SALT_EXT)
+        s = CKrypting.__encrypt(password, CKrypting.PREFIX + CKrypting.SALT_EXT)
+        i = len(CKrypting.SALT_EXT)
 
         return s[i:]
 

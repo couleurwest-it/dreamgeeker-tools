@@ -1,51 +1,48 @@
-version: 1
 formatters:
- default:
-  format: '%(asctime)s|%(levelname)s|[%(name)s.%(module)s] %(message)s'
-  datefmt: '%Y%m%d%H%M%S'
- simple:
-  format: '%(asctime)s|%(levelname)s|[%(name)s.%(module)s] %(message)s'
-  datefmt: '%Y%m%d%H%M%S'
- server:
-  format: '%(asctime)s|%(levelname)s| %(status)d - %(request)s'
-  datefmt: '%Y%m%d%H%M%S'
- complet:
-  format: '%(asctime)s.%(msecs)d|[%(levelname)s %(code)s]|[%(title)s] %(message)s'
-  datefmt: '%Y%m%d%H%M%S'
+  complet:
+    datefmt: '%Y%m%d%H%M%S'
+    format: '%(asctime)s.%(msecs)d|[%(levelname)s %(code)s]|[%(title)s] %(message)s'
+  default:
+    datefmt: '%Y%m%d%H%M%S'
+    format: '%(asctime)s|%(levelname)s|[%(name)s.%(module)s] %(message)s'
+  server:
+    datefmt: '%Y%m%d%H%M%S'
+    format: '%(asctime)s|%(levelname)s| %(status)d - %(request)s'
 handlers:
- default:
-  class: logging.StreamHandler
-  formatter: default
-  level: DEBUG
-  stream: ext://sys.stdout
- console:
-  class: logging.StreamHandler
-  level: DEBUG
-  formatter: simple
-  stream: ext://sys.stdout
- file:
-  class: logging.handlers.TimedRotatingFileHandler
-  formatter: complet
-  level: INFO
-  filename: logs/traces.log
-  backupCount: 30   #30 jours de backup
-  when: midnight
-  interval: 1
-  encoding: utf8
+  console:
+    class: logging.StreamHandler
+    formatter: default
+    level: DEBUG
+    stream: ext://sys.stdout
+  default:
+    class: logging.StreamHandler
+    formatter: default
+    level: DEBUG
+    stream: ext://sys.stdout
+  file:
+    backupCount: 30
+    class: logging.handlers.TimedRotatingFileHandler
+    encoding: utf8
+    filename: logs/traces.log
+    formatter: complet
+    interval: 1
+    level: INFO
+    when: midnight
 loggers:
- telegram:
-  level: INFO
-  handlers: [console, file]
-  propagate: no
- cdo:
-  level: DEBUG
-  handlers: [console, file]
-  propagate: no
- testeur:
-  level: DEBUG
-  handlers: [console]
-  propagate: no
+  PROD:
+    handlers:
+    - console
+    - file
+    level: INFO
+    propagate: false
+  TEST:
+    handlers:
+    - console
+    level: DEBUG
+    propagate: false
 root:
- level: NOTSET
- handlers: [console]
- propogate: yes
+  handlers:
+  - console
+  level: NOTSET
+  propogate: true
+version: 1

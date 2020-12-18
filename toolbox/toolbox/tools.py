@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# toolbox.py
+# tools.py
 
 """
    Bibliotheque de fonctions
@@ -14,35 +14,27 @@ import sys
 from random import choice, randint
 from string import punctuation, ascii_letters, digits
 
-import requests
-
 """"constantes"""
-LOGS_CODE_INFO, LOGS_CODE_WRN, LOGS_CODE_ERR, LOGS_CODE_HARD = 20, 30, 40, 50
-STR_ACCENT = 'àâäãéèêëîïìôöòõùüûÿñç'
-STR_ENABLED_PUNC = r'@#!?$&-_'
-RGX_PASSWORD = r'^.*(?=.{8,12})(?=.*[' + STR_ACCENT + 'a-z])(?=.*[A-Z])(?=.*\d)(?=.*[' + STR_ENABLED_PUNC + ']).*'
-RGX_GF_PHONE = r'^0([679]\d{8}|594\d{6})$'
-RGX_PHONE = r'^0[1-9]\d{8}$'
+RGX_ACCENTS = 'àâäãéèêëîïìôöòõùüûÿñç'
 RGX_EMAIL = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+RGX_PWD = r'/.*(?=.{8,12})(?=.*[àâäãéèêëîïìôöòõùüûÿñça-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&?]).*/'
+RGX_PHONE = r'^0[1-9]\d{8}$'
+RGX_PUNCT = r'@#!?$&-_'
 RGX_URL = r'https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)'
-LIST_MEDIA_LINK = {
-    "dailymotion": "https://www.dailymotion.com/video/{}",
-    "youtube": "https://www.youtube.com/watch?v={}",
-    "soundcloud": "https://api.soundcloud.com/tracks/{}"
-}
-RGX_MEDIA_LINK = re.compile(
-    '((?P<dailymotion>dai.ly|dailymotion)|(?P<youtube>youtu.be|youtube)|(?P<soundcloud>soundcloud))')
-RGX_MEDIA_DOMAIN = r'domaim=[.]((?P=domain)youtube|dailymotion|soundcloud).com'
 PROJECT_DIR = ''
 """fonctions"""
 
+APP_NAME =''
+PROJECT_DIR =''
+APP_DIR =''
+TMP_DIR = ''
 
 def print_err(*args, **kwargs):
     """
     Ecriture sur le flux erreur de la console
 
-    :app args: arguments 1
-    :app kwargs: arguemnts2
+    :param args: arguments 1
+    :param kwargs: arguemnts2
     """
     print(*args, file=sys.stderr, **kwargs)
 
@@ -109,8 +101,8 @@ def clean_coma(chaine, pb_punk=False):
 
         Supprime les accents/caractères spéciaux du texte source en respectant la casse
 
-        :app chaine: Chaine de caractere à "nettoyer"
-        :app pb_punk: indique si la punctuation est à nettoyer ou pas (suppression)
+        :param chaine: Chaine de caractere à "nettoyer"
+        :param pb_punk: indique si la punctuation est à nettoyer ou pas (suppression)
 
         :Exemple:
         --------
@@ -125,9 +117,9 @@ def clean_coma(chaine, pb_punk=False):
 
     if pb_punk:
         # Nettoyage caractere spéciaux (espace...)
-        o_rules = str.maketrans(STR_ACCENT, 'aaaaeeeeiiioooouuuync', punctuation)
+        o_rules = str.maketrans(RGX_ACCENTS, 'aaaaeeeeiiioooouuuync', punctuation)
     else:
-        o_rules = str.maketrans(STR_ACCENT, 'aaaaeeeeiiioooouuuync')
+        o_rules = str.maketrans(RGX_ACCENTS, 'aaaaeeeeiiioooouuuync')
 
     return clean_space(chaine).translate(o_rules).swapcase().translate(o_rules).swapcase()
 
@@ -139,7 +131,7 @@ def clean_master(chaine):
 
         Supprime les accents, caractères spéciaux et espace du texte source
 
-        :app chaine: Chaine de caractere à "nettoyer"
+        :param chaine: Chaine de caractere à "nettoyer"
 
         :Exemple:
         --------
@@ -160,7 +152,7 @@ def inttohex(v):
 
     **Parameters**
     ----------------------------------------------
-    :app int v: nombre à convertir
+    :param int v: nombre à convertir
 
     :return : valeur en hexadécimal
     :rtype: srt
@@ -173,8 +165,8 @@ def addhex(h, v):
     ADD HEXADECIMAL
     ============================================
 
-    :app str h: valeur hexadécimal
-    :app str v: valeur entière à ajouter
+    :param str h: valeur hexadécimal
+    :param str v: valeur entière à ajouter
 
     :return: valeur additionné en hexedécimal
     """
@@ -190,15 +182,15 @@ def plain_hex(hx, s=3):
 
     **Parameter**
     ------------------------------------------
-    :app str hx: valeur hexadécimal
-    :app int v: longeur chaine attendu
+    :param str hx: valeur hexadécimal
+    :param int v: longeur chaine attendu
 
     :rtype: str:
 
     :Examples:
     ------------------------------------------
-    :app str hx: valeur hexadécimal
-    :app int v: longeur chaine attendu
+    :param str hx: valeur hexadécimal
+    :param int v: longeur chaine attendu
 
     :rtype: str
     """
@@ -233,30 +225,14 @@ def check_password(s):
         * Un chiffre
         * Un carectère spécial (@#!?$&-_ autorisé )
 
-        :app str s: chaine de caractère
+        :param str s: chaine de caractère
 
         :return bool: True si la chaine est valide
     """
-    r = re.compile(RGX_PASSWORD)
+    r = re.compile(RGX_PWD)
     return r.match(s)
 
 
-def check_mail(s):
-    """
-    CHECK MAIL
-    ====================================
-    Vérifie que la syntaxe d'une chaine correspond à la syntaxe d'une addresse mail :
-
-    **Parameters**
-    -----------------------------
-    :app str s: chaine à évaluer
-    :app bool b: avec ou sans vérifiaction de validité
-
-    :rtype: bool
-    """
-    s = clean_space(s).lower()
-
-    return re.match(RGX_EMAIL, s)
 
 
 def comphex(hx_a, hx_b):
@@ -270,8 +246,8 @@ def comphex(hx_a, hx_b):
 
     **Parameters**
     --------------
-    :app str hx_a:
-    :app str hx_b:
+    :param str hx_a:
+    :param str hx_b:
 
     :rtype: int
     """
@@ -291,7 +267,7 @@ def pwd_maker(i_size=8):
     Génération d'un password respectant les regles de password
     """
 
-    t = list(ascii_letters + digits + STR_ENABLED_PUNC)
+    t = list(ascii_letters + digits + RGX_PUNCT)
 
     while True:
         s_chaine = ''
@@ -442,8 +418,8 @@ def add_list(v, ll):
     """
     Ajout d'un item dans une liste avec gestion des doublons
     ==============================================================
-    :app str v: valeur à ajouter
-    :app list l: liste
+    :param str v: valeur à ajouter
+    :param list l: liste
     """
     if v not in ll:
         ll.append(v)
@@ -454,9 +430,9 @@ def dictlist(k, v, d):
     Ajout d'un valeur dans une liste d'un dictionnaire
     =======================================================
 
-    :app str k: clé dictionnaire
-    :app v: valeur à ajouter
-    :app dict[str, list[]] p_dic: dictionnaire
+    :param str k: clé dictionnaire
+    :param v: valeur à ajouter
+    :param dict[str, list[]] p_dic: dictionnaire
     :return:
     """
     if k is None or v is None: return
@@ -487,8 +463,8 @@ def pop_dic(l_id, dic):
         Suppression d'une liste d'items d'un dictionnaire
         ==================================================
 
-        :app list[str] l_ids : liste de clé à suppriemr
-        :app dict[str:object] dic: dictionaire à nettoyer
+        :param list[str] l_ids : liste de clé à suppriemr
+        :param dict[str:object] dic: dictionaire à nettoyer
 
         :Example:
         ----------
@@ -499,27 +475,9 @@ def pop_dic(l_id, dic):
             if s in dic: del dic[s]
 
 
-def day_in_sec(dy, ml=False):
-    """
-    Convertion d'un nombre de jours en secondes ou milisecondes
-    :param int dy: nombre de jours
-    :param bool ml: en millisecondes si True sinon en secondes, dafault False
-    :return: (milli) secondes
-    """
-
-    nb = int(dy)
-    # 1 jour = 24h=> heures / 1h = 60mn => nb min / 1mn = 60 sc => en secondes
-    nb = nb * 24 * 60 * 60
-
-    return nb * 1000 if ml else nb
-
-
-def day_in_hour(dy):
-    """
-    Convertion d'un nombre de jours en secondes ou milisecondes
-    :param int dy: nombre de jours
-    :rtype: int
-    """
-
-    nb = int(dy)
-    return nb * 24
+def paser_directory(directory, filtre="*"):
+    # r=>root, d=>directories, f=>files
+    for r, d, f in os.walk(directory):
+        for item in f:
+            if '.txt' in item or filtre=='*':
+                yield item, os.path.join(r, item)
