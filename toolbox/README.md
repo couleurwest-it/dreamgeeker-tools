@@ -1,8 +1,8 @@
-#Librairies de fonctions aide au développement
+# Librairies de fonctions aide au développement
 
-##Modules Assistants
+## Modules Assistants
 
-###Module tools : Librairie de fonctions standard
+### Module tools : Librairie de fonctions standard
 
 * **Ensemble d'expression reguliere standard** 
   * lettres accentuées (RGX_ACCENTS)
