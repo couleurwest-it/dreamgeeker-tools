@@ -6,8 +6,9 @@ Gestion des logs
 """
 import logging
 import logging.config as log_config
+
+from . import cfgloader
 from . import tools
-from .cfgmng import CFGBases as toolsconfig
 
 
 class CReponder(object):
@@ -15,20 +16,20 @@ class CReponder(object):
         """
 
         :type status: int, default 200
-        :app data:
-        :app msg:
+        :param data:
+        :param msg:
         """
         self.status = status
         self.data = data
         self.message = msg
 
-    def set(self, status, data=None, msg=None):
+    def __call__(self, status, data=None, msg=None):
         self.status = status
         self.data = data
         self.message = msg
 
     @property
-    def status_ok(self):
+    def ok(self):
         return 200 <= self._status < 300
 
     @property
@@ -66,9 +67,9 @@ class CError(Exception, CReponder):
     def __init__(self, message, status, title='ERRCustom'):
         """
         Erreur personnalisée
-        :app int status: status code
-        :app str message: message d'erreur
-        :app str title: titre
+        :param int status: status code
+        :param str message: message d'erreur
+        :param str title: titre
         """
         Exception.__init__(self, message)
         CReponder.__init__(self, status, msg=message)
@@ -90,31 +91,31 @@ class CTracker:
     def config(mode='PROD'):
         try:
             tools.makedirs(tools.path_build(tools.PROJECT_DIR, 'logs'))
-            log_config.dictConfig(toolsconfig.logs_cfg())
+            log_config.dictConfig(cfgloader.logs_cfg())
             CTracker.tracker = logging.getLogger(mode)
         except Exception as e:
             tools.print_err(e, ': ', 'Error in Logging Configuration. Using default configs')
             logging.basicConfig(level=logging.NOTSET)
 
     @staticmethod
-    def msg_tracking(msg, title, log_level=logging.INFO, code=''):
+    def msg_tracking(msg, title, log_level=logging.INFO, code=0):
         """
         Tracking message
-        :app str msg: message à ecrire dans logs
-        :app str title: Titre ou référence associé au message
-        :app log_level: LOG LEVEL Niveau de l'alert (DEBUG | INFO | WARN | )
-        :app code: Code numérique
+        :param str msg: message à ecrire dans logs
+        :param str title: Titre ou référence associé au message
+        :param int log_level: LOG LEVEL Niveau de l'alert (DEBUG | INFO | WARN | )
+        :param int code: Code numérique
         """
-        CTracker.tracker.log(log_level, msg, extra={'title': title, 'code': code})
+        logging.log(log_level, msg, extra={'title': title, 'code': code})
 
     @staticmethod
     def alert_tracking(msg, title, code=''):
         """
             Message d'alerte (WARNING)
             ==============================================================
-            :app str msg: message à ecrire dans logs
-            :app str title: Titre ou référence associé au message
-            :app code: Code numérique
+            :param str msg: message à ecrire dans logs
+            :param str title: Titre ou référence associé au message
+            :param code: Code numérique
             """
         CTracker.msg_tracking(msg, title, logging.WARNING, code)
 
@@ -123,9 +124,9 @@ class CTracker:
         """
         Message d'info (INFO)
         ==============================================================
-        :app str msg: message à ecrire dans logs
-        :app str title: Titre ou référence associé au message
-        :app code: Code numérique
+        :param str msg: message à ecrire dans logs
+        :param str title: Titre ou référence associé au message
+        :param code: Code numérique
         """
         CTracker.msg_tracking(msg, title, logging.INFO, code)
 
@@ -134,9 +135,9 @@ class CTracker:
         """
         Message d'error (ERROR)
         ==============================================================
-        :app str msg: message à ecrire dans logs
-        :app str title: Titre ou référence associé au message
-        :app int code: Code numérique
+        :param str msg: message à ecrire dans logs
+        :param str title: Titre ou référence associé au message
+        :param int code: Code numérique
         """
         CTracker.msg_tracking(msg, title, logging.ERROR, code)
 
@@ -145,14 +146,14 @@ class CTracker:
         """
         Message dcritique (CRITIQUE)
         ==============================================================
-        :app str msg: message à ecrire dans logs
-        :app str title: Titre ou référence associé au message
-        :app code: Code numérique
+        :param str msg: message à ecrire dans logs
+        :param str title: Titre ou référence associé au message
+        :param code: Code numérique
         """
         CTracker.msg_tracking(msg, title, logging.CRITICAL, code)
 
     @staticmethod
-    def track_step(trace):
+    def flag(trace):
         """
         Last Action for error treatmant
         :param str:trace
@@ -172,30 +173,43 @@ class CTracker:
             else:
                 CTracker.error_tracking(ex.__str__(), title)
                 return CError(ex.__str__(), 500, title)
-
         except Exception as sex:
-            tools.print_err('Erreur d\'origine : ', ex)
-            tools.print_err('Erreur intercepte : ', sex)
+            tools.print_err('Erreur intercepté : ', ex)
+            tools.print_err('Erreur module logmng : ', sex)
             return CError(status=500)
 
     @staticmethod
-    def try_fn(callback, action, *args, **kwargs):
+    def fntracker(fn, action, *args, **kwargs):
         """
+        Execution d'une fonctoion avec gestions des erreurs 
+        
+        :param fn: fonction a executer
+        :param action: Titre de l'execution pour tracabilité
+        :param args: argument de la fonction
+        :param kwargs: parametres supplementaire (status par defaut en cas de reussite)
+        :rtype: CReponder
 
-        :param callback:
-        :param action:
-        :param args:
-        :param kwargs:
-        :return:
+        :Example:
+        >>> from toolbox.logmng import CTracker
+        >>> def fn(param)::
+        >>>     return int(param)
+
+        >>> r = CTracker.fntracker(fn, 'Test de convertion int', 'j')
+        >>> r.response
+        {'message': "invalid literal for int() with base 10: 'j'", 'data': None, 'status_code': 500}
+
+        >>> r = CTracker.fntracker(fn, 'Test de convertion int', '589321')
+        >>> r.response
+        {'message': None, 'data': 589321, 'status_code': 200}
         """
         try:
-            CTracker.track_step('{}'.format(action))
+            CTracker.flag('{}'.format(action))
             status = kwargs.get('status', 200)
 
             if kwargs.get('status'): del kwargs['status']
-            r = callback(*args, **kwargs)
+            r = fn(*args, **kwargs)
 
             return r if isinstance(r, CReponder) else CReponder(status, r)
 
         except Exception as ex:
-            return exception_tracking(ex, action)
+            return CTracker.exception_tracking(ex, action)

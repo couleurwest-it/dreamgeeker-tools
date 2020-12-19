@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from . import CTracker
+# networkmng.py
+
+import re
+import requests
+from urllib.parse import urljoin
+
+import whois
+
+from . import tracker, tools
 
 """
     Networkin manager
 
     Usage:
 
-    >>> from app import toolbox
+    >>> from toolbox import toolbox
     >>> proclamer()
 """
-# networkmng.py
-"""
-Fonctions standards (ré)ultilisables
-"""
-
 
 def test_http_link(p_link):
     """
@@ -26,7 +29,7 @@ def test_http_link(p_link):
     """
 
     def fn():
-        s = clean_space(p_link)
+        s = tools.clean_space(p_link)
 
         if not re.match(r'^https?[:]//', s):
             s = 'http://{}'.format(s)
@@ -38,24 +41,21 @@ def test_http_link(p_link):
 
         return s if (ret.status_code == requests.codes.ok) else False
 
-    return CTracker.try_fn(fn, 'URL Checker').data
+    return tracker.fntracker(fn, 'URL Checker').data
 
-
-def get_media_domain(s):
-    m = RGX_MEDIA_LINK.search(s)
-
-    if m:
-        for s in LIST_MEDIA_LINK.keys():
-            if m.group(s): return s
-    return None
-
+def check_mail(mail_certified):
+    """
+    Verification legere domaine/mot de passe
+    :app str mail_certified: mail a check
+    :return: True / False
+    """
+    # Step 1: Getting MX record from domaine
+    return tools.check_mail(mail_certified) is not None
 
 def whoisit(p_link):
     v = whois.whois(p_link)
 
 
-def url_join(w, ubase=None):
-    if ubase is None:
-        ubase = URL_BASE
+def url_join(domaine, page):
 
-    return urljoin(ubase, w)
+    return urljoin(domaine, page)
