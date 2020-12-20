@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>toolbox.features &#8212; Documentation dreamtools 1</title>
+    <link href="../../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link href="../../genindex.html" rel="index" title="Index" />
+    <link href="../../search.html" rel="search" title="Recherche" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../../_static/favicon2.png"/><h1 class="heading"><a href="../../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>toolbox.features</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <h1>Code source de toolbox.features</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># features.py</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module complémentaire</span>
+<span class="sd">============================</span>
+
+<span class="sd">pathfile : toolbox/features.py</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urljoin</span>
+
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">tools</span>
+
+
+<div class="viewcode-block" id="test_http_link"><a class="viewcode-back" href="../../modules/tools.html#toolbox.features.test_http_link">[docs]</a><span class="k">def</span> <span class="nf">test_http_link</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Vérifie une url et renvoie l&#39;url valide</span>
+
+<span class="sd">    :param url: url à évaluer</span>
+<span class="sd">    :rtype str:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">fn</span><span class="p">():</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">clean_space</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^https?[:]//&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;http://</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ret</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">301</span><span class="p">,</span> <span class="mi">302</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">test_http_link</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Location&#39;</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">tracker</span><span class="o">.</span><span class="n">fntracker</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;URL Checker&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="url_join"><a class="viewcode-back" href="../../modules/tools.html#toolbox.features.url_join">[docs]</a><span class="k">def</span> <span class="nf">url_join</span><span class="p">(</span><span class="n">domaine</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generation d&#39;une url</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">domaine</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span></div>
+</pre></div>
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>

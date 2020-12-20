@@ -1,0 +1,517 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Module de Gestion des date &#8212; Documentation dreamtools 1</title>
+    <link href="../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link href="../genindex.html" rel="index" title="Index" />
+    <link href="../search.html" rel="search" title="Recherche" />
+    <link href="../classes/cfgloader.html" rel="next" title="Gestion configuration" />
+    <link href="tools.html" rel="prev" title="Librairie de fonctions" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../_static/favicon2.png"/><h1 class="heading"><a href="../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>Module de Gestion des date</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tools.html">Librairie de fonctions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contenu</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../classes/cfgloader.html">Gestion configuration</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <span class="target" id="module-toolbox.dtemng"></span><div class="section" id="module-de-gestion-des-date">
+<h1>Module de Gestion des date<a class="headerlink" href="#module-de-gestion-des-date" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Liste de fonction pour utilisation des dates
+pathfile : toolbox/tools</p>
+<div class="section" id="constantes-globales">
+<h2>Constantes globales<a class="headerlink" href="#constantes-globales" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Liste des jours de la semaine
+I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,7</p>
+</div>
+<div class="section" id="fonctions">
+<h2>Fonctions<a class="headerlink" href="#fonctions" title="Lien permanent vers ce titre">¶</a></h2>
+<dl class="py function">
+<dt id="toolbox.dtemng.date_add_workday">
+<code class="sig-name descname">date_add_workday</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span></em>, <em class="sig-param"><span class="n">nb</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#date_add_workday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.date_add_workday" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Ajoute un nombre de jours ouvrés donnés à une date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>datetime dte: date de référence</p>
+</dd>
+<dt class="field-even">Paramètres</dt>
+<dd class="field-even"><p><strong>nb</strong> (<em>int</em>) – nombre de jour à additionner (valeur négative/positive)</p>
+</dd>
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>date de depat + nombre de jours</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.date_dayed">
+<code class="sig-name descname">date_dayed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">b</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#date_dayed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.date_dayed" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Positionne la date indiquée à minuit au matin ou au soir</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dte</strong> (<em>datetime</em>) – Date</p></li>
+<li><p><strong>b</strong> (<em>bool</em>) – Date debut de jour (00:00:00.000) ou date de fin de journee date du jour + 1 (minuit) soit lendemin à 00</p></li>
+</ul>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">date_dayed</span><span class="p">()</span>
+<span class="go">datetime.datetime(2020, 12, 19, 0, 0,datetime.datetime(2020, 12, 19, 0, 0)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.date_rss">
+<code class="sig-name descname">date_rss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#date_rss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.date_rss" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Dtate au format RSS</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.dateadd">
+<code class="sig-name descname">dateadd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span></em>, <em class="sig-param"><span class="n">nb</span></em>, <em class="sig-param"><span class="n">fm</span><span class="o">=</span><span class="default_value">'d'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#dateadd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.dateadd" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Ajoute un nombre de jours données à une date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dte</strong> (<em>date</em>) – date de départ</p></li>
+<li><p><strong>nb</strong> (<em>int</em>) – nombre de jour à additionner (valeur négative/positive)</p></li>
+<li><p><strong>fm</strong> (<em>str</em>) – <ul>
+<li><p>days (default), * h (hours), * m (minutes)</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.datepaques">
+<code class="sig-name descname">datepaques</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#datepaques"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.datepaques" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Dates Pâques d’une année donnée</p>
+<ul class="simple">
+<li><p>Lundi de paque : lundi suivant le dimanche de paque (La Pâque)</p></li>
+<li><p>Jeudi de l’ascension : 3 jour après paques</p></li>
+<li><p>pentecote : 49 jours après le lundi de paques</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>y</strong> (<em>int</em>) – année de référence</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list[date]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.datestr">
+<code class="sig-name descname">datestr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fm</span><span class="o">=</span><span class="default_value">'%Y-%m-%dT%H:%M:%S'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#datestr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.datestr" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertit une date en chaine selon un format donnée</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dte</strong> (<em>datetime</em>) – date à convertir date du jour par défaut</p></li>
+<li><p><strong>fm</strong> (<em>str</em>) – format désirée, defaults to  “%d/%m/%Y”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>Renvoie un chaine correspondant au format date passé en parametre</p>
+</dd>
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">maintenant</span> <span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datestr</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">)</span>
+<span class="go">02.06.2019</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.datetime_from_local_to_utc">
+<code class="sig-name descname">datetime_from_local_to_utc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utc_datetime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#datetime_from_local_to_utc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.datetime_from_local_to_utc" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertie une date et heure local en heure utc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>utc_datetime</strong> (<em>date</em>) – datetime local</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>datatime utc</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.datetime_from_utc_to_local">
+<code class="sig-name descname">datetime_from_utc_to_local</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utc_datetime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#datetime_from_utc_to_local"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.datetime_from_utc_to_local" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertie la date et heure donné (utc) en date local</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>utc_datetime</strong> – datetime utc</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>date locale</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.day_in_hour">
+<code class="sig-name descname">day_in_hour</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dy</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#day_in_hour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.day_in_hour" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertion d’un nombre de jours en heure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>dy</strong> (<em>int</em>) – nombre de jours</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.day_in_sec">
+<code class="sig-name descname">day_in_sec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dy</span></em>, <em class="sig-param"><span class="n">ml</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#day_in_sec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.day_in_sec" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertion d’un nombre de jours en secondes ou milisecondes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dy</strong> (<em>int</em>) – nombre de jours</p></li>
+<li><p><strong>ml</strong> (<em>bool</em>) – en millisecondes si True sinon en secondes, dafault False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>(milli) secondes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.dtediff">
+<code class="sig-name descname">dtediff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtea</span></em>, <em class="sig-param"><span class="n">dteb</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#dtediff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.dtediff" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Calcul du nombre de jours entre deux dates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datea</strong> (<em>datettime</em>) – date à comparer</p></li>
+<li><p><strong>dateb</strong> (<em>datetime</em>) – date à comparer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.dtets">
+<code class="sig-name descname">dtets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#dtets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.dtets" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Conversion date - timestamp</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>dt</strong> (<em>date</em>) – date à convertir</p>
+</dd>
+<dt class="field-even">Return int</dt>
+<dd class="field-even"><p>date en miliseconde (sans les ms)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.fullmonth">
+<code class="sig-name descname">fullmonth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#fullmonth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.fullmonth" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Renvoie la date du jour au format MOIS YYYY</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>dte</strong> (<em>datetime</em>) – </p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.get_date">
+<code class="sig-name descname">get_date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p_year</span></em>, <em class="sig-param"><span class="n">p_month</span></em>, <em class="sig-param"><span class="n">p_day</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#get_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.get_date" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Generationd’une date a partir des valeur numerique</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p_year</strong> (<em>int</em>) – année</p></li>
+<li><p><strong>p_month</strong> (<em>int</em>) – mois</p></li>
+<li><p><strong>p_day</strong> (<em>int</em>) – date jour</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.get_time">
+<code class="sig-name descname">get_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#get_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.get_time" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Renvoie d’une date au format time
+:param datetime dte:
+:rtype: time</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.get_weeks_num">
+<code class="sig-name descname">get_weeks_num</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#get_weeks_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.get_weeks_num" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Renvoie le numéro de la date indiqué (now par deafut)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.is_workday">
+<code class="sig-name descname">is_workday</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#is_workday"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.is_workday" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Determine si la date est un jour ouvré ou vaqué (week-end / fériés)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>dte</strong> – date à évaluer</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>renvoie le statut jour ouvré (true=ouvré)</p>
+</dd>
+<dt class="field-odd">Rtype bool</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.isotodate">
+<code class="sig-name descname">isotodate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_iso</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#isotodate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.isotodate" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Conversion str_iso - date</p>
+<p>Format ISO : YYYY-MM-DDTHH:MN
+:param p_dte:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.jours_feries">
+<code class="sig-name descname">jours_feries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#jours_feries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.jours_feries" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Jour fériés pour une date donnée</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>y</strong> (<em>int</em>) – Année de référence (optionnel), default : année en cours</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>un tableau de date de jours fériés</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jours_feries</span> <span class="p">()</span>             <span class="c1">#Jours fériés année en cours</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jours_feries</span> <span class="p">(</span><span class="mi">2018</span><span class="p">)</span> <span class="c1"># jours fériés année 2018</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.maintenant">
+<code class="sig-name descname">maintenant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">fm</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tz</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#maintenant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.maintenant" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Date et heure de l’instant (Now)</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>utc</strong> (<em>bool</em>) – Si True renvoie de l’heure UTC (GMT) ou l’heure local</p></li>
+<li><p><strong>p_iso</strong> (<em>bool</em>) – “iso” = Format iso | “ts” = timeimestamp | None = datetime</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>datetime | string</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maintenant</span> <span class="p">()</span>
+<span class="go">datetime.datetime (2019, 06, 02, 17, 30, 43, 248622)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maintenant</span> <span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&#39;2019-06-02T17:30:43.248622&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.set_timezone">
+<code class="sig-name descname">set_timezone</code><span class="sig-paren">(</span><em class="sig-param">dt</em>, <em class="sig-param">tz=&lt;UTC&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#set_timezone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.set_timezone" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Applique la timezone indiquée à la date passée en parametre</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dt</strong> (<em>date</em>) – date</p></li>
+<li><p><strong>tz</strong> (<em>timezone</em>) – timezone</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.strdate">
+<code class="sig-name descname">strdate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dt</span></em>, <em class="sig-param"><span class="n">pt</span><span class="o">=</span><span class="default_value">'%d-%m-%Y %H:%M:%S'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#strdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.strdate" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Conversion string - date</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dt</strong> (<em>str</em>) – date</p></li>
+<li><p><strong>pt</strong><strong>, </strong><strong>default '%d-%m-%Y %H:%M:%S'</strong> (<em>str</em>) – patterne, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>Renvoie la date convertit ou None en cas d’invalidité (date non conform)</p>
+</dd>
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;24-O2-1976 16:45&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strdate</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%Y %H:%m&#39;</span><span class="p">)</span>
+<span class="go">datetime.datetime(1976,02,24,16,45)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.timeadd">
+<code class="sig-name descname">timeadd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dte</span></em>, <em class="sig-param"><span class="n">nb</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#timeadd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.timeadd" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Ajoute un nombre d’heure données à une date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dte</strong> (<em>date</em>) – date de départ</p></li>
+<li><p><strong>nb</strong> (<em>int</em>) – nombre de jour à additionner (valeur négative/positive)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>date de depat + nombre de jours</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.today">
+<code class="sig-name descname">today</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fm</span><span class="o">=</span><span class="default_value">'%d/%m/%Y'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#today"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.today" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Renvoie la date du jour</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>fm</strong> (<em>str</em>) – Format de la date attendu</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">today</span> <span class="p">()</span>
+<span class="go">&#39;02/06/2019&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">today</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">)</span>
+<span class="go">&#39;02.06.2019&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.tsdate">
+<code class="sig-name descname">tsdate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#tsdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.tsdate" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Conversion timestamp - date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>ts</strong> – temps en milliseconde depuis 1970</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>date</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.tstring">
+<code class="sig-name descname">tstring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span></em>, <em class="sig-param"><span class="n">fm</span><span class="o">=</span><span class="default_value">'%Y.%m.%d-%H:%M (%a)'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#tstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.tstring" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Conversion timestamp - chaine(str)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<em>int</em>) – timestamp</p></li>
+<li><p><strong>fm</strong> (<em>str</em>) – format attendu</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.utcnow_iso">
+<code class="sig-name descname">utcnow_iso</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#utcnow_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.utcnow_iso" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Date et heure actuelle utc au format iso
+:return: date utc</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.dtemng.utcnow_ts">
+<code class="sig-name descname">utcnow_ts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/dtemng.html#utcnow_ts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.dtemng.utcnow_ts" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Date et heure actuelle utc au format timestamp
+:return: timestamp</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tools.html">Librairie de fonctions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contenu</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../classes/cfgloader.html">Gestion configuration</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>

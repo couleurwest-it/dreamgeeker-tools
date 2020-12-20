@@ -8,13 +8,14 @@ from toolbox import cfgloader
 from toolbox import tools
 
 #enregistrement des sources de bases (yaml)
-mydir = tools.path_build(tools.get_dir_path(), 'cfg')
+directory = tools.dir_projet()
+mydir = tools.path_build(directory, 'cfg')
 source = {}
 
-for file, path_file in tools.paser_directory(mydir):
+for file, path_file in tools.dir_parser(mydir):
     source[file] = f"{cfgloader.loading(path_file)}"
 
-mysource = tools.path_build(tools.get_dir_path(), 'source.py')
+mysource = tools.path_build(directory, 'source.py')
 with open(mysource, encoding='utf-8', mode='w') as src:
     src.write(f'source = {source.__str__()}')
 
@@ -40,34 +41,26 @@ setup(
     # Une url qui pointe vers la page officielle de votre lib
     url='https://github.com/couleurwest/dreamgeeker-tools',
     classifiers=[
-        "Programming Language :: Python",
-        "Development Status :: 1 - Préparation",
-        "License :: OSI Approved",
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved :: MIT License",
         "Natural Language :: French",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.8",
-        "Topic :: Communications",
+        "Topic :: Software Development",
     ],
 
-    # C'est un système de plugin, mais on s'en sert presque exclusivement
-    # Pour créer des commandes, comme "django-admin".
-    # Par exemple, si on veut créer la fabuleuse commande "proclame-sm", on
-    # va faire pointer ce nom vers la fonction proclamer(). La commande sera
-    # créé automatiquement.
     # La syntaxe est "nom-de-commande-a-creer = package.module:fonction".
     # entry_points={
     #    'console_scripts': [
-    #        'proclame-sm = sm_lib.core:proclamer',
+    #        'tools-installer = tools-installer',
     #    ],
-    # },
-
-    # A fournir uniquement si votre licence n'est pas listée dans "classifiers"
-    # ce qui est notre cas
-    license="WTFPL"
+    # }
 
 )
 
 # tester
+# make html
+# sphinx-build -b rinoh source _build/rinoh
 # python setup.py install
 # publier sur pypi
 # $ python setup.py register

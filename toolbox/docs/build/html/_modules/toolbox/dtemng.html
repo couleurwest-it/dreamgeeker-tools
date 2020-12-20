@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>toolbox.dtemng &#8212; Documentation dreamtools 1</title>
+    <link href="../../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link href="../../genindex.html" rel="index" title="Index" />
+    <link href="../../search.html" rel="search" title="Recherche" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../../_static/favicon2.png"/><h1 class="heading"><a href="../../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>toolbox.dtemng</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <h1>Code source de toolbox.dtemng</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># toolbox/dtemng.py</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module de Gestion des date</span>
+<span class="sd">=============================</span>
+
+<span class="sd">Liste de fonction pour utilisation des dates</span>
+<span class="sd">pathfile : toolbox/tools</span>
+
+<span class="sd">Constantes globales</span>
+<span class="sd">-------------------</span>
+
+<span class="sd">Liste des jours de la semaine</span>
+<span class="sd">I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,7</span>
+
+<span class="sd">Fonctions</span>
+<span class="sd">-------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">locale</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">date</span>
+
+<span class="kn">import</span> <span class="nn">pytz</span>
+
+<span class="n">I_MON</span><span class="p">,</span> <span class="n">I_TUES</span><span class="p">,</span> <span class="n">I_WED</span><span class="p">,</span><span class="n">I_THU</span><span class="p">,</span> <span class="n">I_FRI</span><span class="p">,</span> <span class="n">I_SAT</span><span class="p">,</span> <span class="n">I_SUN</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span>
+
+<span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="s1">&#39;fr_FR.utf8&#39;</span><span class="p">)</span>
+
+<span class="n">ISO_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span>
+<span class="n">FR_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m%/%Y&#39;</span>
+
+<span class="n">FRM_ISO</span><span class="p">,</span> <span class="n">FRM_TIMESTAMP</span> <span class="o">=</span> <span class="s1">&#39;iso&#39;</span><span class="p">,</span> <span class="s1">&#39;ts&#39;</span>
+
+
+<div class="viewcode-block" id="set_timezone"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.set_timezone">[docs]</a><span class="k">def</span> <span class="nf">set_timezone</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">UTC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Applique la timezone indiquée à la date passée en parametre</span>
+
+<span class="sd">    :param date dt: date</span>
+<span class="sd">    :param timezone tz: timezone</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="datetime_from_utc_to_local"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.datetime_from_utc_to_local">[docs]</a><span class="k">def</span> <span class="nf">datetime_from_utc_to_local</span><span class="p">(</span><span class="n">utc_datetime</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convertie la date et heure donné (utc) en date local</span>
+
+<span class="sd">    :param utc_datetime: datetime utc</span>
+<span class="sd">    :return: date locale</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">utc_datetime</span><span class="p">,</span> <span class="n">is_dst</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="datetime_from_local_to_utc"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.datetime_from_local_to_utc">[docs]</a><span class="k">def</span> <span class="nf">datetime_from_local_to_utc</span><span class="p">(</span><span class="n">utc_datetime</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convertie une date et heure local en heure utc</span>
+
+<span class="sd">    :param date utc_datetime: datetime local</span>
+<span class="sd">    :return: datatime utc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">utc_datetime</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="maintenant"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.maintenant">[docs]</a><span class="k">def</span> <span class="nf">maintenant</span><span class="p">(</span><span class="n">utc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Date et heure de l&#39;instant (Now)</span>
+
+<span class="sd">        :param bool utc: Si True renvoie de l&#39;heure UTC (GMT) ou l&#39;heure local</span>
+<span class="sd">        :param bool p_iso: &#39;iso&#39; = Format iso | &#39;ts&#39; = timeimestamp | None = datetime</span>
+<span class="sd">        :rtype: datetime | string</span>
+
+<span class="sd">        :Exemple:</span>
+<span class="sd">            &gt;&gt;&gt; maintenant ()</span>
+<span class="sd">            datetime.datetime (2019, 06, 02, 17, 30, 43, 248622)</span>
+<span class="sd">            &gt;&gt;&gt; maintenant (True)</span>
+<span class="sd">            &#39;2019-06-02T17:30:43.248622&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">utc</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">is_dst</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fm</span> <span class="o">==</span> <span class="n">FRM_ISO</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">fm</span> <span class="o">==</span> <span class="n">FRM_TIMESTAMP</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dtets</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="utcnow_iso"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.utcnow_iso">[docs]</a><span class="k">def</span> <span class="nf">utcnow_iso</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Date et heure actuelle utc au format iso</span>
+<span class="sd">    :return: date utc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">maintenant</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">FRM_ISO</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="utcnow_ts"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.utcnow_ts">[docs]</a><span class="k">def</span> <span class="nf">utcnow_ts</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Date et heure actuelle utc au format timestamp</span>
+<span class="sd">    :return: timestamp</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">maintenant</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">FRM_TIMESTAMP</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="datestr"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.datestr">[docs]</a><span class="k">def</span> <span class="nf">datestr</span><span class="p">(</span><span class="n">dte</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fm</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convertit une date en chaine selon un format donnée</span>
+
+<span class="sd">    :param datetime dte: date à convertir date du jour par défaut</span>
+<span class="sd">    :param str fm: format désirée, defaults to  &#39;%d/%m/%Y&#39;</span>
+<span class="sd">    :return: Renvoie un chaine correspondant au format date passé en parametre</span>
+<span class="sd">    :rtype: str</span>
+
+<span class="sd">    :Exemple:</span>
+<span class="sd">        &gt;&gt;&gt; d = maintenant ()</span>
+<span class="sd">        &gt;&gt;&gt; datestr (d, &#39;%d.%m.%Y&#39;)</span>
+<span class="sd">        02.06.2019</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">datestr</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dte</span><span class="o">=</span><span class="n">maintenant</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">dte</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fm</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="today"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.today">[docs]</a><span class="k">def</span> <span class="nf">today</span><span class="p">(</span><span class="n">fm</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Renvoie la date du jour</span>
+
+<span class="sd">        :param str fm: Format de la date attendu</span>
+<span class="sd">        :rtype: str</span>
+
+<span class="sd">        :Exemple:</span>
+<span class="sd">            &gt;&gt;&gt; today ()</span>
+<span class="sd">            &#39;02/06/2019&#39;</span>
+<span class="sd">            &gt;&gt;&gt; today(&#39;%d.%m.%Y&#39;)</span>
+<span class="sd">            &#39;02.06.2019&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">datestr</span><span class="p">(</span><span class="n">fm</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="date_dayed"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.date_dayed">[docs]</a><span class="k">def</span> <span class="nf">date_dayed</span><span class="p">(</span><span class="n">dte</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Positionne la date indiquée à minuit au matin ou au soir</span>
+
+<span class="sd">    :param datetime dte: Date</span>
+<span class="sd">    :param bool b: Date debut de jour (00:00:00.000) ou date de fin de journee date du jour + 1 (minuit) soit lendemin à 00</span>
+
+<span class="sd">    :Example:</span>
+<span class="sd">        &gt;&gt;&gt; date_dayed()</span>
+<span class="sd">        datetime.datetime(2020, 12, 19, 0, 0,datetime.datetime(2020, 12, 19, 0, 0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">dte</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dte</span> <span class="o">=</span> <span class="n">maintenant</span><span class="p">()</span>
+
+    <span class="n">dte</span> <span class="o">=</span> <span class="n">dte</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dte</span> <span class="k">if</span> <span class="n">b</span>  <span class="k">else</span> <span class="n">dateadd</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_time"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.get_time">[docs]</a><span class="k">def</span> <span class="nf">get_time</span><span class="p">(</span><span class="n">dte</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Renvoie d&#39;une date au format time</span>
+<span class="sd">    :param datetime dte:</span>
+<span class="sd">    :rtype: time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dte</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_date"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.get_date">[docs]</a><span class="k">def</span> <span class="nf">get_date</span><span class="p">(</span><span class="n">p_year</span><span class="p">,</span> <span class="n">p_month</span><span class="p">,</span> <span class="n">p_day</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generationd&#39;une date a partir des valeur numerique</span>
+
+<span class="sd">    :param int p_year: année</span>
+<span class="sd">    :param int p_month: mois</span>
+<span class="sd">    :param int p_day: date jour</span>
+<span class="sd">    :rtype: datetime</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="n">p_year</span><span class="p">,</span> <span class="n">p_month</span><span class="p">,</span> <span class="n">p_day</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tsdate"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.tsdate">[docs]</a><span class="k">def</span> <span class="nf">tsdate</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Conversion timestamp - date</span>
+
+<span class="sd">        :param ts: temps en milliseconde depuis 1970</span>
+<span class="sd">        :return: date</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span>  <span class="c1"># =&gt; renvoie datetime</span></div>
+
+
+<div class="viewcode-block" id="tstring"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.tstring">[docs]</a><span class="k">def</span> <span class="nf">tstring</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">fm</span><span class="o">=</span><span class="s1">&#39;%Y.%m.</span><span class="si">%d</span><span class="s1">-%H:%M (</span><span class="si">%a</span><span class="s1">)&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Conversion timestamp - chaine(str)</span>
+
+<span class="sd">     :param int ts: timestamp</span>
+<span class="sd">     :param str fm: format attendu</span>
+<span class="sd">     :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">datestr</span><span class="p">(</span><span class="n">tsdate</span><span class="p">(</span><span class="n">ts</span><span class="p">),</span> <span class="n">fm</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dtets"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.dtets">[docs]</a><span class="k">def</span> <span class="nf">dtets</span><span class="p">(</span><span class="n">dte</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Conversion date - timestamp</span>
+<span class="sd">    </span>
+<span class="sd">    :param date dt: date à convertir</span>
+<span class="sd">    :return int: date en miliseconde (sans les ms)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dte</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dte</span> <span class="o">=</span> <span class="n">maintenant</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">dte</span><span class="o">.</span><span class="n">timestamp</span><span class="p">())</span>  <span class="c1"># int =&gt; sans les ms</span></div>
+
+
+<div class="viewcode-block" id="strdate"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.strdate">[docs]</a><span class="k">def</span> <span class="nf">strdate</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">pt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%m-%Y %H:%M:%S&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Conversion string - date</span>
+
+<span class="sd">    :param str dt: date</span>
+<span class="sd">    :param str pt, default &#39;%d-%m-%Y %H:%M:%S&#39;: patterne, optional</span>
+
+<span class="sd">    :return: Renvoie la date convertit ou None en cas d&#39;invalidité (date non conform)</span>
+<span class="sd">    :rtype: datetime</span>
+
+<span class="sd">    :Exemple:</span>
+<span class="sd">        &gt;&gt;&gt; s = &#39;24-O2-1976 16:45&#39;</span>
+<span class="sd">        &gt;&gt;&gt; strdate (s, &#39;%d-%m-%Y %H:%m&#39;)</span>
+<span class="sd">        datetime.datetime(1976,02,24,16,45)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">pt</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="isotodate"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.isotodate">[docs]</a><span class="k">def</span> <span class="nf">isotodate</span><span class="p">(</span><span class="n">s_iso</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Conversion str_iso - date</span>
+
+<span class="sd">    Format ISO : YYYY-MM-DDTHH:MN</span>
+<span class="sd">    :param p_dte:</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">strdate</span><span class="p">(</span><span class="n">s_iso</span><span class="p">,</span> <span class="n">pt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="datepaques"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.datepaques">[docs]</a><span class="k">def</span> <span class="nf">datepaques</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Dates Pâques d&#39;une année donnée</span>
+
+<span class="sd">    * Lundi de paque : lundi suivant le dimanche de paque (La Pâque)</span>
+<span class="sd">    * Jeudi de l&#39;ascension : 3 jour après paques</span>
+<span class="sd">    * pentecote : 49 jours après le lundi de paques</span>
+
+<span class="sd">    :param int y: année de référence</span>
+<span class="sd">    :rtype: list[date]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">y</span> <span class="o">//</span> <span class="mi">100</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">y</span> <span class="o">%</span> <span class="mi">100</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">25</span><span class="p">))</span> <span class="o">//</span> <span class="mi">4</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">25</span><span class="p">))</span> <span class="o">%</span> <span class="mi">4</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">11</span><span class="p">))</span> <span class="o">//</span> <span class="mi">25</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="mi">19</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="mi">19</span> <span class="o">*</span> <span class="n">f</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span> <span class="o">+</span> <span class="mi">11</span> <span class="o">*</span> <span class="n">g</span><span class="p">)</span> <span class="o">//</span> <span class="mi">319</span>
+
+    <span class="n">j</span> <span class="o">=</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="n">g</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span> <span class="o">-</span> <span class="n">h</span> <span class="o">+</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">114</span><span class="p">)</span> <span class="o">//</span> <span class="mi">31</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span> <span class="o">-</span> <span class="n">h</span> <span class="o">+</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">114</span><span class="p">)</span> <span class="o">%</span> <span class="mi">31</span>
+
+    <span class="n">jour</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">mois</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="n">dte_paques</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">mois</span><span class="p">,</span> <span class="n">jour</span><span class="p">)</span>
+    <span class="n">lundi_pak</span> <span class="o">=</span> <span class="n">dte_paques</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">jeudi_ascension</span> <span class="o">=</span> <span class="n">dte_paques</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">39</span><span class="p">)</span>
+    <span class="n">pentecote</span> <span class="o">=</span> <span class="n">lundi_pak</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">49</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">dte_paques</span><span class="p">,</span> <span class="n">lundi_pak</span><span class="p">,</span> <span class="n">jeudi_ascension</span><span class="p">,</span> <span class="n">pentecote</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="jours_feries"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.jours_feries">[docs]</a><span class="k">def</span> <span class="nf">jours_feries</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Jour fériés pour une date donnée</span>
+
+<span class="sd">    :param int y: Année de référence (optionnel), default : année en cours</span>
+<span class="sd">    :return: un tableau de date de jours fériés</span>
+
+<span class="sd">    :Exemple:</span>
+<span class="sd">        &gt;&gt;&gt; jours_feries ()		#Jours fériés année en cours</span>
+<span class="sd">        &gt;&gt;&gt; jours_feries (2018)	# jours fériés année 2018</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">maintenant</span><span class="p">()</span><span class="o">.</span><span class="n">year</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">dt_feries</span> <span class="o">=</span> <span class="n">datepaques</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># jour de l&#39;y</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># fete du travail</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># jour victoire</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>  <span class="c1"># fete national</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>  <span class="c1"># assomption</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># toussain</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># armistice</span>
+    <span class="n">dt_feries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>  <span class="c1"># noel</span>
+
+    <span class="k">return</span> <span class="n">dt_feries</span></div>
+
+
+<div class="viewcode-block" id="is_workday"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.is_workday">[docs]</a><span class="k">def</span> <span class="nf">is_workday</span><span class="p">(</span><span class="n">dte</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Determine si la date est un jour ouvré ou vaqué (week-end / fériés)</span>
+
+<span class="sd">    :param dte: date à évaluer</span>
+<span class="sd">    :return: renvoie le statut jour ouvré (true=ouvré)</span>
+<span class="sd">    :rtype bool:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">feries</span> <span class="o">=</span> <span class="n">jours_feries</span><span class="p">(</span><span class="n">dte</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">dte</span> <span class="ow">in</span> <span class="n">feries</span> <span class="ow">or</span> <span class="n">dte</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">I_FRI</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dateadd"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.dateadd">[docs]</a><span class="k">def</span> <span class="nf">dateadd</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="n">nb</span><span class="p">,</span> <span class="n">fm</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Ajoute un nombre de jours données à une date</span>
+
+<span class="sd">    :param date dte: date de départ</span>
+<span class="sd">    :param int nb: nombre de jour à additionner (valeur négative/positive)</span>
+<span class="sd">    :param str fm: * days (default), * h (hours), * m (minutes)</span>
+<span class="sd">    </span>
+<span class="sd">    :rtype: datetime</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fm</span> <span class="o">==</span> <span class="s1">&#39;h&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dte</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span> <span class="n">nb</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">fm</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dte</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">nb</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dte</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">nb</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="timeadd"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.timeadd">[docs]</a><span class="k">def</span> <span class="nf">timeadd</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;  Ajoute un nombre d&#39;heure données à une date</span>
+
+<span class="sd">    :param date dte: date de départ</span>
+<span class="sd">    :param int nb: nombre de jour à additionner (valeur négative/positive)</span>
+
+<span class="sd">    :return: date de depat + nombre de jours</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dateadd</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="n">nb</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="date_add_workday"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.date_add_workday">[docs]</a><span class="k">def</span> <span class="nf">date_add_workday</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Ajoute un nombre de jours ouvrés donnés à une date</span>
+
+<span class="sd">        :param: datetime dte: date de référence</span>
+<span class="sd">        :param int nb: nombre de jour à additionner (valeur négative/positive)</span>
+<span class="sd">        :return: date de depat + nombre de jours</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="n">nb</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dte</span> <span class="o">=</span> <span class="n">dateadd</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_workday</span><span class="p">(</span><span class="n">dte</span><span class="p">):</span> <span class="n">nb</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">dte</span></div>
+
+
+<div class="viewcode-block" id="dtediff"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.dtediff">[docs]</a><span class="k">def</span> <span class="nf">dtediff</span><span class="p">(</span><span class="n">dtea</span><span class="p">,</span> <span class="n">dteb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Calcul du nombre de jours entre deux dates</span>
+
+<span class="sd">    :param datettime datea: date à comparer</span>
+<span class="sd">    :param datetime dateb: date à comparer</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">dteb</span> <span class="o">-</span> <span class="n">dtea</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">days</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_weeks_num"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.get_weeks_num">[docs]</a><span class="k">def</span> <span class="nf">get_weeks_num</span><span class="p">(</span><span class="n">dte</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Renvoie le numéro de la date indiqué (now par deafut)&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dte</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dte</span> <span class="o">=</span> <span class="n">maintenant</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">dte</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="fullmonth"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.fullmonth">[docs]</a><span class="k">def</span> <span class="nf">fullmonth</span><span class="p">(</span><span class="n">dte</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Renvoie la date du jour au format MOIS YYYY</span>
+
+<span class="sd">    :param datetime dte:</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">datestr</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span> <span class="s2">&quot;%B %Y&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="date_rss"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.date_rss">[docs]</a><span class="k">def</span> <span class="nf">date_rss</span><span class="p">(</span><span class="n">dte</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Dtate au format RSS &quot;&quot;&quot;</span>
+    <span class="n">ctime</span> <span class="o">=</span> <span class="n">time</span> <span class="k">if</span> <span class="n">dte</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">dte</span><span class="o">.</span><span class="n">timetuple</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">ctime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1">, </span><span class="si">%d</span><span class="s1"> %b %Y %H:%M:%S %z&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="day_in_sec"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.day_in_sec">[docs]</a><span class="k">def</span> <span class="nf">day_in_sec</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">ml</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convertion d&#39;un nombre de jours en secondes ou milisecondes</span>
+
+<span class="sd">    :param int dy: nombre de jours</span>
+<span class="sd">    :param bool ml: en millisecondes si True sinon en secondes, dafault False</span>
+<span class="sd">    :return: (milli) secondes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="n">nb</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
+
+    <span class="k">return</span> <span class="n">nb</span> <span class="o">*</span> <span class="mi">1000</span> <span class="k">if</span> <span class="n">ml</span> <span class="k">else</span> <span class="n">nb</span></div>
+
+
+<div class="viewcode-block" id="day_in_hour"><a class="viewcode-back" href="../../modules/dtemng.html#toolbox.dtemng.day_in_hour">[docs]</a><span class="k">def</span> <span class="nf">day_in_hour</span><span class="p">(</span><span class="n">dy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convertion d&#39;un nombre de jours en heure</span>
+
+<span class="sd">    :param int dy: nombre de jours</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nb</span> <span class="o">*</span> <span class="mi">24</span></div>
+</pre></div>
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>

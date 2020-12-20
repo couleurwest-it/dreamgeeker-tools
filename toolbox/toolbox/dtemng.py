@@ -2,7 +2,23 @@
 # -*- coding: utf-8 -*-
 # toolbox/dtemng.py
 
-"""Gestionnaire standard de dates"""
+"""
+Module de Gestion des date
+=============================
+
+Liste de fonction pour utilisation des dates
+pathfile : toolbox/tools
+
+Constantes globales
+-------------------
+
+Liste des jours de la semaine
+I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,7
+
+Fonctions
+-------------
+
+"""
 
 import locale
 import time
@@ -21,9 +37,7 @@ FRM_ISO, FRM_TIMESTAMP = 'iso', 'ts'
 
 
 def set_timezone(dt, tz=pytz.UTC):
-    """
-    Applique la timezone indiquée à la date passé en parametre
-    =========================================================
+    """ Applique la timezone indiquée à la date passée en parametre
 
     :param date dt: date
     :param timezone tz: timezone
@@ -32,36 +46,37 @@ def set_timezone(dt, tz=pytz.UTC):
 
 
 def datetime_from_utc_to_local(utc_datetime):
-    """
-    :param utc_datetime:
-    :return:
+    """Convertie la date et heure donné (utc) en date local
+
+    :param utc_datetime: datetime utc
+    :return: date locale
     """
     return pytz.utc.localize(utc_datetime, is_dst=None).astimezone()
 
 
 def datetime_from_local_to_utc(utc_datetime):
     """
+    Convertie une date et heure local en heure utc
 
-    :param utc_datetime:
-    :return:
+    :param date utc_datetime: datetime local
+    :return: datatime utc
     """
     return utc_datetime.astimezone(pytz.utc)
 
-def maintenant(utc=False, fm=None, tz=None):
-    """maintenant module
-        ==============
-        Date et heure du jour
 
-        :param bool p_iso: renvoie de la date du jour au format iso or not
+def maintenant(utc=False, fm=None, tz=None):
+    """ Date et heure de l'instant (Now)
+
+        :param bool utc: Si True renvoie de l'heure UTC (GMT) ou l'heure local
+        :param bool p_iso: 'iso' = Format iso | 'ts' = timeimestamp | None = datetime
         :rtype: datetime | string
 
-        :Example:
-        ---------
+        :Exemple:
+            >>> maintenant ()
+            datetime.datetime (2019, 06, 02, 17, 30, 43, 248622)
+            >>> maintenant (True)
+            '2019-06-02T17:30:43.248622'
 
-        >>> maintenant ()
-        datetime.datetime (2019, 06, 02, 17, 30, 43, 248622)
-        >>> maintenant (True)
-        '2019-06-02T17:30:43.248622'
     """
     d = datetime.utcnow()
     if not utc:
@@ -74,39 +89,36 @@ def maintenant(utc=False, fm=None, tz=None):
     else:
         return d
 
+
 def utcnow_iso():
-    """
-    Date et heure actuelle utc au format iso
+    """Date et heure actuelle utc au format iso
     :return: date utc
     """
     return maintenant(True, FRM_ISO)
 
+
 def utcnow_ts():
-    """
-    Date et heure actuelle utc au format timestamp
+    """Date et heure actuelle utc au format timestamp
     :return: timestamp
     """
     return maintenant(True, FRM_TIMESTAMP)
 
+
 def datestr(dte=None, fm='%Y-%m-%dT%H:%M:%S'):
-    """datestr module
+    """ Convertit une date en chaine selon un format donnée
 
-    Convertit une date en chaine selon un format donnée
-
-    :param date dte: date à convertir
-
+    :param datetime dte: date à convertir date du jour par défaut
     :param str fm: format désirée, defaults to  '%d/%m/%Y'
-
     :return: Renvoie un chaine correspondant au format date passé en parametre
     :rtype: str
 
-    :example:
-    ---------
+    :Exemple:
+        >>> d = maintenant ()
+        >>> datestr (d, '%d.%m.%Y')
+        02.06.2019
 
-    >>> d = maintenant ()
-    >>> datestr (d, '%d.%m.%Y')
-    02.06.2019
     """
+
     try:
         if datestr() is None:
             dte=maintenant()
@@ -114,32 +126,37 @@ def datestr(dte=None, fm='%Y-%m-%dT%H:%M:%S'):
     except:
         return None
 
-def today(fm='%d/%m/%Y'):
-    """
-        dttoday module
-        ==============
-        Renvoie la date actuelle
 
+
+def today(fm='%d/%m/%Y'):
+    """ Renvoie la date du jour
+
+        :param str fm: Format de la date attendu
         :rtype: str
 
-        :Example:
-        ---------
+        :Exemple:
+            >>> today ()
+            '02/06/2019'
+            >>> today('%d.%m.%Y')
+            '02.06.2019'
 
-        >>> today ()
-        '02/06/2019'
-
-        >>> today('%d.%m.%Y')
-        '02.06.2019'
         """
+
     return datestr(fm)
 
+
 def date_dayed(dte=None, b=True):
-    """
-    REnvoie debut ou fin de journée
-    :param datetime.datetime dte:     date à dtets
+    """ Positionne la date indiquée à minuit au matin ou au soir
+
+    :param datetime dte: Date
     :param bool b: Date debut de jour (00:00:00.000) ou date de fin de journee date du jour + 1 (minuit) soit lendemin à 00
-    :return:
+
+    :Example:
+        >>> date_dayed()
+        datetime.datetime(2020, 12, 19, 0, 0,datetime.datetime(2020, 12, 19, 0, 0)
+
     """
+
     if dte is None:
         dte = maintenant()
 
@@ -147,51 +164,49 @@ def date_dayed(dte=None, b=True):
 
     return dte if b  else dateadd(dte, 1)
 
+
 def get_time(dte):
-    """
-    Renvoie d'une date au format time
-    :param date dte:
-    :rtinme: int
+    """ Renvoie d'une date au format time
+    :param datetime dte:
+    :rtype: time
     """
     return dte.time()
 
+
 def get_date(p_year, p_month, p_day):
-    """
-    Generationd'une date a partir des valeur numerique
-    :param int p_year:
-    :param int p_month:
-    :param int p_day:
-    :rtype: date
+    """Generationd'une date a partir des valeur numerique
+
+    :param int p_year: année
+    :param int p_month: mois
+    :param int p_day: date jour
+    :rtype: datetime
     """
     return date(p_year, p_month, p_day)
 
-""" 
-Convert function
-"""
+
 def tsdate(ts):
-    """
-    Conversion timestamp - date
-    ==============================================
+    """ Conversion timestamp - date
 
         :param ts: temps en milliseconde depuis 1970
         :return: date
     """
     return datetime.fromtimestamp(int(ts))  # => renvoie datetime
 
-def tstring(v, fm='%Y.%m.%d-%H:%M (%a)'):
+
+def tstring(ts, fm='%Y.%m.%d-%H:%M (%a)'):
     """
      Conversion timestamp - chaine(str)
-     ==============================================
+
+     :param int ts: timestamp
+     :param str fm: format attendu
+     :rtype: str
     """
-    return datestr(tsdate(v), fm)
+    return datestr(tsdate(ts), fm)
+
 
 def dtets(dte=None):
-    """
-    Conversion date - timestamp
-    ==============================================*
+    """ Conversion date - timestamp
     
-    Parametres
-    ------------
     :param date dt: date à convertir
     :return int: date en miliseconde (sans les ms)
     """
@@ -200,10 +215,10 @@ def dtets(dte=None):
 
     return int(dte.timestamp())  # int => sans les ms
 
+
 def strdate(dt, pt='%d-%m-%Y %H:%M:%S'):
-    """
-    Conversion string - date
-    ==============================================
+    """ Conversion string - date
+
     :param str dt: date
     :param str pt, default '%d-%m-%Y %H:%M:%S': patterne, optional
 
@@ -211,17 +226,17 @@ def strdate(dt, pt='%d-%m-%Y %H:%M:%S'):
     :rtype: datetime
 
     :Exemple:
+        >>> s = '24-O2-1976 16:45'
+        >>> strdate (s, '%d-%m-%Y %H:%m')
+        datetime.datetime(1976,02,24,16,45)
 
-    >>> s = '24-O2-1976 16:45'
-    >>> strdate (s, '%d-%m-%Y %H:%m')
-    datetime.datetime(1976,02,24,16,45)
     """
+
     return datetime.strptime(dt, pt)
 
+
 def isotodate(s_iso):
-    """
-    Conversion str_iso - date
-    ==============================================
+    """ Conversion str_iso - date
 
     Format ISO : YYYY-MM-DDTHH:MN
     :param p_dte:
@@ -230,25 +245,21 @@ def isotodate(s_iso):
     """
     return strdate(s_iso, pt='%Y-%m-%dT%H:%M:%S')
 
-""" 
-   features function
-"""
 
-def datepaques(an):
-    """
-    Calcul Pâques d'une année donnée
-    ===================================================
+def datepaques(y):
+    """Dates Pâques d'une année donnée
 
     * Lundi de paque : lundi suivant le dimanche de paque (La Pâque)
     * Jeudi de l'ascension : 3 jour après paques
     * pentecote : 49 jours après le lundi de paques
 
-    :param: année de référence
-    :return: un tableau contenant (date du lundi de paque, jeudi de l'ascension, lundi de pentecote)
+    :param int y: année de référence
+    :rtype: list[date]
     """
+    y = int(y)
 
-    a = an // 100
-    b = an % 100
+    a = y // 100
+    b = y % 100
 
     c = (3 * (a + 25)) // 4
     d = (3 * (a + 25)) % 4
@@ -269,63 +280,61 @@ def datepaques(an):
 
     mois = n
 
-    dte_paques = date(an, mois, jour)
+    dte_paques = date(y, mois, jour)
     lundi_pak = dte_paques + timedelta(days=1)
     jeudi_ascension = dte_paques + timedelta(days=39)
     pentecote = lundi_pak + timedelta(days=49)
 
     return [dte_paques, lundi_pak, jeudi_ascension, pentecote]
 
-def jours_feries(pi_year=None):
-    """
-    Jour fériés pour une date donnée
-    =================================
 
-    :param int pi_year: Année de référence (optionnel)
+def jours_feries(y=None):
+    """ Jour fériés pour une date donnée
+
+    :param int y: Année de référence (optionnel), default : année en cours
+    :return: un tableau de date de jours fériés
 
     :Exemple:
-    ----------------------------------------------------
-    >>> jours_feries ()		#Jours fériés année en cours
-    >>> jours_feries (2018)	# jours fériés année 2018
+        >>> jours_feries ()		#Jours fériés année en cours
+        >>> jours_feries (2018)	# jours fériés année 2018
 
-    :return: un tableau de date de jours fériés
     """
 
-    an = maintenant().year if pi_year is None else pi_year
+    y = maintenant().year if y is None else int(y)
 
-    dt_feries = datepaques(an)
+    dt_feries = datepaques(y)
 
-    dt_feries.append(date(an, 1, 1))  # jour de l'an
-    dt_feries.append(date(an, 5, 1))  # fete du travail
-    dt_feries.append(date(an, 5, 8))  # jour victoire
-    dt_feries.append(date(an, 7, 14))  # fete national
-    dt_feries.append(date(an, 8, 15))  # assomption
-    dt_feries.append(date(an, 11, 1))  # toussain
-    dt_feries.append(date(an, 11, 1))  # armistice
-    dt_feries.append(date(an, 12, 25))  # noel
+    dt_feries.append(date(y, 1, 1))  # jour de l'y
+    dt_feries.append(date(y, 5, 1))  # fete du travail
+    dt_feries.append(date(y, 5, 8))  # jour victoire
+    dt_feries.append(date(y, 7, 14))  # fete national
+    dt_feries.append(date(y, 8, 15))  # assomption
+    dt_feries.append(date(y, 11, 1))  # toussain
+    dt_feries.append(date(y, 11, 1))  # armistice
+    dt_feries.append(date(y, 12, 25))  # noel
 
     return dt_feries
 
+
 def is_workday(dte):
-    """
-    Determine si la date est un jour ouvré ou vaqué (week-end / fériés)
+    """ Determine si la date est un jour ouvré ou vaqué (week-end / fériés)
 
     :param dte: date à évaluer
     :return: renvoie le statut jour ouvré (true=ouvré)
+    :rtype bool:
     """
     feries = jours_feries(dte.year)
     return not (dte in feries or dte.weekday() > I_FRI)
 
+
 def dateadd(dte, nb, fm='d'):
-    """
-    Ajoute un nombre de jours données à une date
-    =============================================
+    """ Ajoute un nombre de jours données à une date
 
     :param date dte: date de départ
     :param int nb: nombre de jour à additionner (valeur négative/positive)
-    :param str fm: days (default), h (hours), m (minutes) 
+    :param str fm: * days (default), * h (hours), * m (minutes)
     
-    :return: date de depat + nombre de jours
+    :rtype: datetime
 
     """
     if fm == 'h':
@@ -335,30 +344,22 @@ def dateadd(dte, nb, fm='d'):
     else:
         return dte + timedelta(days=nb)
 
-def timeadd(dte, nb):
-    """
-    Ajoute un nombre de jours données à une date
-    ===================================================
 
-    Parametres
-    ----------
+def timeadd(dte, nb):
+    """  Ajoute un nombre d'heure données à une date
 
     :param date dte: date de départ
     :param int nb: nombre de jour à additionner (valeur négative/positive)
 
     :return: date de depat + nombre de jours
-
     """
     return dateadd(dte, nb, 'h')
 
-def date_add_workday(dte, nb):
-    """
-        Ajoute un nombre de jours ouvrés donnés à une date
-        ===================================================
 
-        Parametres
-        ----------
-        :param: date dte: date de référence
+def date_add_workday(dte, nb):
+    """ Ajoute un nombre de jours ouvrés donnés à une date
+
+        :param: datetime dte: date de référence
         :param int nb: nombre de jour à additionner (valeur négative/positive)
         :return: date de depat + nombre de jours
     """
@@ -368,18 +369,17 @@ def date_add_workday(dte, nb):
 
     return dte
 
-def dtediff(p_date1, p_date2):
-    """
-    Calcul du nombre de jours entre deux dates
-    =============================================
 
-    Parametres
-    --------------------------------
-    :param p_date1: date à comparer
-    :param p_date2: date à comparer
+def dtediff(dtea, dteb):
+    """ Calcul du nombre de jours entre deux dates
+
+    :param datettime datea: date à comparer
+    :param datetime dateb: date à comparer
+    :rtype: int
     """
-    t = p_date2 - p_date1
+    t = dteb - dtea
     return abs(t.days)
+
 
 def get_weeks_num(dte=None):
     """Renvoie le numéro de la date indiqué (now par deafut)"""
@@ -388,15 +388,18 @@ def get_weeks_num(dte=None):
 
     return dte.isocalendar()[1]
 
+
 def fullmonth(dte):
-    """
-    Renvoie la date du jour au format MOIS YYYY
-    :param date dte:
+    """ Renvoie la date du jour au format MOIS YYYY
+
+    :param datetime dte:
     :rtype: str
     """
     return datestr(dte, "%B %Y")
 
+
 def date_rss(dte=None):
+    """Dtate au format RSS """
     ctime = time if dte is None else time.mktime(dte.timetuple())
     return ctime.strftime('%a, %d %b %Y %H:%M:%S %z')
 
@@ -404,20 +407,20 @@ def date_rss(dte=None):
 def day_in_sec(dy, ml=False):
     """
     Convertion d'un nombre de jours en secondes ou milisecondes
+
     :param int dy: nombre de jours
     :param bool ml: en millisecondes si True sinon en secondes, dafault False
     :return: (milli) secondes
     """
     nb = int(dy)
-    # 1 jour = 24h=> heures / 1h = 60mn => nb min / 1mn = 60 sc => en secondes
     nb = nb * 24 * 60 * 60
 
     return nb * 1000 if ml else nb
 
 
 def day_in_hour(dy):
-    """
-    Convertion d'un nombre de jours en secondes ou milisecondes
+    """ Convertion d'un nombre de jours en heure
+
     :param int dy: nombre de jours
     :rtype: int
     """

@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>toolbox.mailbot &#8212; Documentation dreamtools 1</title>
+    <link href="../../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link href="../../genindex.html" rel="index" title="Index" />
+    <link href="../../search.html" rel="search" title="Recherche" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../../_static/favicon2.png"/><h1 class="heading"><a href="../../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>toolbox.mailbot</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <h1>Code source de toolbox.mailbot</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># mailbot.py</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module de Gestion de mail préparés</span>
+
+<span class="sd">pathfile : toolbox/mailbot.py</span>
+
+<span class="sd">Pré-Requis</span>
+<span class="sd">-------------</span>
+<span class="sd">.. warning::</span>
+
+<span class="sd">    Indiquer les parametres smtp dans le fichiers de configuration &lt;PROJECT_NAME&gt;/cfg/.app.yml</span>
+
+<span class="sd">.. code-block:: YAML</span>
+
+<span class="sd">    smtp:</span>
+<span class="sd">     h: smtp-host_adresse</span>
+<span class="sd">     po: port_smtp</span>
+<span class="sd">     m: mail_authen</span>
+<span class="sd">     pw: password_auth</span>
+<span class="sd">     h_s : name_sender &lt;email&gt;</span>
+
+<span class="sd">.. warning::</span>
+
+<span class="sd">    Les mails sont à définir dans le ficchier &lt;PROJECT_NAME&gt;/cfg/mailing.yml au format suivant</span>
+
+<span class="sd">.. code-block:: YAML</span>
+
+<span class="sd">     footer:</span>
+<span class="sd">      html: &lt;Pied de mail unique pour tous les mails (signature, rgpd...)&gt;</span>
+<span class="sd">      text: &lt;Pied de mail unique pour tous les mails (signature, rgpd...)&gt;</span>
+<span class="sd">     code_mail:</span>
+<span class="sd">      html: &lt;ici mail au format HTML&gt;</span>
+<span class="sd">      text : &lt;Le mail au format texte&gt;</span>
+<span class="sd">      objt : &lt;Objet du mail&gt;</span>
+
+<span class="sd">Class CMailer</span>
+<span class="sd">--------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">from</span> <span class="nn">email.mime.multipart</span> <span class="kn">import</span> <span class="n">MIMEMultipart</span>
+<span class="kn">from</span> <span class="nn">email.mime.text</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">cfgloader</span><span class="p">,</span> <span class="n">tracker</span>
+
+<div class="viewcode-block" id="CMailer"><a class="viewcode-back" href="../../classes/cfgloader.html#toolbox.mailbot.CMailer">[docs]</a><span class="k">class</span> <span class="nc">CMailer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">smtp</span> <span class="o">=</span> <span class="n">cfgloader</span><span class="o">.</span><span class="n">app_cfg</span><span class="p">(</span><span class="s1">&#39;smtp&#39;</span><span class="p">)</span>
+    <span class="n">footers</span> <span class="o">=</span> <span class="n">cfgloader</span><span class="o">.</span><span class="n">mailing_lib</span><span class="p">(</span><span class="s1">&#39;footer&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__send_mail</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">receivers</span><span class="p">,</span> <span class="n">d_msg</span><span class="p">,</span> <span class="n">to_receiver</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Envoie du mail</span>
+
+<span class="sd">        :param subject: Sujet du mail</span>
+<span class="sd">        :param receivers: email destinataire</span>
+<span class="sd">        :param d_msg: Message</span>
+<span class="sd">        :param to_receiver: Nom destinataire</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;[toolbox.mailbot] SEND_MAIL : Parametrage smtp&quot;</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">create_default_context</span><span class="p">()</span>
+
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;[toolbox.mailbot] SEND_MAIL:Parametrage message MIME&quot;</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">MIMEMultipart</span><span class="p">(</span><span class="s2">&quot;alternative&quot;</span><span class="p">)</span>
+        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;Subject&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject</span>
+        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;From&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CMailer</span><span class="o">.</span><span class="n">smtp</span><span class="p">[</span><span class="s1">&#39;h_s&#39;</span><span class="p">]</span>
+        <span class="n">message</span><span class="p">[</span><span class="s2">&quot;To&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_receiver</span> <span class="ow">or</span> <span class="n">receivers</span>
+
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;[toolbox.mailbot] SEND_MAIL:Parametrage contenu mail&quot;</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">d_msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">CMailer</span><span class="o">.</span><span class="n">footers</span><span class="p">[</span><span class="s1">&#39;txt&#39;</span><span class="p">]</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">d_msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">):</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">d_msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">CMailer</span><span class="o">.</span><span class="n">footers</span><span class="p">[</span><span class="s1">&#39;html&#39;</span><span class="p">]</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">)</span>
+            <span class="n">message</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;[toolbox.mailbot] SEND_MAIL:Coonnexion SMTP&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP_SSL</span><span class="p">(</span><span class="n">CMailer</span><span class="o">.</span><span class="n">smtp</span><span class="p">[</span><span class="s1">&#39;h&#39;</span><span class="p">],</span> <span class="n">CMailer</span><span class="o">.</span><span class="n">smtp</span><span class="p">[</span><span class="s1">&#39;po&#39;</span><span class="p">],</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span> <span class="k">as</span> <span class="n">server</span><span class="p">:</span>
+            <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;[toolbox.mailbot] SEND_MAIL:Authentification&quot;</span><span class="p">)</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">CMailer</span><span class="o">.</span><span class="n">smtp</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">],</span> <span class="n">CMailer</span><span class="o">.</span><span class="n">smtp</span><span class="p">[</span><span class="s1">&#39;pw&#39;</span><span class="p">])</span>
+            <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;[toolbox.mailbot] SEND_MAIL: Sending&quot;</span><span class="p">)</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">CMailer</span><span class="o">.</span><span class="n">smtp</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">],</span> <span class="n">receivers</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">as_string</span><span class="p">())</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+
+
+    <span class="nb">staticmethod</span>
+<div class="viewcode-block" id="CMailer.presend"><a class="viewcode-back" href="../../classes/cfgloader.html#toolbox.mailbot.CMailer.presend">[docs]</a>    <span class="k">def</span> <span class="nf">presend</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">data_field</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Preparation pour envoi d&#39;un message mail </span>
+<span class="sd">        </span>
+<span class="sd">        :param str email: email destinataire</span>
+<span class="sd">        :param str code: réfénce du mail à chargé</span>
+<span class="sd">        :param str name: nom du destinataire</span>
+<span class="sd">        :param dict data_field: liste de données relatif à des champs définis dans le mails</span>
+
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s1">&#39;[toolbox.mailbot] PRESEND:Loading template </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
+        <span class="n">mail</span> <span class="o">=</span> <span class="n">cfgloader</span><span class="o">.</span><span class="n">mailing_lib</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s1">&#39;[toolbox.mailbot] PRESEND: Preparation&#39;</span><span class="p">)</span>
+    
+        <span class="n">part1</span> <span class="o">=</span> <span class="n">mail</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data_field</span><span class="p">)</span>
+        <span class="n">part2</span> <span class="o">=</span> <span class="n">mail</span><span class="p">[</span><span class="s1">&#39;html&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data_field</span><span class="p">)</span>
+        <span class="n">to_receiver</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> &lt;</span><span class="si">{mail}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mail</span><span class="o">=</span><span class="n">email</span><span class="p">)</span>
+    
+        <span class="n">tracker</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s1">&#39;[toolbox.mailbot] PRESEND: Envoi (</span><span class="si">{}</span><span class="s1">) -&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">email</span><span class="p">))</span>
+        <span class="n">send</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">fntracker</span><span class="p">(</span><span class="n">CMailer</span><span class="o">.</span><span class="n">__send_mail</span><span class="p">,</span> <span class="s1">&#39;Envoi (</span><span class="si">{}</span><span class="s1">) -&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">email</span><span class="p">),</span> <span class="n">mail</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;objt&#39;</span><span class="p">),</span>
+                                 <span class="n">email</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">part1</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">:</span> <span class="n">part2</span><span class="p">},</span> <span class="n">to_receiver</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">send</span><span class="o">.</span><span class="n">ok</span></div></div>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CMailer&#39;</span><span class="p">]</span>
+</pre></div>
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>

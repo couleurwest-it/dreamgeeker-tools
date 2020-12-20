@@ -12,7 +12,9 @@ class CConfig():
         -----------
         :param str app: Nom de l'application
         :param str[PROD|DEV] mode: PRDO ou DEV
+
         """
+
         tools.APP_NAME = app
         tools.PROJECT_DIR = tools.get_dir_path()
         tools.APP_DIR = tools.path_build(tools.PROJECT_DIR, tools.APP_NAME)

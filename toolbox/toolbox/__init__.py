@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Fonctions standards (ré)ultilisables
+Liste de fonction standard reutilisable
+
+.. author: Dreamgeeker
 """
 
 __author__ = "Ketsia LENTIN"

@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Librairie de fonctions &#8212; Documentation dreamtools 1</title>
+    <link href="../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link href="../genindex.html" rel="index" title="Index" />
+    <link href="../search.html" rel="search" title="Recherche" />
+    <link href="dtemng.html" rel="next" title="Module de Gestion des date" />
+    <link href="../readme.html" rel="prev" title="Dreamtools" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../_static/favicon2.png"/><h1 class="heading"><a href="../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>Librairie de fonctions</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../readme.html">Dreamtools</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contenu</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="dtemng.html">Module de Gestion des date</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="module-toolbox.tools">
+<span id="librairie-de-fonctions"></span><h1>Librairie de fonctions<a class="headerlink" href="#module-toolbox.tools" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="module-de-fonctions-basiques">
+<h2>Module de fonctions basiques<a class="headerlink" href="#module-de-fonctions-basiques" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Liste de fonctions utiles</p>
+<p>pathfile : toolbox/tools</p>
+<div class="section" id="constantes-globales">
+<h3>Constantes globales<a class="headerlink" href="#constantes-globales" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>RGX_ACCENTS = “àâäãéèêëîïìôöòõùüûÿñç”</p></li>
+<li><p>RGX_EMAIL = Expression reguliere email</p></li>
+<li><p>RGX_PUNCT = Caractere speciaux autorisé pour mot de passe</p></li>
+<li><p>RGX_PWD = Expression régulière pour un mot de passe de 8 à 12 avec un car.Special/une Majuscule/Une minuscule</p></li>
+<li><p>RGX_PHONE = Expression réguliere remative à un numéro de téléphon</p></li>
+<li><p>RGX_URL = expression reguliere pour unr</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="fonctions">
+<h3>Fonctions<a class="headerlink" href="#fonctions" title="Lien permanent vers ce titre">¶</a></h3>
+<dl class="py function">
+<dt id="toolbox.tools.add_list">
+<code class="sig-name descname">add_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">ll</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#add_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.add_list" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Ajout d’un item dans une liste avec gestion des doublons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<em>str</em>) – valeur à ajouter</p></li>
+<li><p><strong>l</strong> (<em>list</em>) – liste</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.addhex">
+<code class="sig-name descname">addhex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">h</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#addhex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.addhex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Additionne une valeur hexadécimal</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>str</em>) – valeur hexadécimal</p></li>
+<li><p><strong>v</strong> (<em>str</em>) – valeur entière à ajouter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>valeur additionné en hexedécimal</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hx</span> <span class="o">=</span> <span class="s1">&#39;0x129&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">addhex</span><span class="p">(</span><span class="n">hx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">0x12b</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.aleatoire">
+<code class="sig-name descname">aleatoire</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">end</span></em>, <em class="sig-param"><span class="n">s</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#aleatoire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.aleatoire" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Génération d’un nombre aléatoire entre [1-end] =&gt; end caractère</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>end</strong> (<em>int</em>) – valeur maximal (paut indiquer la taille si s=1)</p></li>
+<li><p><strong>s</strong> – valeur de départ, default to 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>Un chiffre aléatoire</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aleatoire</span> <span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">1 : Renvoie un chiffre entre 1 et 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aleatoire</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">1 : Renvoie un chiffre entre 3 et 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">4</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.check_password">
+<code class="sig-name descname">check_password</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#check_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.check_password" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Vérifie que la syntaxe d’une chaine répond au critère d’un mot de passe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Conditions</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Une majuscule</p></li>
+<li><p>Une minuscule</p></li>
+<li><p>Un chiffre</p></li>
+<li><p>Un carectère spécial (&#64;#!?$&amp;-_ autorisé )</p></li>
+</ul>
+</dd>
+<dt class="field-even">Paramètres</dt>
+<dd class="field-even"><p><strong>s</strong> (<em>str</em>) – chaine à vérifier</p>
+</dd>
+<dt class="field-odd">Return bool</dt>
+<dd class="field-odd"><p>True si la chaine est valide</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.clean_allspace">
+<code class="sig-name descname">clean_allspace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ch</span></em>, <em class="sig-param"><span class="n">very_all</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#clean_allspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.clean_allspace" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Nettoyage de tous les espace et carateres vides</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ch</strong> (<em>str</em>) – Chaine à nettoyer</p></li>
+<li><p><strong>very_all</strong> (<em>bool</em>) – caractère vide aussi, True (False = Espaces uniquement)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">chaine</span> <span class="o">=</span> <span class="s1">&#39;Se  réveiller au matin        de sa destiné !&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_allspace</span> <span class="p">(</span><span class="n">chaine</span><span class="p">)</span>
+<span class="go">&#39;Seréveilleraumatindesadestiné!&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.clean_coma">
+<code class="sig-name descname">clean_coma</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ch</span></em>, <em class="sig-param"><span class="n">w_punk</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#clean_coma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.clean_coma" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Supprime les accents/caractères spéciaux du texte source en respectant la casse</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ch</strong> – Chaine de caractere à « nettoyer »</p></li>
+<li><p><strong>w_punk</strong> – indique si la punctuation est à nettoyer ou pas (suppression)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;Se  réveiller au matin    de sa destiné !!&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_coma</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">&#39;Se seveiller au matin (ou pas) de sa destine !!&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_coma</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">&#39;Se reveiller au matin ou pas de sa destine&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.clean_dir">
+<code class="sig-name descname">clean_dir</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">pattern</span><span class="o">=</span><span class="default_value">'*'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#clean_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.clean_dir" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Supprimes tous les élements d’un repertoire</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – chemin du repertoire</p></li>
+<li><p><strong>pattern</strong> (<em>string</em>) – patter des fichier à supprimer (filtre)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return int</dt>
+<dd class="field-even"><p>nombre de fichier supprimer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.clean_master">
+<code class="sig-name descname">clean_master</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ch</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#clean_master"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.clean_master" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Supprime les accents, caractères spéciaux et espace du texte source</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>ch</strong> (<em>str</em>) – Chaine de caractere à « nettoyer »</p>
+</dd>
+<dt class="field-even">Return str</dt>
+<dd class="field-even"><p>chaine sans accents:car. spéciaux ni espace en minuscule</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;Se  réveiller au matin  (ou pas) de sa destiné !&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_master</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">&#39;sereveilleraumatinoupasdesadestine</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.clean_space">
+<code class="sig-name descname">clean_space</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ch</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#clean_space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.clean_space" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Nettoyage des espaces « superflus »</p>
+<ul class="simple">
+<li><p>Espaces à gouche et à droite supprimés</p></li>
+<li><p>Répétition d’espace réduit</p></li>
+</ul>
+<dl class="field-list">
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">chaine</span> <span class="o">=</span> <span class="s1">&#39;Se  réveiller au matin        de sa destiné    ! !           &#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_space</span> <span class="p">(</span><span class="n">chaine</span><span class="p">)</span>
+<span class="go">&#39;Se réveiller au matin  de sa destiné ! !&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.code_maker">
+<code class="sig-name descname">code_maker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i_size</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#code_maker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.code_maker" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Génération d’une chaine aléatoire composé de lettre et de chiffres</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>i_size</strong> (<em>int</em>) – taille du code</p>
+</dd>
+<dt class="field-even">Rtype str</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.comphex">
+<code class="sig-name descname">comphex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hx_a</span></em>, <em class="sig-param"><span class="n">hx_b</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#comphex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.comphex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Compare deux valeurs  hexadécimales</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hx_a</strong> (<em>str</em>) – </p></li>
+<li><p><strong>hx_b</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return int</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>0 : hx_a == hx_b</p></li>
+<li><p>1 : hx_a &gt; hx_b</p></li>
+<li><p>-1 : hx_a &lt; hx_b</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.dictlist">
+<code class="sig-name descname">dictlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#dictlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.dictlist" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Ajout d’un valeur dans une liste d’un dictionnaire</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>str</em>) – clé dictionnaire</p></li>
+<li><p><strong>v</strong> – valeur à ajouter</p></li>
+<li><p><strong>list</strong><strong>[</strong><strong>]</strong><strong>] </strong><strong>p_dic</strong> (<em>dict</em><em>[</em><em>str</em><em>,</em>) – dictionnaire</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dictionnaire</span><span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dictlist</span><span class="p">(</span><span class="s1">&#39;printemps&#39;</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">,</span> <span class="n">dictionnaire</span><span class="p">)</span>
+<span class="go">dictionnaire{&#39;printemps&#39;, [&#39;mars&#39;]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dictlist</span><span class="p">(</span><span class="s1">&#39;printemps&#39;</span><span class="p">,</span> <span class="s1">&#39;avril&#39;</span><span class="p">,</span> <span class="n">dictionnaire</span><span class="p">)</span>
+<span class="go">dictionnaire{&#39;printemps&#39;, [&#39;mars&#39;, &#39;&#39;avril&#39;]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dictlist</span><span class="p">(</span><span class="s1">&#39;printemps&#39;</span><span class="p">,</span> <span class="s1">&#39;mars&#39;</span><span class="p">,</span> <span class="n">dictionnaire</span><span class="p">)</span>
+<span class="go">dictionnaire{&#39;printemps&#39;, [&#39;mars&#39;, &#39;&#39;avril&#39;]}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.dir_parent">
+<code class="sig-name descname">dir_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#dir_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.dir_parent" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Renvoie du repertoire parent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – repertoire</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.dir_parser">
+<code class="sig-name descname">dir_parser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">pattern</span><span class="o">=</span><span class="default_value">'*'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#dir_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.dir_parser" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Récupération des fichiers d’un répertoire</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – repertoire</p></li>
+<li><p><strong>pattern</strong> (<em>str</em>) – “*” pour tous type de fichier par défaut</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;C:\Users\public\Documents&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;*.txt&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span><span class="p">,</span> <span class="n">path_file</span> <span class="ow">in</span> <span class="n">dir_parser</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">path_file</span><span class="p">)</span>
+<span class="go">&#39;C:\Users\public\Documents\fichier.txt&#39;</span>
+<span class="go">&#39;C:\Users\public\Documents\autre_fichier.txt&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.dir_projet">
+<code class="sig-name descname">dir_projet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#dir_projet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.dir_projet" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Répertoire pour le fichier en cours</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.dir_worked">
+<code class="sig-name descname">dir_worked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#dir_worked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.dir_worked" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>renvoie du repertoire d’execution</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.file_exists">
+<code class="sig-name descname">file_exists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fp</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#file_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.file_exists" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Vérifie l’existance d’un fichier</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>fp</strong> (<em>str</em>) – filepath</p>
+</dd>
+<dt class="field-even">Rtype bool</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.file_ext">
+<code class="sig-name descname">file_ext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ps_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#file_ext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.file_ext" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Retrourne l’extension d’un fichier</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>ps_file</strong> – </p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>Extension de fichier</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.inttohex">
+<code class="sig-name descname">inttohex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#inttohex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.inttohex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Conversion d’une valeur en hexadécimal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) – nombre à convertir</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>valeur en hexadécimal</p>
+</dd>
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.makedirs">
+<code class="sig-name descname">makedirs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#makedirs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.makedirs" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Création du répertoire données</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>path</strong> – chemin du répertoire à créer</p>
+</dd>
+<dt class="field-even">Rtype bool</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.path_build">
+<code class="sig-name descname">path_build</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">ps_complement</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#path_build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.path_build" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Construction d’un pathfile</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – repertoire</p></li>
+<li><p><strong>ps_complement</strong> (<em>str</em>) – complement permettant de generer le chemin</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;c:\Users\public\directory&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path_build</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;..\other_dir&#39;</span><span class="p">)</span>
+<span class="go">&#39;c:\Users\public\other_dir&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.plain_hex">
+<code class="sig-name descname">plain_hex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hx</span></em>, <em class="sig-param"><span class="n">s</span><span class="o">=</span><span class="default_value">3</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#plain_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.plain_hex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Complète un chiffre hexadecimal en préfixant une valeur de zéro</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hx</strong> (<em>str</em>) – valeur hexadécimal</p></li>
+<li><p><strong>v</strong> (<em>int</em>) – longeur chaine attendu</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str:</p>
+</dd>
+<dt class="field-odd">Examples</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hx</span> <span class="o">=</span> <span class="s1">&#39;0x129&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plain_hex</span><span class="p">(</span><span class="n">hx</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="go">0x00129</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.plain_zero">
+<code class="sig-name descname">plain_zero</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#plain_zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.plain_zero" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Complete une valeur chaine de zéro</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – valeur à completer</p></li>
+<li><p><strong>s</strong> – taille chaine attendu préfixé de zerom</p></li>
+</ul>
+</dd>
+<dt class="field-even">Exemple</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plain_zero</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">&#39;005&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.pop_dic">
+<code class="sig-name descname">pop_dic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">l_id</span></em>, <em class="sig-param"><span class="n">dic</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#pop_dic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.pop_dic" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Suppression d’une liste d’éléments d’un dictionnaire</p>
+<p>:param list[str] l_ids : liste de clé à supprimer
+:param dict[str:object] dic: dictionaire à nettoyer</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.print_err">
+<code class="sig-name descname">print_err</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#print_err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.print_err" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Ecriture sur le flux erreur de la console</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – arguments 1</p></li>
+<li><p><strong>kwargs</strong> – arguemnts2</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.pwd_maker">
+<code class="sig-name descname">pwd_maker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#pwd_maker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.pwd_maker" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Génération d’un password respectant les regles de password</p>
+<dl class="field-list simple">
+<dt class="field-odd">Conditions</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Une majuscule</p></li>
+<li><p>Une minuscule</p></li>
+<li><p>Un chiffre</p></li>
+<li><p>Un carectère spécial (&#64;#!?$&amp;-_ autorisé )</p></li>
+</ul>
+</dd>
+<dt class="field-even">Paramètres</dt>
+<dd class="field-even"><p><strong>i_size</strong> (<em>int</em>) – Nombre de caracteres de la chaine</p>
+</dd>
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>Mot de passe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.remove_file">
+<code class="sig-name descname">remove_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#remove_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.remove_file" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Suppression d’un fichier si existant</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>p</strong> (<em>str</em>) – chemin complet du fichier à supprimer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.str_dic">
+<code class="sig-name descname">str_dic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chaine</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#str_dic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.str_dic" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertion d’une chaine en distionnaire</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>chaine</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>dic</p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_dic</span> <span class="o">=</span> <span class="s2">&quot;{&#39;key&#39;:value}&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">str_dic</span><span class="p">(</span><span class="n">s_dic</span><span class="p">)</span>
+<span class="go">{&#39;key&#39;: &#39;value&#39;}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.tools.string_me">
+<code class="sig-name descname">string_me</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/tools.html#string_me"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.tools.string_me" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Convertion d’une valeur en chaine</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>v</strong> – valeur à convertir</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>str, None en cas d’erreur</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-toolbox.features"></span><div class="section" id="module-complementaire">
+<h2>Module complémentaire<a class="headerlink" href="#module-complementaire" title="Lien permanent vers ce titre">¶</a></h2>
+<p>pathfile : toolbox/features.py</p>
+<dl class="py function">
+<dt id="toolbox.features.test_http_link">
+<code class="sig-name descname">test_http_link</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/features.html#test_http_link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.features.test_http_link" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Vérifie une url et renvoie l’url valide</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>url</strong> – url à évaluer</p>
+</dd>
+<dt class="field-even">Rtype str</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="toolbox.features.url_join">
+<code class="sig-name descname">url_join</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">domaine</span></em>, <em class="sig-param"><span class="n">page</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/features.html#url_join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.features.url_join" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Generation d’une url</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../readme.html">Dreamtools</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contenu</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="dtemng.html">Module de Gestion des date</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>
