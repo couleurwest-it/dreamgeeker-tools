@@ -142,6 +142,7 @@ div.header h2 {
 
 div.header img.rightlogo {
     float: right;
+    height: auto;
 }
 
 
@@ -358,7 +359,7 @@ hr {
 }
 
 .viewcode-back {
-    font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 div.viewcode-block:target {
@@ -372,4 +373,10 @@ div.viewcode-block:target {
 /* math display */
 div.math p {
     text-align: center;
+}
+
+div.important {
+    padding: 10px 15px 10px 80px;
+    background: #ffe4de url(alert_32.png) 15px 15px no-repeat;
+    min-height: 42px;
 }

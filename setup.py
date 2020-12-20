@@ -8,24 +8,19 @@ from dreamtools import cfgloader
 from dreamtools import tools
 
 cfg = ["cfg/*.yml"]
+with open('README.md') as readme:
+    long_description = readme.read()
+
 setup(
-
-    name='dreamtools-dreamgeeker',
-    version=dreamtools.__version__,
-
-    packages= find_packages(),
-    author="dreamgeeker",
-    author_email="dreamgeeker@couleurwest-it.com",
-    description="outils de developpement de base",
-    long_description=open('README.md').read(),
-    install_requires=["pyaml", "requests", "urllib3", "cerberus>= 1.3.2","pillow >= 8.0.1"],
-
-    package_data = {'dreamtools' : cfg },
-    #scripts = ["scripts"],
-    include_package_data=True,
-    python_requires='>=3.8',
-
-    # Une url qui pointe vers la page officielle de votre lib
+    name= 'dreamtools-dreamgeeker',
+    install_requires= ['setuptools','pyaml',
+                      'requests', 'cerberus>= 1.3.2', 'pillow >= 8.0.1', 'pytz>=pytz==2020.4'
+                      ],
+    author= "dreamgeeker",
+    author_email= "dreamgeeker@couleurwest-it.com",
+    version= dreamtools.__version__,
+    description= "outils de developpement de base",
+    long_description= long_description,
     url='https://github.com/couleurwest/dreamgeeker-tools',
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -35,12 +30,13 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: Software Development",
     ],
-
-    # La syntaxe est "nom-de-commande-a-creer = package.module:fonction".
+    packages=find_packages(),
+    package_data={'dreamtools': cfg},
+    include_package_data=True,
+    python_requires='>=3.8',
     entry_points= {
         'console_scripts': [
             'tools-installer = scripts.__main__:setproject'
         ],
     }
-
 )

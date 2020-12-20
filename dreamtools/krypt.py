@@ -2,10 +2,6 @@
 # -*- coding: utf-8 -*-
 # krypt.py
 
-# !/usr/bin/python3
-# -*- coding: utf-8 -*-
-# app_tools.py
-
 """
 Module de cryptage
 =========================================

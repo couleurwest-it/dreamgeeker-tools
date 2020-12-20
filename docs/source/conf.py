@@ -50,10 +50,8 @@ html_search_language= 'fr'
 html_theme = 'haiku'
 html_sidebars = {
     '**':[
-        'about.html', 'navigation.html','relations.html', 'searchbox.html','donate.html'
+        'about.html', 'navigation.html','relations.html', 'searchbox.html'
     ]
 }
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
+
 html_static_path = ['_static']

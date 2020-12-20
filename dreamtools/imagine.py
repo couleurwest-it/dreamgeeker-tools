@@ -1,33 +1,35 @@
-# !/usr/bin/python3
 # -*- coding: utf-8 -*-
-# project/dreamtools/pymaging.py
-
-"""
-Gestion des Images
-"""
-
-import os
-from io import BytesIO
+# project/dreamtools/imagine.py
 
 from PIL import Image
 from PIL.ExifTags import TAGS
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
 
+import os
+from io import BytesIO
+from dreamtools import tools
+
+
 TYPE_IMG_JPEG = 'JPEG'
 TYPE_IMG_PNG = 'PNG'
 TYPE_IMG_GIF = 'GIF'
 
+"""
+Class CImagine
+=============================
 
-class CImager(object):
-    """    Gestionaire d'images    """
+Class permettant le traitement d'une image png convertit en jpg avec prise en charge de la transparence (fond blanc)
+
+
+pathfile : dreamtools/pyimaging
+
+"""
+
+
+class CImagine(object):
 
     def __init__(self, src, dest, with_ext=False):
         """
-        Preparation image  pour traitement
-        ==================================
-        Les images sont convertit au format JPEG
-
-        :parametres:
         :param str src: pathfile image d'origine
         :param src dest: path destionantion image
         :param bool with_ext: Avec ou sans extension, False par défaut
@@ -58,31 +60,33 @@ class CImager(object):
         self.min_size = 250
         self.max_size = 500
 
+
     def __enter__(self):
         return self
+
 
     @property
     def _size(self):
         return self.w, self.h
 
+
     @_size.setter
     def _size(self, s):
         self.w, self.h = s
 
+
     @property
     def white_background(self):
-        """
-        Ajout d'un fond transparent
-        :return:
-        """
+        """Fond blanc, utilisé pour remplacer un fond transparent """
         bg = Image.new("RGB", self._size, (255, 255, 255))
         bg.paste(self.img, self.img)
 
         return bg
 
+
     def resize(self, s=None, mn=None, mx=None):
         """ Redimensionnement de l'image au format jpg
-        =================================
+
         :param tuple(int, int): si indiqué, (w,h) de redimensionnement
         :param int mn, default 250: taille maximum (carré), optional
         :param int mx, default 250: taille maximum de l'image, optional
@@ -111,11 +115,14 @@ class CImager(object):
         img = self.img.resize(s)
         img.save(self.file, TYPE_IMG_JPEG)
 
+
     def thumbed(self, s=None):
+        """ Thumb Image
+
+        :param tuple[int, int] s: taille image, defaul (200, 200à
+
         """
-        Thumb Image
-        :param s:
-        """
+
         img = self.img.convert('L')
         img.thumbnail(s or self.thumb)
 
@@ -124,8 +131,12 @@ class CImager(object):
         else:
             img.save(self.file + ".thumb", TYPE_IMG_JPEG)
 
+
+
     def __exit__(self, exc_type, exc_value, traceback):
         self.img.close()
+
+
 
     def protected(self, artist):
         """Ajoute un nom d'artist et le copyright d'une image"""
@@ -142,28 +153,3 @@ class CImager(object):
 
         self.exif = b"Exif\x00\x00" + out.getvalue()
         self.img.save(self.file, TYPE_IMG_JPEG, exif=self.exif)
-
-
-def treat_dir(s):
-    """
-    Redimensionne toutes les images contenu dans un répertoire donné + thumb
-    :param s:
-    """
-    for f in os.listdir(s):
-        f_path = os.path.join(s, f)
-        if os.path.isfile(f_path):
-            o = CImager(f_path, os.path.splitext(f_path)[0])
-
-            o.resize()
-            o.thumbed()
-
-
-def treat_img(s, f):
-    """
-    Enregistre une image, la reformat + thumb
-    :param s:
-    :param f:
-    """
-    o = CImager(s, f)
-    o.resize()
-    o.thumbed()
