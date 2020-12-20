@@ -5,9 +5,9 @@
 
 **Librairies de fonctions aide au développement**
 
-Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://github.com/couleurwest/dreamgeeker-tools/)
+Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://github.com/couleurwest/pypi/dreamgeeker-tools)
 
-[Lire la documentation](https://couleurwest-it.com/dreamtools) | [Télécharger documentation](https://couleurwest-it.com/dreamtools)
+[Lire la documentation](https://couleurwest-it.com/dreamtools) | [Télécharger documentation](https://github.com/couleurwest/dreamgeeker-tools/raw/main/docs/build/pdf/dreamtools.pdf)
 
 ## Paquets dépendants
 
