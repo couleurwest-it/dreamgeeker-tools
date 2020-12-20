@@ -1,4 +1,4 @@
-Welcome to dreamtools's documentation!
+Dreamtools Documentation
 ======================================
 .. toctree::
    readme

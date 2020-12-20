@@ -20,7 +20,7 @@ author = 'dreamgeeker'
 
 # The full version, including alpha/beta/rc tags
 version = '1.0'
-release = '1.0.1'
+release = '1.0.3'
 
 # -- General configuration ---------------------------------------------------
 
@@ -44,7 +44,7 @@ autosummary_imported_members = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_logo='favicon2.png'
+html_logo='favicon.png'
 html_show_sphinx= False
 html_search_language= 'fr'
 html_theme = 'haiku'

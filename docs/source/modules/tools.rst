@@ -1,8 +1,8 @@
 Librairie de fonctions
 =============================
 
-.. automodule:: toolbox.tools
+.. automodule:: dreamtools.tools
     :members:
 
-.. automodule:: toolbox.features
+.. automodule:: dreamtools.features
     :members:

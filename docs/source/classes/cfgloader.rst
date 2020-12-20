@@ -1,7 +1,7 @@
 Gestion configuration
 ========================
 
-.. automodule:: toolbox.cfgmng
+.. automodule:: dreamtools.cfgmng
     :members:
 
 Gestions des logs
@@ -9,9 +9,9 @@ Gestions des logs
 * Configuration des logs
 * Traitement des erreurs et des exceptions
 
-pathfile : tolbox/logmng.py
+pathfile : dreamtools/logmng.py
 
-.. automodule:: toolbox.logmng
+.. automodule:: dreamtools.logmng
     :members:
 
 Class CReponder
@@ -40,15 +40,15 @@ Validation de formulaire.
     Les schéma de normalization dans normalizator
 
 
-.. automodule:: toolbox.validata
+.. automodule:: dreamtools.validata
     :members:
 
 
 Gestion de mailing
 ========================
 
-.. automodule:: toolbox.mailbot
+.. automodule:: dreamtools.mailbot
     :members:
 
-.. autoclass:: toolbox.mailbot.CMailer
+.. autoclass:: dreamtools.mailbot.CMailer
     :members:
