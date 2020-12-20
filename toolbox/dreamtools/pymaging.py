@@ -1,6 +1,6 @@
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
-# project/toolbox/pymaging.py
+# project/dreamtools/pymaging.py
 
 """
 Gestion des Images

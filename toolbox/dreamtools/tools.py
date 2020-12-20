@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# toolbox/tools.py
+# dreamtools/tools.py
 
 """
 Module de fonctions basiques
@@ -8,7 +8,7 @@ Module de fonctions basiques
 
 Liste de fonctions utiles
 
-pathfile : toolbox/tools
+pathfile : dreamtools/tools
 
 Constantes globales
 --------------------

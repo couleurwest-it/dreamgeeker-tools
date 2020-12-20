@@ -4,7 +4,7 @@
 """
 Gestion fichiers de configurations (YAML)
 
-pathfile : toolbox/cfgmng.py
+pathfile : dreamtools/cfgmng.py
 
 Repertoires par défaut
 ----------------------

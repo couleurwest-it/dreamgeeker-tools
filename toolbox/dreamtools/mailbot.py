@@ -4,7 +4,7 @@
 """
 Module de Gestion de mail préparés
 
-pathfile : toolbox/mailbot.py
+pathfile : dreamtools/mailbot.py
 
 Pré-Requis
 -------------
@@ -62,16 +62,16 @@ class CMailer(object):
         :return:
         """
         
-        tracker.flag("[toolbox.mailbot] SEND_MAIL : Parametrage smtp")
+        tracker.flag("[dreamtools.mailbot] SEND_MAIL : Parametrage smtp")
         context = ssl.create_default_context()
 
-        tracker.flag("[toolbox.mailbot] SEND_MAIL:Parametrage message MIME")
+        tracker.flag("[dreamtools.mailbot] SEND_MAIL:Parametrage message MIME")
         message = MIMEMultipart("alternative")
         message["Subject"] = subject
         message["From"] = CMailer.smtp['h_s']
         message["To"] = to_receiver or receivers
 
-        tracker.flag("[toolbox.mailbot] SEND_MAIL:Parametrage contenu mail")
+        tracker.flag("[dreamtools.mailbot] SEND_MAIL:Parametrage contenu mail")
         content = d_msg.get('text') + CMailer.footers['txt']
         content = MIMEText(content)
         message.attach(content)
@@ -81,11 +81,11 @@ class CMailer(object):
             content = MIMEText(content, "html")
             message.attach(content)
 
-        tracker.flag("[toolbox.mailbot] SEND_MAIL:Coonnexion SMTP")
+        tracker.flag("[dreamtools.mailbot] SEND_MAIL:Coonnexion SMTP")
         with smtplib.SMTP_SSL(CMailer.smtp['h'], CMailer.smtp['po'], context=context) as server:
-            tracker.flag("[toolbox.mailbot] SEND_MAIL:Authentification")
+            tracker.flag("[dreamtools.mailbot] SEND_MAIL:Authentification")
             server.login(CMailer.smtp['m'], CMailer.smtp['pw'])
-            tracker.flag("[toolbox.mailbot] SEND_MAIL: Sending")
+            tracker.flag("[dreamtools.mailbot] SEND_MAIL: Sending")
             server.sendmail(CMailer.smtp['m'], receivers, message.as_string())
 
             return True
@@ -102,16 +102,16 @@ class CMailer(object):
 
         
         """
-        tracker.flag('[toolbox.mailbot] PRESEND:Loading template {}'.format(code))
+        tracker.flag('[dreamtools.mailbot] PRESEND:Loading template {}'.format(code))
         mail = cfgloader.mailing_lib(code)
     
-        tracker.flag('[toolbox.mailbot] PRESEND: Preparation')
+        tracker.flag('[dreamtools.mailbot] PRESEND: Preparation')
     
         part1 = mail['text'].format(**data_field)
         part2 = mail['html'].format(**data_field)
         to_receiver = r'{} <{mail}>'.format(name, mail=email)
     
-        tracker.flag('[toolbox.mailbot] PRESEND: Envoi ({}) -> {}'.format(code, email))
+        tracker.flag('[dreamtools.mailbot] PRESEND: Envoi ({}) -> {}'.format(code, email))
         send = tracker.fntracker(CMailer.__send_mail, 'Envoi ({}) -> {}'.format(code, email), mail.get('objt'),
                                  email, {'text': part1, 'html': part2}, to_receiver)
 

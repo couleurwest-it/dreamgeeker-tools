@@ -1,10 +1,10 @@
 import unittest
 
-from toolbox import tools
-from toolbox.config import CConfig
-from toolbox.logmng import CTracker
+from dreamtools import tools
+from dreamtools.config import CConfig
+from dreamtools.logmng import CTracker
 
-CConfig('toolbox')
+CConfig('dreamtools')
 
 
 class MyTestCase(unittest.TestCase):

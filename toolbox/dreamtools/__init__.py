@@ -16,9 +16,9 @@ __email__ = "contact@couleurwest-it"
 __status__ = "Production"
 __docformat__ = 'reStructuredText'
 
-from toolbox import tools
-from toolbox.cfgmng import CFGBases as cfgloader
-from toolbox.logmng import CTracker as tracker
+from dreamtools import tools
+from dreamtools.cfgmng import CFGBases as cfgloader
+from dreamtools.logmng import CTracker as tracker
 
 if __name__ == "__main__":
     import doctest

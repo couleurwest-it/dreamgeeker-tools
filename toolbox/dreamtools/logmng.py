@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# toolbox/logmng.py
+# dreamtools/logmng.py
 
 import logging
 import logging.config as log_config
@@ -212,7 +212,7 @@ class CTracker:
         :rtype: CReponder
 
         :Exemple:
-            >>> from toolbox.logmng import CTracker
+            >>> from dreamtools.logmng import CTracker
             >>> def fn(param)::
             >>>     return int(param)
 

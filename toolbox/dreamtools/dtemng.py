@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# toolbox/dtemng.py
+# dreamtools/dtemng.py
 
 """
 Module de Gestion des date
 =============================
 
 Liste de fonction pour utilisation des dates
-pathfile : toolbox/tools
+pathfile : dreamtools/tools
 
 Constantes globales
 -------------------

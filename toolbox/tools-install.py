@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 # app_tools.py
 
+from dreamtools import cfgloader
+from dreamtools import tools
 from source import source
-from toolbox import cfgloader
-from toolbox import tools
 
 base = tools.get_dir_path()
 
-print('[toolbox-install] Création architecture')
+print('[dreamtools-install] Création architecture')
 
 print('\t Répertoire configuration')
 tools.makedirs(tools.path_build(base, 'cfg'))
@@ -16,7 +16,7 @@ tools.makedirs(tools.path_build(base, 'cfg'))
 print('\tRépertoire logs')
 tools.makedirs(tools.path_build(base, 'logs'))
 
-print('[toolbox-install] Export configuration de base')
+print('[dreamtools-install] Export configuration de base')
 src = tools.path_build(base,'cfg')
 
 for files, data in source.items():

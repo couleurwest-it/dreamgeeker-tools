@@ -5,7 +5,7 @@
 Module complémentaire
 ============================
 
-pathfile : toolbox/features.py
+pathfile : dreamtools/features.py
 
 """
 import re

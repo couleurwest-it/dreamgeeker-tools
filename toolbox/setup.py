@@ -3,9 +3,9 @@
 
 from setuptools import setup, find_packages
 
-import toolbox
-from toolbox import cfgloader
-from toolbox import tools
+import dreamtools
+from dreamtools import cfgloader
+from dreamtools import tools
 
 #enregistrement des sources de bases (yaml)
 directory = tools.dir_projet()
@@ -22,8 +22,8 @@ with open(mysource, encoding='utf-8', mode='w') as src:
 #setup------------------------------
 setup(
 
-    name='dreamtools',
-    version=toolbox.__version__,
+    name='dreamtools-dreamgeeker',
+    version=dreamtools.__version__,
     packages=find_packages(),
     author="dreamgeeker",
     author_email="dreamgeeker@couleurwest-it.com",
@@ -37,6 +37,7 @@ setup(
 
     # Active la prise en compte du fichier MANIFEST.in
     include_package_data=True,
+    python_requires='>=3.8',
 
     # Une url qui pointe vers la page officielle de votre lib
     url='https://github.com/couleurwest/dreamgeeker-tools',
@@ -67,3 +68,7 @@ setup(
 # Puis, il faut créer une distribution source (sdist) et le mettre en ligne (upload):
 # python setup.py sdist upload
 # mise a jour apres changement de version ! :-)
+
+# python3 -m pip install --user --upgrade setuptools wheel
+# python3 setup.py sdist bdist_wheel
+# python3 -m twine upload --repository dreamtools dist/*
