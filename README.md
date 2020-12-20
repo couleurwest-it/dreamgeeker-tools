@@ -1,5 +1,4 @@
-
- ![Logo Couleur West IT](https://couleurwest-it.com/static/images/ban)
+![Logo Couleur West IT](https://github.com/couleurwest/dreamgeeker-tools/blob/main/logo.png)
 
 # Dreamtools
 
@@ -31,3 +30,6 @@ Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://git
 
 ### Un conseil, un avis, une expertises 
 [Ecrivez-nous par mail](contact@couleurwest-it.com) | [Par Telegram](https://t.me/dreamgeeker)
+
+----
+*By dreamgeeker &copy; 2020 Couleur West IT*
