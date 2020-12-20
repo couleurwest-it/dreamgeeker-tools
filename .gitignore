@@ -11,3 +11,10 @@ toolbox/app/__pycache__/logmng.cpython-38.pyc
 toolbox/app/__pycache__/config.cpython-38.pyc
 toolbox/app/__pycache__/cfgmng.cpython-38.pyc
 toolbox/app/__pycache__/__init__.cpython-38.pyc
+/docs/build/pdf/.doctrees/
+/docs/build/pdf/dreamtools.rtc
+/docs/build/pdf/dreamtools.stylelog
+/docs/build/doctrees/
+/docs/build/html/
+/dreamtools/.idea/
+/dreamtools_dreamgeeker.egg-info/
