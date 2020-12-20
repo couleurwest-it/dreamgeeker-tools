@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gestion configuration &#8212; Documentation dreamtools 1</title>
+    <link href="../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link href="../genindex.html" rel="index" title="Index" />
+    <link href="../search.html" rel="search" title="Recherche" />
+    <link href="../modules/dtemng.html" rel="prev" title="Module de Gestion des date" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../_static/favicon2.png"/><h1 class="heading"><a href="../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>Gestion configuration</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../modules/dtemng.html">Module de Gestion des date</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contenu</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="module-toolbox.cfgmng">
+<span id="gestion-configuration"></span><h1>Gestion configuration<a class="headerlink" href="#module-toolbox.cfgmng" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Gestion fichiers de configurations (YAML)</p>
+<p>pathfile : toolbox/cfgmng.py</p>
+<div class="section" id="repertoires-par-defaut">
+<h2>Repertoires par défaut<a class="headerlink" href="#repertoires-par-defaut" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>PROJECT_DIR/cfg/PROJECT_DIR/cfg/.log.yml : Fichier de configuration des logs</p></li>
+<li><p>PROJECT_DIR/cfg/.app.yml : Fichier de configuration de l’application</p></li>
+<li><p>PROJECT_DIR/cfg/categorie.yml : Fichier de liste définie par un code et un libelle</p></li>
+<li><p>PROJECT_DIR/cfg/mailing.yml : Fichier de mails préparés</p></li>
+<li><p>PROJECT_DIR/cfg/validators.yml : Fichier de validation(cf CERBERUS)</p></li>
+<li><p>PROJECT_DIR/cfg/normalizor.yml : Fichier de normalization(cf CERBERUS)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-cfbases">
+<h2>Class CFBases<a class="headerlink" href="#class-cfbases" title="Lien permanent vers ce titre">¶</a></h2>
+<dl class="py class">
+<dt id="toolbox.cfgmng.CFGBases">
+<em class="property">class </em><code class="sig-name descname">CFGBases</code><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Cette class permet de gere des fichiers de configuration disponibles dans le repertoire &lt;PROJET_DIR&gt;/cfg</p>
+<dl class="py method">
+<dt id="toolbox.cfgmng.CFGBases.app_cfg">
+<em class="property">static </em><code class="sig-name descname">app_cfg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases.app_cfg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases.app_cfg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Parametres application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>str</em>) – clé a retourner (filtre)</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>Configuration</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.cfgmng.CFGBases.categorie_lib">
+<em class="property">static </em><code class="sig-name descname">categorie_lib</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases.categorie_lib"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases.categorie_lib" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Liste de definition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>str</em>) – référence du de la liste</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>liste(s) de categories</p>
+</dd>
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.cfgmng.CFGBases.logs_cfg">
+<em class="property">static </em><code class="sig-name descname">logs_cfg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases.logs_cfg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases.logs_cfg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Configuration des logs</p>
+<dl class="field-list">
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">import</span> <span class="n">logging</span><span class="o">.</span><span class="n">config</span> <span class="k">as</span> <span class="n">log_config</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">log_config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">CFGBases</span><span class="o">.</span><span class="n">logs_cfg</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracker</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;PROD|TEST&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tracker</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Exemple dun message d&#39;information&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.cfgmng.CFGBases.mailing_lib">
+<em class="property">static </em><code class="sig-name descname">mailing_lib</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases.mailing_lib"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases.mailing_lib" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Mail préparé</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>str</em>) – référence du mail à envoyer</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>mail</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.cfgmng.CFGBases.normalizor">
+<em class="property">static </em><code class="sig-name descname">normalizor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases.normalizor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases.normalizor" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Parametres de normalisation de formulaire
+:return: parametres de normaisation
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.cfgmng.CFGBases.validator">
+<em class="property">static </em><code class="sig-name descname">validator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/cfgmng.html#CFGBases.validator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.cfgmng.CFGBases.validator" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Parametres de validation de formulaire</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>code</strong> (<em>str</em>) – référence du formulaire</p>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>parametres de validation</p>
+</dd>
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="gestions-des-logs">
+<h1>Gestions des logs<a class="headerlink" href="#gestions-des-logs" title="Lien permanent vers ce titre">¶</a></h1>
+<ul class="simple">
+<li><p>Configuration des logs</p></li>
+<li><p>Traitement des erreurs et des exceptions</p></li>
+</ul>
+<p>pathfile : tolbox/logmng.py</p>
+<span class="target" id="module-toolbox.logmng"></span><dl class="py exception">
+<dt id="toolbox.logmng.CError">
+<em class="property">exception </em><code class="sig-name descname">CError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">status</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'ERRCustom'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CError" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Gestion des erreurs et traitement des exceptions personnalisées</p>
+</dd></dl>
+
+<div class="section" id="class-creponder">
+<h2>Class CReponder<a class="headerlink" href="#class-creponder" title="Lien permanent vers ce titre">¶</a></h2>
+<dl class="py class">
+<dt id="toolbox.logmng.CReponder">
+<em class="property">class </em><code class="sig-name descname">CReponder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">status</span><span class="o">=</span><span class="default_value">200</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">msg</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CReponder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CReponder" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="toolbox.logmng.CReponder.ok">
+<em class="property">property </em><code class="sig-name descname">ok</code><a class="headerlink" href="#toolbox.logmng.CReponder.ok" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Renvoie le status de la réponse</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CReponder.response">
+<em class="property">property </em><code class="sig-name descname">response</code><a class="headerlink" href="#toolbox.logmng.CReponder.response" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>{« message »: self.message, « data »: self.data, “status_code”: self._status}</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="class-ctracker">
+<h2>Class CTracker<a class="headerlink" href="#class-ctracker" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Module de gestion des logs :</p>
+<ul class="simple">
+<li><p>Récupération des logs, traitement</p></li>
+<li><p>Execution sécurisé</p></li>
+</ul>
+<dl class="py class">
+<dt id="toolbox.logmng.CTracker">
+<em class="property">class </em><code class="sig-name descname">CTracker</code><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="toolbox.logmng.CTracker.alert_tracking">
+<em class="property">static </em><code class="sig-name descname">alert_tracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.alert_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.alert_tracking" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Message d’alerte (WARNING)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>str</em>) – message à ecrire dans logs</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Titre ou référence associé au message</p></li>
+<li><p><strong>code</strong> – Code numérique</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.config">
+<em class="property">static </em><code class="sig-name descname">config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'PROD'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.config" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Initialisation du gestionnaire de log à partir de la configuration enregistré</p>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>La configuration doit être configurer dans le fichier &lt;PROJECT_DIR&gt;/cdg/.log.yml</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CTracker</span><span class="o">.</span><span class="n">config</span><span class="p">()</span>
+<span class="go">Configuration mode PRODUCTION</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CTracker</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+<span class="go">Configuration mode debug</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.critical_tracking">
+<em class="property">static </em><code class="sig-name descname">critical_tracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.critical_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.critical_tracking" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Message dcritique (CRITIQUE)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>str</em>) – message à ecrire dans logs</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Titre ou référence associé au message</p></li>
+<li><p><strong>code</strong> – Code numérique</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.error_tracking">
+<em class="property">static </em><code class="sig-name descname">error_tracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">500</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.error_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.error_tracking" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Message d’error (ERROR)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>str</em>) – message à ecrire dans logs</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Titre ou référence associé au message</p></li>
+<li><p><strong>code</strong> (<em>int</em>) – Code numérique</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.exception_tracking">
+<em class="property">static </em><code class="sig-name descname">exception_tracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ex</span></em>, <em class="sig-param"><span class="n">title</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.exception_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.exception_tracking" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Récupération et traitement des exceptions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ex</strong> – Exception</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Information</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.flag">
+<em class="property">static </em><code class="sig-name descname">flag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trace</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.flag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.flag" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Permet de pointer la dernier action</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>trace</strong> (<em>str</em>) – Action à enregistrer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.fntracker">
+<em class="property">static </em><code class="sig-name descname">fntracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">action</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.fntracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.fntracker" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Execution « securisé » d’une fonction avec gestions des erreurs</p>
+<dl class="field-list">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> – fonction a executer</p></li>
+<li><p><strong>action</strong> – Titre de l’execution pour tracabilité</p></li>
+<li><p><strong>args</strong> – argument de la fonction</p></li>
+<li><p><strong>kwargs</strong> – parametres supplementaire (status par defaut en cas de reussite)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p><a class="reference internal" href="#toolbox.logmng.CReponder" title="toolbox.logmng.CReponder">CReponder</a></p>
+</dd>
+<dt class="field-odd">Exemple</dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">toolbox.logmng</span> <span class="kn">import</span> <span class="n">CTracker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">param</span><span class="p">)::</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">CTracker</span><span class="o">.</span><span class="n">fntracker</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;Test de convertion int&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">response</span>
+<span class="go">{&#39;message&#39;: &quot;invalid literal for int() with base 10: &#39;j&#39;&quot;, &#39;data&#39;: None, &#39;status_code&#39;: 500}</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">CTracker</span><span class="o">.</span><span class="n">fntracker</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;Test de convertion int&#39;</span><span class="p">,</span> <span class="s1">&#39;589321&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">response</span>
+<span class="go">{&#39;message&#39;: None, &#39;data&#39;: 589321, &#39;status_code&#39;: 200}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.info_tracking">
+<em class="property">static </em><code class="sig-name descname">info_tracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.info_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.info_tracking" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Message d’info (INFO)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>str</em>) – message à ecrire dans logs</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Titre ou référence associé au message</p></li>
+<li><p><strong>code</strong> – Code numérique</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.logmng.CTracker.msg_tracking">
+<em class="property">static </em><code class="sig-name descname">msg_tracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">log_level</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">code</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/logmng.html#CTracker.msg_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.logmng.CTracker.msg_tracking" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Tracking message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>str</em>) – message à ecrire dans logs</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Titre ou référence associé au message</p></li>
+<li><p><strong>log_level</strong> (<em>int</em>) – LOG LEVEL Niveau de l’alert (DEBUG | INFO | WARN | )</p></li>
+<li><p><strong>code</strong> (<em>int</em>) – Code numérique</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-de-validation">
+<h1>Module de validation<a class="headerlink" href="#module-de-validation" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Validation de formulaire.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Les shémas de validation sont sauvegarder dans le dossier de configuration validators
+Les schéma de normalization dans normalizator</p>
+</div>
+<span class="target" id="module-toolbox.validata"></span><dl class="py class">
+<dt id="toolbox.validata.Validata">
+<em class="property">class </em><code class="sig-name descname">Validata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scheme</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/validata.html#Validata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.validata.Validata" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Validators</p>
+<dl class="py method">
+<dt id="toolbox.validata.Validata.check_post_data">
+<em class="property">static </em><code class="sig-name descname">check_post_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">form_ref</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/validata.html#Validata.check_post_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.validata.Validata.check_post_data" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>verification donnees formulaire recu</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – formulaire de données</p></li>
+<li><p><strong>form_ref</strong> (<em>str</em>) – reference validateur</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p>formulaire traité</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.validata.Validata.normalisation">
+<code class="sig-name descname">normalisation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/validata.html#Validata.normalisation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.validata.Validata.normalisation" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document</strong> – </p></li>
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="toolbox.validata.Validata.validation">
+<code class="sig-name descname">validation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/validata.html#Validata.validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.validata.Validata.validation" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document</strong> – </p></li>
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-toolbox.mailbot">
+<span id="gestion-de-mailing"></span><h1>Gestion de mailing<a class="headerlink" href="#module-toolbox.mailbot" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Module de Gestion de mail préparés</p>
+<p>pathfile : toolbox/mailbot.py</p>
+<div class="section" id="pre-requis">
+<h2>Pré-Requis<a class="headerlink" href="#pre-requis" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Indiquer les parametres smtp dans le fichiers de configuration &lt;PROJECT_NAME&gt;/cfg/.app.yml</p>
+</div>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">smtp</span><span class="p">:</span>
+ <span class="nt">h</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">smtp-host_adresse</span>
+ <span class="nt">po</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">port_smtp</span>
+ <span class="nt">m</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mail_authen</span>
+ <span class="nt">pw</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password_auth</span>
+ <span class="nt">h_s </span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">name_sender &lt;email&gt;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Les mails sont à définir dans le ficchier &lt;PROJECT_NAME&gt;/cfg/mailing.yml au format suivant</p>
+</div>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">footer</span><span class="p">:</span>
+ <span class="nt">html</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;Pied de mail unique pour tous les mails (signature, rgpd...)&gt;</span>
+ <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;Pied de mail unique pour tous les mails (signature, rgpd...)&gt;</span>
+<span class="nt">code_mail</span><span class="p">:</span>
+ <span class="nt">html</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;ici mail au format HTML&gt;</span>
+ <span class="nt">text </span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;Le mail au format texte&gt;</span>
+ <span class="nt">objt </span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;Objet du mail&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="class-cmailer">
+<h2>Class CMailer<a class="headerlink" href="#class-cmailer" title="Lien permanent vers ce titre">¶</a></h2>
+</div>
+<dl class="py class">
+<dt id="toolbox.mailbot.CMailer">
+<em class="property">class </em><code class="sig-name descname">CMailer</code><a class="reference internal" href="../_modules/toolbox/mailbot.html#CMailer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.mailbot.CMailer" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="toolbox.mailbot.CMailer.presend">
+<code class="sig-name descname">presend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">data_field</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/toolbox/mailbot.html#CMailer.presend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#toolbox.mailbot.CMailer.presend" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Preparation pour envoi d’un message mail</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> (<em>str</em>) – email destinataire</p></li>
+<li><p><strong>code</strong> (<em>str</em>) – réfénce du mail à chargé</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – nom du destinataire</p></li>
+<li><p><strong>data_field</strong> (<em>dict</em>) – liste de données relatif à des champs définis dans le mails</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../modules/dtemng.html">Module de Gestion des date</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contenu</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>

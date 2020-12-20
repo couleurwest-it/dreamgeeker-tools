@@ -2,8 +2,26 @@
 # -*- coding: utf-8 -*-
 # krypt.py
 
+# !/usr/bin/python3
+# -*- coding: utf-8 -*-
+# app_tools.py
+
 """
 Module de cryptage
+=========================================
+pathfile : toolbox/tools
+
+Pré-Requis
+----------------------
+Une clé privé et un grain de sel doivent être défini dans le fichier "de parapetre d'application"
+**PROJECT_DIR/cfg/.app.yml**
+* SECRET_KEY
+* SALT_EXT
+
+*Méthode* : sha-512`
+
+Class CKrypting
+----------------
 """
 
 import crypt
@@ -19,44 +37,54 @@ class CKrypting:
     SALT = cfgloader.app_cfg('SECRET_KEY')
     SALT_EXT = cfgloader.app_cfg('SALT')
 
+
     @staticmethod
-    def __encrypt(password, prefix):
-        """This is used in place of `mkpasswd --sha-512`"""
-        if isinstance(password, bytes):
-            orig = password
+    def __encrypt(ch, prefix):
+        if isinstance(ch, bytes):
+            orig = ch
             try:
-                password = password.decode("utf-8")
+                ch = ch.decode("utf-8")
             except UnicodeDecodeError:
                 return None
-            assert password.encode("utf-8") == orig, "utf-8 spec says this can't happen!"
+            assert ch.encode("utf-8") == orig, "utf-8 spec says this can't happen!"
 
-        return crypt.crypt(password, prefix)
+        return crypt.crypt(ch, prefix)
 
-    @staticmethod
-    def encrypt(password):
-        """This is used in place of `mkpasswd --sha-512`"""
-        return CKrypting.__encrypt(password, CKrypting.PREFIX + CKrypting.SALT)
 
     @staticmethod
-    def extern_encrypt(password):
+    def encrypt(ch):
+        """Crypte une chaine selon la clé privé et le grain de sel paramétrés
+
+        :param str ch: Chaine à crypter
+        :return str: Chaine cryptée
+
+        """
+
+        return CKrypting.__encrypt(ch, CKrypting.PREFIX + CKrypting.SALT)
+
+
+    @staticmethod
+    def extern_encrypt(ch):
         '''
         Cryptage chaine pour utilisation extrene (suppression prefix)
 
-        :param str password:
-        :return: mot de passe crypté
+        :param str ch:
+        :return: mot de passe crypté - grain de sel
         '''
         """This is used in place of `mkpasswd --sha-512`"""
-        s = CKrypting.__encrypt(password, CKrypting.PREFIX + CKrypting.SALT_EXT)
+        s = CKrypting.__encrypt(ch, CKrypting.PREFIX + CKrypting.SALT_EXT)
         i = len(CKrypting.SALT_EXT)
 
         return s[i:]
 
+
     @staticmethod
     def compare(enc, s):
-        """Comparaison d'un chaine (mot de passe) en clair à un mot de passe crypté
+        """Comparaison d'un chaine en clair à un mot de passe crypté
 
-        :Parametres:
-        :param str enc: Mot de passe crypté
-        :para str s: chaine à tester
+        :param str enc: chaine cryptée
+        :param str s: chaine en claire
+        :rtype: bool
+
         """
         return crypt.crypt(s, enc) == enc

@@ -35,7 +35,7 @@ loggers:
     - file
     level: INFO
     propagate: false
-  TEST:
+  DEBUG:
     handlers:
     - console
     level: DEBUG

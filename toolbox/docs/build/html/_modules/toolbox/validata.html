@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>toolbox.validata &#8212; Documentation dreamtools 1</title>
+    <link href="../../_static/pygments.css" rel="stylesheet" type="text/css" />
+    <link href="../../_static/haiku.css" rel="stylesheet" type="text/css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link href="../../genindex.html" rel="index" title="Index" />
+    <link href="../../search.html" rel="search" title="Recherche" />
+  </head><body>
+      <div class="header" role="banner"><img alt="Logo" class="rightlogo" src="../../_static/favicon2.png"/><h1 class="heading"><a href="../../index.html">
+          <span>Documentation dreamtools 1</span></a></h1>
+        <h2 class="heading"><span>toolbox.validata</span></h2>
+      </div>
+      <div aria-label="top navigation" class="topnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <h1>Code source de toolbox.validata</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># toolbox/validata.py</span>
+
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">unquote</span>
+<span class="kn">from</span> <span class="nn">cerberus.validator</span> <span class="kn">import</span> <span class="n">Validator</span><span class="p">,</span> <span class="n">schema_registry</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dtemng</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tracker</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">cfgloader</span>
+<span class="kn">from</span> <span class="nn">.logmng</span> <span class="kn">import</span> <span class="n">CError</span>
+<span class="kn">from</span> <span class="nn">.features</span> <span class="kn">import</span> <span class="n">test_http_link</span>
+
+
+<span class="n">schema_registry</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;email scheme&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="n">tools</span><span class="o">.</span><span class="n">RGX_EMAIL</span><span class="p">}})</span>
+<span class="n">schema_registry</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;sch_password&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="n">tools</span><span class="o">.</span><span class="n">RGX_PWD</span><span class="p">}})</span>
+<span class="n">schema_registry</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;fr phone&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="n">tools</span><span class="o">.</span><span class="n">RGX_PHONE</span><span class="p">}})</span>
+
+<span class="n">liste_categorie</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Validata"><a class="viewcode-back" href="../../classes/cfgloader.html#toolbox.validata.Validata">[docs]</a><span class="k">class</span> <span class="nc">Validata</span><span class="p">(</span><span class="n">Validator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validators</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__normalisator</span> <span class="o">=</span> <span class="n">cfgloader</span><span class="o">.</span><span class="n">normalizor</span><span class="p">()</span>
+    <span class="n">__validators</span> <span class="o">=</span> <span class="n">cfgloader</span><span class="o">.</span><span class="n">validator</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scheme</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__validators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">scheme</span><span class="p">)</span>
+        <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;creation_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="s1">&#39;default_setter&#39;</span><span class="p">:</span> <span class="s1">&#39;utcnow&#39;</span><span class="p">}</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_default_setter_utcnow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialisateur date par defaut&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">utcnow_ts</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_coerce_utcts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforme une date valide en timestamp&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dte</span> <span class="o">=</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">isotodate</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># str -&gt; date</span>
+            <span class="n">dte</span> <span class="o">=</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">datetime_from_local_to_utc</span><span class="p">(</span><span class="n">dte</span><span class="p">)</span>  <span class="c1"># local -&gt; utc</span>
+
+            <span class="k">return</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">dtets</span><span class="p">(</span><span class="n">dte</span><span class="p">)</span>  <span class="c1"># dte -&gt;timestamp</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_coerce_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforme un nombre au format chaine en entier&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_coerce_clean_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Nettoyeur de chaine&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">tools</span><span class="o">.</span><span class="n">clean_space</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_normalize_coerce_dte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validation de date au format &#39;%d.%m.%Y %H:%M&#39;&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dte</span> <span class="o">=</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">strdate</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y %H:%M&#39;</span><span class="p">)</span>
+            <span class="n">dte</span> <span class="o">=</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">dtets</span><span class="p">(</span><span class="n">dte</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">dte</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">tracker</span><span class="o">.</span><span class="n">exception_tracking</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s1">&#39;validata.validata._normalize_coerce_event&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_check_with_validte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dtemng</span><span class="o">.</span><span class="n">datestr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&quot;Date not valid&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_with_categorie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">liste_categorie</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&quot;value not valid&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_with_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">test_http_link</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&quot;lient url non valid&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Validata.validation"><a class="viewcode-back" href="../../classes/cfgloader.html#toolbox.validata.Validata.validation">[docs]</a>    <span class="k">def</span> <span class="nf">validation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param document:</span>
+<span class="sd">        :param args:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validated</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Validata.normalisation"><a class="viewcode-back" href="../../classes/cfgloader.html#toolbox.validata.Validata.normalisation">[docs]</a>    <span class="k">def</span> <span class="nf">normalisation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param document:</span>
+<span class="sd">        :param args:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Validator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__normalisator</span><span class="p">)</span><span class="o">.</span><span class="n">normalized</span><span class="p">(</span><span class="n">document</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Validata.check_post_data"><a class="viewcode-back" href="../../classes/cfgloader.html#toolbox.validata.Validata.check_post_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">check_post_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">form_ref</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; verification donnees formulaire recu</span>
+
+<span class="sd">        :param dict data: formulaire de données</span>
+<span class="sd">        :param str form_ref: reference validateur</span>
+
+<span class="sd">        :return: formulaire traité</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">fn</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            function interne</span>
+<span class="sd">            :return:</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">Validata</span><span class="p">(</span><span class="n">form_ref</span><span class="p">,</span> <span class="n">purge_unknown</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">unquote</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">validation</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">d</span><span class="p">:</span> <span class="k">return</span> <span class="n">d</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">normalisation</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="n">CError</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="mi">400</span><span class="p">,</span> <span class="s2">&quot;VALIDATA.CHECK_POST_DATA&quot;</span><span class="p">)</span>
+
+        <span class="n">reponce</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">fntracker</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;VALIDATA.CHECK_POST_DATA&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">reponce</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">reponce</span><span class="o">.</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+            <span class="n">reponce</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">reponce</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">reponce</span></div></div>
+</pre></div>
+
+      </div>
+      <div aria-label="bottom navigation" class="bottomnav" role="navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contenu</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, dreamgeeker.
+    </div>
+  </body>
+</html>

@@ -40,13 +40,12 @@ setup(
     # Une url qui pointe vers la page officielle de votre lib
     url='https://github.com/couleurwest/dreamgeeker-tools',
     classifiers=[
-        "Programming Language :: Python",
-        "Development Status :: 1 - Préparation",
-        "License :: OSI Approved",
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved :: MIT License",
         "Natural Language :: French",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.8",
-        "Topic :: Communications",
+        "Topic :: Software Development",
     ],
 
     # C'est un système de plugin, mais on s'en sert presque exclusivement

@@ -1,16 +1,23 @@
-# !/usr/bin/python3
 # -*- coding: utf-8 -*-
-# app_tools.py
+# cfgmng.py
 
 """
-Gestion fichiers de configurations
-==================================
+Gestion fichiers de configurations (YAML)
 
-Permet la récupération de données enregistés au format YAML /
+pathfile : toolbox/cfgmng.py
 
-:Exemple:
----------
->>>
+Repertoires par défaut
+----------------------
+.. note::
+    * PROJECT_DIR/cfg/PROJECT_DIR/cfg/.log.yml : Fichier de configuration des logs
+    * PROJECT_DIR/cfg/.app.yml : Fichier de configuration de l'application
+    * PROJECT_DIR/cfg/categorie.yml : Fichier de liste définie par un code et un libelle
+    * PROJECT_DIR/cfg/mailing.yml : Fichier de mails préparés
+    * PROJECT_DIR/cfg/validators.yml : Fichier de validation(cf CERBERUS)
+    * PROJECT_DIR/cfg/normalizor.yml : Fichier de normalization(cf CERBERUS)
+
+Class CFBases
+-------------
 """
 
 import yaml
@@ -20,7 +27,6 @@ try:
 except ImportError:
     from yaml import Loader, Dumper, SafeLoader
 
-__all__ = ['CFGBases']
 
 from . import tools
 
@@ -84,7 +90,7 @@ class CFGEngine(object):
         :param str m, default (write): mode "w|a", optional
         :return:
         """
-        tools.makedirs(tools.get_parent_dir(f))
+        tools.makedirs(tools.dir_parent(f))
 
         with open(f, m) as f_yml:
             yaml.dump(d, stream=f_yml, allow_unicode=True)
@@ -94,7 +100,7 @@ class CFGEngine(object):
 
 class CFGBases(CFGEngine):
     """
-    Parametres de configuraiton
+    Cette class permet de gere des fichiers de configuration disponibles dans le repertoire <PROJET_DIR>/cfg
     """
     CFG_DIR = CFGEngine.working_directory('')  # databases parameters
     __logs = tools.path_build(CFG_DIR, '.log.yml')
@@ -106,51 +112,41 @@ class CFGBases(CFGEngine):
 
     @staticmethod
     def logs_cfg():
-        """
-        Récupération du fichier de configuration des LOGS
-        =================================================
-
-        :Parametres:
-
-        :return: Configuration des LOG
-        :rtype: dict[str,str]
+        """ Configuration des logs
 
         :Exemple:
+            >>> import import logging.config as log_config
+            >>> import logging
+            >>> log_config.dictConfig(CFGBases.logs_cfg())
+            >>> tracker = logging.getLogger('PROD|TEST')
+            >>> tracker.info("Exemple dun message d'information")
 
-        >>> import import logging.config as log_config
-        >>> import logging
-        >>> log_config.dictConfig(CFGBases.logs_cfg())
-        >>> tracker = logging.getLogger('PROD|TEST')
-        >>> tracker.info("Exemple dun message d'information")
         """
+
         return CFGBases.loading(CFGBases.__logs)
 
     @staticmethod
     def app_cfg(code=None):
-        """
-        Parametres application
-        ======================
+        """ Parametres application
 
         :param str code: clé a retourner (filtre)
-        :return:
+        :return: Configuration
         """
         return CFGBases.loading(CFGBases.__app, code)
 
     @staticmethod
-    def validator(code):
-        """
-        Parametres de validation de formulaire de données
+    def validator():
+        """ Parametres de validation de formulaire
 
         :param str code: référence du formulaire
         :return: parametres de validation
         :rtype: dict
         """
-        return CFGBases.loading(CFGBases.__validator, code)
+        return CFGBases.loading(CFGBases.__validator)
 
     @staticmethod
     def normalizor():
-        """
-        Parametres de normalisation de données de formulaire
+        """ Parametres de normalisation de formulaire
         :return: parametres de normaisation
         :rtype: dict
         """
@@ -158,22 +154,22 @@ class CFGBases(CFGEngine):
 
     @staticmethod
     def mailing_lib(code):
-        """
-        Gestionnaire de mail
-        :param str code: référence du mail à envoyer
+        """ Mail préparé
 
+        :param str code: référence du mail à envoyer
         :return: mail
-        :rtype: dict
-            """
+
+        """
         return CFGBases.loading(CFGBases.__mail, code)
 
     @staticmethod
     def categorie_lib(code=None):
-        """
-        Liste des catégorie / Liste de definition
+        """ Liste de definition
 
         :param str code: référence du de la liste
         :return: liste(s) de categories
         :rtype: dict
         """
         return CFGBases.loading(CFGBases.__categories)
+
+__all__ = ['CFGBases']
