@@ -6,7 +6,8 @@
 
 Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://github.com/couleurwest/dreamgeeker-tools/)
 
-[Lire la documentation](https://couleurwest-it.com/dreamtools) | [Télécharger documentation](https://couleurwest-it.com/dreamtools)
+[Lire la documentation](http://pyworld.couleurwest-it.com/dreamtools/index.html) | [Télécharger documentation](https://couleurwest-it.com/dreamtools)
+
 
 ## Paquets dépendants
 
@@ -17,6 +18,24 @@ Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://git
 * pillow 
 * pycrypt (uniquement sous Linux)
 * requests
+
+## Installation
+
+<pre>
+$ pip install dreamtools
+$ tools-installer
+</pre>
+
+## Configuration
+
+<pre>
+import dreamtools
+
+app_name = "AMON_APP"   #nom de votre application
+dreamtools.config(app_name, mode='DEBUG')  # par défaut mode ='PROD'
+</pre>
+
+# Informations 
 
 ## Génération documentation
 
