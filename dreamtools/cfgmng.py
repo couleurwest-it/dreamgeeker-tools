@@ -27,7 +27,6 @@ try:
 except ImportError:
     from yaml import Loader, Dumper, SafeLoader
 
-
 from . import tools
 
 
@@ -66,7 +65,7 @@ class CFGEngine(object):
 
         try:
             if tools.file_exists(filepath):
-                with open(filepath, mode) as cfg:
+                with open(filepath, mode, encoding='utf-8') as cfg:
                     cfg = yaml.load(cfg, Loader=SafeLoader)
                     if type(cfg).__name__ == "dict":
                         cfg = dict(cfg)
@@ -92,7 +91,7 @@ class CFGEngine(object):
         """
         tools.makedirs(tools.dir_parent(f))
 
-        with open(f, m) as f_yml:
+        with open(f, m, encoding='utf-8') as f_yml:
             yaml.dump(d, stream=f_yml, allow_unicode=True)
 
         return f
@@ -103,12 +102,26 @@ class CFGBases(CFGEngine):
     Cette class permet de gere des fichiers de configuration disponibles dans le repertoire <PROJET_DIR>/cfg
     """
     CFG_DIR = CFGEngine.working_directory('')  # databases parameters
-    __logs = tools.path_build(CFG_DIR, '.log.yml')
-    __app = tools.path_build(CFG_DIR, '.app.yml')
+    __logs = tools.path_build(CFG_DIR, 'log.yml')
+    __app = tools.path_build(CFG_DIR, 'app.yml')
     __categories = tools.path_build(CFG_DIR, 'categorie.yml')
     __mail = tools.path_build(CFG_DIR, 'mailing.yml')
     __validator = tools.path_build(CFG_DIR, 'validators.yml')  # databases parameters
     __normalisator = tools.path_build(CFG_DIR, 'normalizor.yml')  # databases parameters
+
+    @staticmethod
+    def loadingRef(filename, *args, **kwargs):
+        """
+        Récupération des parametres de configuration du fichier <filepath> section <r>
+
+        :param str filepath: Fichier de configuration
+        :param str code: référence parametres à récupérer, optionnel
+        :param str mode: bytes par defaut
+        :return: configuration | None
+
+        """
+        filepath = tools.path_build(CFGBases.CFG_DIR, f'{filename}.yml')
+        return CFGEngine.loading(filepath, *args, **kwargs)
 
     @staticmethod
     def logs_cfg():
@@ -170,6 +183,7 @@ class CFGBases(CFGEngine):
         :return: liste(s) de categories
         :rtype: dict
         """
-        return CFGBases.loading(CFGBases.__categories)
+        return CFGBases.loading(CFGBases.__categories, code)
+
 
 __all__ = ['CFGBases']

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # dreamtools/dtemng.py
 
@@ -26,7 +25,7 @@ from datetime import datetime, timedelta, date
 
 import pytz
 
-I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,7
+I_MON, I_TUES, I_WED, I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4, 5, 6, 7
 
 locale.setlocale(locale.LC_TIME, 'fr_FR.utf8')
 
@@ -120,12 +119,11 @@ def datestr(dte=None, fm='%Y-%m-%dT%H:%M:%S'):
     """
 
     try:
-        if datestr() is None:
-            dte=maintenant()
+        if dte is None:
+            dte = maintenant()
         return dte.strftime(fm)
     except:
         return None
-
 
 
 def today(fm='%d/%m/%Y'):
@@ -162,7 +160,7 @@ def date_dayed(dte=None, b=True):
 
     dte = dte.replace(hour=0, minute=0, second=0, microsecond=0)
 
-    return dte if b  else dateadd(dte, 1)
+    return dte if b else dateadd(dte, 1)
 
 
 def get_time(dte):
@@ -206,7 +204,7 @@ def tstring(ts, fm='%Y.%m.%d-%H:%M (%a)'):
 
 def dtets(dte=None):
     """ Conversion date - timestamp
-    
+
     :param date dt: date à convertir
     :return int: date en miliseconde (sans les ms)
     """
@@ -333,12 +331,12 @@ def dateadd(dte, nb, fm='d'):
     :param date dte: date de départ
     :param int nb: nombre de jour à additionner (valeur négative/positive)
     :param str fm: * days (default), * h (hours), * m (minutes)
-    
+
     :rtype: datetime
 
     """
     if fm == 'h':
-        return dte + timedelta(hours= nb)
+        return dte + timedelta(hours=nb)
     elif fm == 'm':
         return dte + timedelta(minutes=nb)
     else:

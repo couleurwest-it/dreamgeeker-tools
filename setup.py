@@ -29,17 +29,10 @@ setup(
     author_email="dreamgeeker@couleurwest-it.com",
     description="outils de developpement de base",
     long_description=open('README.md').read(),
-
-    # liste de dépendances pour votre lib
-    # install_requires=["gunicorn", "docutils >= 0.3", "lxml==0.5a7"] ,
     install_requires=["PyYAML==5.3.1", "requests==2.25.0", "urllib3==1.26.2", "whois==0.9.7",
                       "Cerberus== 1.3.2","Pillow == 8.0.1",  ],
-
-    # Active la prise en compte du fichier MANIFEST.in
     include_package_data=True,
     python_requires='>=3.8',
-
-    # Une url qui pointe vers la page officielle de votre lib
     url='https://github.com/couleurwest/dreamgeeker-tools',
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -51,11 +44,6 @@ setup(
     ],
 
     # La syntaxe est "nom-de-commande-a-creer = package.module:fonction".
-    # entry_points={
-    #    'console_scripts': [
-    #        'tools-installer = tools-installer',
-    #    ],
-    # }
 
 )
 

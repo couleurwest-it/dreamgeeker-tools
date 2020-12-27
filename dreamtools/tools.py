@@ -13,15 +13,27 @@ pathfile : dreamtools/tools
 Constantes globales
 --------------------
 .. note::
-    *  RGX_ACCENTS = 'àâäãéèêëîïìôöòõùüûÿñç'
-    *  RGX_EMAIL = Expression reguliere email
-    *  RGX_PUNCT = Caractere speciaux autorisé pour mot de passe
-    *  RGX_PWD = Expression régulière pour un mot de passe de 8 à 12 avec un car.Special/une Majuscule/Une minuscule
-    *  RGX_PHONE = Expression réguliere remative à un numéro de téléphon
-    *  RGX_URL = expression reguliere pour unr
 
-Fonctions
-----------
+    * RGX_ACCENTS = 'àâäãéèêëîïìôöòõùüûÿñç'
+    * RGX_EMAIL = Expression reguliere email
+    * RGX_PUNCT = Caractere speciaux autorisé pour mot de passe
+    * RGX_PWD = Expression régulière pour un mot de passe de 8 à 12 avec un car.Special/une Majuscule/Une minuscule
+    * RGX_PHONE = Expression réguliere remative à un numéro de téléphon
+    * RGX_URL = expression reguliere pour URL
+    * *PROJECT_DIR*  : Repertoire du projet
+    * *APP_NAME* : Nom de l'application
+    * *APP_DIR* : PROJECT_DIR/APP_NAME
+    * *TMP_DIR* : PROJECT_DIR/tmp
+
+.. warning::
+    Il faut configurer l'application afin d'avoir accès au variable PROJECT_DIR, APP_NAME, TMP_DIR
+
+    >>> from dreamtools import config
+    >>> from dreamtools import tools
+    >>> config.CConfig('monapp')
+    >>> print (tools.APP_DIR)
+    '../PROJECT/mon_app'
+
 """
 
 import ast
@@ -42,7 +54,6 @@ RGX_URL = r'https?:\/\/(www\.)?[-a-z0-9@:%._\+~#=]{1,256}\.[a-z0-9()]{1,6}\b([-a
 
 PROJECT_DIR = ''
 APP_NAME =''
-PROJECT_DIR =''
 APP_DIR =''
 TMP_DIR = ''
 
@@ -302,7 +313,7 @@ def aleatoire(end, s=1):
 
 
 def dir_worked():
-    """ renvoie du repertoire d'execution """
+    """ Répertoire d'execution """
 
     return os.getcwd()
 
@@ -316,16 +327,6 @@ def dir_parent(path):
     """
 
     return os.path.dirname(os.path.realpath(path))
-
-
-def dir_projet():
-    """Répertoire pour le fichier en cours
-
-    :rtype: str
-
-    """
-
-    return dir_parent(__file__)
 
 
 def dir_parser(directory, pattern="*"):
