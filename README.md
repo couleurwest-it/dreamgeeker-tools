@@ -1,4 +1,4 @@
-![Logo Couleur West IT](https://couleurwest-it.com/static/images/ban)
+![Logo Couleur West IT](https://github.com/couleurwest/dreamgeeker-tools/blob/main/logo.png)
 
 # Dreamtools
 
@@ -7,6 +7,7 @@
 Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://github.com/couleurwest/pypi/dreamgeeker-tools)
 
 [Lire la documentation](https://couleurwest-it.com/dreamtools) | [Télécharger documentation](https://github.com/couleurwest/dreamgeeker-tools/raw/main/docs/build/pdf/dreamtools.pdf)
+
 
 ## Paquets dépendants
 
@@ -17,6 +18,24 @@ Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://git
 * pillow 
 * pycrypt (uniquement sous Linux)
 * requests
+
+## Installation
+
+<pre>
+$ pip install dreamtools-dreamgeeker
+$ tools-installer
+</pre>
+
+## Configuration
+
+<pre>
+import dreamtools
+
+app_name = "AMON_APP"   #nom de votre application
+dreamtools.config(app_name, mode='DEBUG')  # par défaut mode ='PROD'
+</pre>
+
+# Informations 
 
 ## Génération documentation
 
@@ -30,3 +49,6 @@ Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://git
 
 ### Un conseil, un avis, une expertises 
 [Ecrivez-nous par mail](contact@couleurwest-it.com) | [Par Telegram](https://t.me/dreamgeeker)
+
+
+*By dreamgeeker &copy; 2020 Couleur West IT*
