@@ -1,2 +1,5 @@
-include script README.md
-recursive-include cfg *.yml
+# Example Package
+
+This is a simple example package. You can use
+[Dreamtoolsn](https://github.com/couleurwest/dreamgeeker-tools/)
+to write your content.

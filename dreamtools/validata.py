@@ -13,8 +13,8 @@ from .features import test_http_link
 from .logmng import CError
 
 schema_registry.add('email scheme', {'email': {'type': 'string', 'regex': tools.RGX_EMAIL}})
-schema_registry.add('sch_password', {'password': {'type': 'string', 'regex': tools.RGX_PWD}})
-schema_registry.add('fr phone', {'phone': {'type': 'string', 'regex': tools.RGX_PHONE}})
+schema_registry.add('passowrd scheme', {'password': {'type': 'string', 'regex': tools.RGX_PWD}})
+schema_registry.add('phone scheme', {'phone': {'type': 'string', 'regex': tools.RGX_PHONE}})
 
 liste_categorie = []
 
@@ -22,11 +22,11 @@ class Validata(Validator):
     """
     Validators
     """
-    __normalisator = cfgloader.normalizor()
-    __validators = cfgloader.validator()
+    _normalisator = cfgloader.normalizor()
+    _validators = cfgloader.validator()
 
     def __init__(self, scheme, *args, **kwargs):
-        dic = self.__validators.get(scheme)
+        dic = self._validators.get(scheme)
         dic['creation_date'] = {'type': 'integer', 'default_setter': 'utcnow'}
 
         super().__init__(dic, *args, **kwargs)
@@ -53,7 +53,7 @@ class Validata(Validator):
         """Nettoyeur de chaine"""
         return tools.clean_space(value)
 
-    def _normalize_coerce_dte(self, value):
+    def _normalize_coerce_event(self, value):
         """Validation de date au format '%d.%m.%Y %H:%M'"""
         try:
             dte = dtemng.strdate(value, '%d.%m.%Y %H:%M')
@@ -73,8 +73,13 @@ class Validata(Validator):
             self._error(field, "value not valid")
 
     def _check_with_url(self, field, value):
-        if value and not test_http_link(value):
+        from dreamtools import features
+        try:
+            if value and not features.test_http_link(value):
+                self._error(field, "lient url non valid")
+        except Exception as ex:
             self._error(field, "lient url non valid")
+            tracker.exception_tracking(ex, 'validata.validata._normalize_coerce_event')
 
     def validation(self, document, *args, **kwargs):
         """
@@ -96,7 +101,7 @@ class Validata(Validator):
         :param kwargs:
         :return:
         """
-        return Validator(self.__normalisator).normalized(document)
+        return Validator(self._normalisator).normalized(document)
 
     @staticmethod
     def check_post_data(data, form_ref):
@@ -114,7 +119,7 @@ class Validata(Validator):
             :return:
             """
             o = Validata(form_ref, purge_unknown=True)
-            d = {k: unquote(v) for k, v in data.items()}
+            d = {k: unquote(str(v)) for k,v in data.items()}
 
             d = o.validation(d)
             if d: return d
