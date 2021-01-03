@@ -62,7 +62,7 @@ class CMailer(object):
         :param to_receiver: Nom destinataire
         :return:
         """
-        
+
         tracker.flag("[dreamtools.mailbot] SEND_MAIL : Parametrage smtp")
         context = ssl.create_default_context()
 
@@ -91,7 +91,6 @@ class CMailer(object):
 
             return True
 
-
     @staticmethod
     def presend(email, code, name='', **data_field):
         """ Preparation pour envoi d'un message mail 
@@ -105,17 +104,18 @@ class CMailer(object):
         """
         tracker.flag('[dreamtools.mailbot] PRESEND:Loading template {}'.format(code))
         mail = cfgloader.mailing_lib(code)
-    
+
         tracker.flag('[dreamtools.mailbot] PRESEND: Preparation')
-    
+
         part1 = mail['text'].format(**data_field)
         part2 = mail['html'].format(**data_field)
         to_receiver = r'{} <{mail}>'.format(name, mail=email)
-    
+
         tracker.flag('[dreamtools.mailbot] PRESEND: Envoi ({}) -> {}'.format(code, email))
         send = tracker.fntracker(CMailer.__send_mail, 'Envoi ({}) -> {}'.format(code, email), mail.get('objt'),
                                  email, {'text': part1, 'html': part2}, to_receiver)
 
         return send.ok
+
 
 __all__ = ['CMailer']

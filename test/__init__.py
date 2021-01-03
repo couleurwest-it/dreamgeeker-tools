@@ -8,10 +8,13 @@ CConfig('dreamtools')
 
 
 class MyTestCase(unittest.TestCase):
-    def testinit(self):
+    @staticmethod
+    def testinit():
         print('Configuration')
         print(tools.string_me(55))
-    def testlog(self):
+
+    @staticmethod
+    def testlog():
         CTracker.info_tracking('test message info', 'je test')
 
 

@@ -65,7 +65,7 @@ class CFGEngine(object):
 
         try:
             if tools.file_exists(p):
-                with open(p, mode=m) if 'b' in m else  open(p, mode=m, encoding='utf-8') as cfg:
+                with open(p, mode=m) if 'b' in m else open(p, mode=m, encoding='utf-8') as cfg:
                     cfg = yaml.load(cfg, Loader=SafeLoader)
                     if type(cfg).__name__ == "dict":
                         cfg = dict(cfg)
@@ -84,14 +84,14 @@ class CFGEngine(object):
         Enregistrement d' un fichier
         ========================================
 
-        :param dict[str:str]|list[] d: données à enregistrer
+        :param dict(str, list(str)) d: données à enregistrer
         :param str f: nom du fichier
-        :param str m, default (write): mode "w|a", optional
+        :param str m: default (write): mode "w|a", optional
         :return:
         """
         tools.makedirs(tools.dirparent(f))
 
-        with open(f, m) if 'b' in m else  open(f, mode=m, encoding='utf-8') as f_yml:
+        with open(f, m) if 'b' in m else open(f, mode=m, encoding='utf-8') as f_yml:
             yaml.dump(d, stream=f_yml, allow_unicode=True)
 
         return f
@@ -110,15 +110,11 @@ class CFGBases(CFGEngine):
     _normalisator = tools.path_build(CFG_DIR, 'normalizor.yml')  # databases parameters
 
     @staticmethod
-    def loadingRef(filename, *args, **kwargs):
+    def loadingbyref(filename, *args, **kwargs):
         """
         Récupération des parametres de configuration du fichier <filepath> section <r>
 
-        :param str filepath: Fichier de configuration
-        :param str code: référence parametres à récupérer, optionnel
-        :param str mode: bytes par defaut
-        :return: configuration | None
-
+        :param str filename: Fichier de configuration
         """
         filepath = tools.path_build(CFGBases.CFG_DIR, f'{filename}.yml')
         return CFGEngine.loading(filepath, *args, **kwargs)
@@ -150,10 +146,6 @@ class CFGBases(CFGEngine):
     @staticmethod
     def validator():
         """ Parametres de validation de formulaire
-
-        :param str code: référence du formulaire
-        :return: parametres de validation
-        :rtype: dict
         """
         return CFGBases.loading(CFGBases._validator)
 

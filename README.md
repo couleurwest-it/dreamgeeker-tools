@@ -48,7 +48,7 @@ dreamtools.config(app_name, mode='DEBUG')  # par défaut mode ='PROD'
 *Accompagement au changement*
 
 ### Un conseil, un avis, une expertises 
-[Ecrivez-nous par mail](contact@couleurwest-it.com) | [Par Telegram](https://t.me/dreamgeeker)
+[Ecrivez-nous par mail](mailto://contact@couleurwest-it.com) | [Par Telegram](https://t.me/dreamgeeker)
 
 
 *By dreamgeeker &copy; 2020 Couleur West IT*

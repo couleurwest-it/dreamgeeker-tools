@@ -67,7 +67,8 @@ def maintenant(utc=False, fm=None, tz=None):
     """ Date et heure de l'instant (Now)
 
         :param bool utc: Si True renvoie de l'heure UTC (GMT) ou l'heure local
-        :param bool p_iso: 'iso' = Format iso | 'ts' = timeimestamp | None = datetime
+        :param str fm: format date : fm == FRM_ISO (iso) | FRM_TIMESTAMP (ts)
+        :param timezone tz: Timezone, None by def
         :rtype: datetime | string
 
         :Exemple:
@@ -118,12 +119,10 @@ def datestr(dte=None, fm='%Y-%m-%dT%H:%M:%S'):
 
     """
 
-    try:
-        if dte is None:
-            dte = maintenant()
-        return dte.strftime(fm)
-    except:
-        return None
+    if dte is None:
+        dte = maintenant()
+
+    return dte.strftime(fm)
 
 
 def today(fm='%d/%m/%Y'):
@@ -140,7 +139,7 @@ def today(fm='%d/%m/%Y'):
 
         """
 
-    return datestr(fm)
+    return datestr(fm=fm)
 
 
 def date_dayed(dte=None, b=True):
@@ -205,7 +204,7 @@ def tstring(ts, fm='%Y.%m.%d-%H:%M (%a)'):
 def dtets(dte=None):
     """ Conversion date - timestamp
 
-    :param date dt: date à convertir
+    :param date dte: date à convertir
     :return int: date en miliseconde (sans les ms)
     """
     if dte is None:
@@ -214,11 +213,11 @@ def dtets(dte=None):
     return int(dte.timestamp())  # int => sans les ms
 
 
-def strdate(dt, pt='%d-%m-%Y %H:%M:%S'):
+def strdate(dte, fm='%d-%m-%Y %H:%M:%S'):
     """ Conversion string - date
 
-    :param str dt: date
-    :param str pt, default '%d-%m-%Y %H:%M:%S': patterne, optional
+    :param str dte: date
+    :param str fm: formayt, default '%d-%m-%Y %H:%M:%S': patterne, optional
 
     :return: Renvoie la date convertit ou None en cas d'invalidité (date non conform)
     :rtype: datetime
@@ -230,18 +229,18 @@ def strdate(dt, pt='%d-%m-%Y %H:%M:%S'):
 
     """
 
-    return datetime.strptime(dt, pt)
+    return datetime.strptime(dte, fm)
 
 
-def isotodate(s_iso):
+def isotodate(dte):
     """ Conversion str_iso - date
 
     Format ISO : YYYY-MM-DDTHH:MN
-    :param p_dte:
+    :param dte:
 
     :return:
     """
-    return strdate(s_iso, pt='%Y-%m-%dT%H:%M:%S')
+    return strdate(dte, fm='%Y-%m-%dT%H:%M:%S')
 
 
 def datepaques(y):

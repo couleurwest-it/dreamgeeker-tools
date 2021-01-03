@@ -47,16 +47,16 @@ from string import punctuation, ascii_letters, digits
 RGX_ACCENTS = 'àâäãéèêëîïìôöòõùüûÿñç'
 RGX_EMAIL = r'^[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-.]+$'
 RGX_PWD = r'/.*(?=.{8,12})(?=.*[àâäãéèêëîïìôöòõùüûÿñça-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&?]).*/'
-RGX_PHONE = '^0[1-9]\d{8}$'
+RGX_PHONE = r'^0[1-9]\d{8}$'
 RGX_PUNCT = r'@#!?$&-_'
 RGX_URL = r'https?:\/\/(www\.)?[-a-z0-9@:%._\+~#=]{1,256}\.[a-z0-9()]{1,6}\b([-a-z0-9()@:%_\+.~#?&//=]*)'
 
-
+APP_NAME = ''
+# noinspection PyRedeclaration
 PROJECT_DIR = ''
-APP_NAME =''
-PROJECT_DIR =''
-APP_DIR =''
+APP_DIR = ''
 TMP_DIR = ''
+
 
 def print_err(*args, **kwargs):
     """Ecriture sur le flux erreur de la console
@@ -170,7 +170,7 @@ def addhex(h, v):
     """Additionne une valeur hexadécimal
 
     :param str h: valeur hexadécimal
-    :param str v: valeur entière à ajouter
+    :param int v: valeur entière à ajouter
     :return: valeur additionné en hexedécimal
 
     :Example:
@@ -188,7 +188,7 @@ def plain_hex(hx, s=3):
     """ Complète un chiffre hexadecimal en préfixant une valeur de zéro
 
     :param str hx: valeur hexadécimal
-    :param int v: longeur chaine attendu
+    :param int s: longeur chaine attendu
     :rtype: str:
 
     :Examples:
@@ -197,7 +197,7 @@ def plain_hex(hx, s=3):
         0x00129
 
     """
-    return hx[:2]+plain_zero(hx[2:], s)
+    return hx[:2] + plain_zero(hx[2:], s)
 
 
 def plain_zero(v, s):
@@ -330,17 +330,17 @@ def dirparent(path):
     return os.path.dirname(os.path.realpath(path))
 
 
-def dir_projet():
+def dirprojet():
     """Répertoire pour le fichier en cours
 
     :rtype: str
 
     """
 
-    return dir_parent(__file__)
+    return dirparent(__file__)
 
 
-def dir_parser(directory, pattern="*"):
+def dirparser(directory, pattern="*"):
     """Récupération des fichiers d'un répertoire
 
     :param str directory: repertoire
@@ -349,7 +349,7 @@ def dir_parser(directory, pattern="*"):
     :Exemple:
         >>> directory = 'C:\\Users\\public\\Documents\'
         >>> pattern='*.txt'
-        >>> for filename, path_file in dir_parser(directory, pattern):
+        >>> for filename, path_file in dirparser(directory, pattern):
         ...    print(path_file)
         'C:\\Users\\public\\Documents\\fichier.txt'
         'C:\\Users\\public\\Documents\\autre_fichier.txt'
@@ -435,7 +435,7 @@ def clean_dir(directory, pattern='*'):
     """
     i_count = 0
 
-    for filename, path_file in dir_parser(directory, pattern):
+    for filename, path_file in dirparser(directory, pattern):
         remove_file(path_file)
         i_count += 1
     return i_count
@@ -445,7 +445,7 @@ def add_list(v, ll):
     """ Ajout d'un item dans une liste avec gestion des doublons
 
     :param str v: valeur à ajouter
-    :param list l: liste
+    :param list ll: liste
 
     """
     if v not in ll:
@@ -457,7 +457,7 @@ def dictlist(k, v, d):
 
     :param str k: clé dictionnaire
     :param v: valeur à ajouter
-    :param dict[str, list[]] p_dic: dictionnaire
+    :param dict[str, list[]] d: dictionnaire
 
     :Exemple:
         >>> dictionnaire= {}
@@ -492,7 +492,7 @@ def str_dic(chaine):
     return ast.literal_eval(chaine)
 
 
-def pop_dic(l_id, dic):
+def pop_dic(l_ids, dic):
     """ Suppression d'une liste d'éléments d'un dictionnaire
 
     :param list[str] l_ids : liste de clé à supprimer
@@ -500,6 +500,5 @@ def pop_dic(l_id, dic):
 
     """
     if dic:
-        for s in l_id:
+        for s in l_ids:
             if s in dic: del dic[s]
-

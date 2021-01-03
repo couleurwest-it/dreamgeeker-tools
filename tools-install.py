@@ -6,7 +6,8 @@ from dreamtools import cfgloader
 from dreamtools import tools
 from source import source
 
-def set_project ():
+
+def set_project():
     base = tools.dirproject()
 
     print('[dreamtools-install] Création architecture')
@@ -18,7 +19,7 @@ def set_project ():
     tools.makedirs(tools.path_build(base, 'logs'))
 
     print('[dreamtools-install] Export configuration de base')
-    src = tools.path_build(base,'cfg')
+    src = tools.path_build(base, 'cfg')
 
     for files, data in source.items():
-        cfgloader.save_cfg(eval(data),tools.path_build(src, files))
+        cfgloader.save_cfg(eval(data), tools.path_build(src, files))

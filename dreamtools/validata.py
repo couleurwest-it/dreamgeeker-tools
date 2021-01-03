@@ -18,6 +18,7 @@ schema_registry.add('phone scheme', {'phone': {'type': 'string', 'regex': tools.
 
 liste_categorie = []
 
+
 class Validata(Validator):
     """
     Validators
@@ -40,10 +41,10 @@ class Validata(Validator):
         try:
             dte = dtemng.isotodate(value)  # str -> date
             dte = dtemng.datetime_from_local_to_utc(dte)  # local -> utc
-
-            return dtemng.dtets(dte)  # dte ->timestamp
         except:
             return None
+        else:
+            return dtemng.dtets(dte)  # dte ->timestamp
 
     def _normalize_coerce_int(self, value):
         """Transforme un nombre au format chaine en entier"""

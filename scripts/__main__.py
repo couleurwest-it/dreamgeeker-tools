@@ -2,23 +2,22 @@
 # -*- coding: utf-8 -*-
 # __main__.py
 
-import sys, shutil
+import shutil
+import sys
 
-from dreamtools.cfgmng import CFGBases as cfgloader
 from dreamtools import tools
-#from source import source
 
 
-def setproject ():
+def setproject():
     """
     Intialisation du projet
     """
     import pkg_resources
 
     base = tools.dirproject()
-    dest= tools.path_build(base, 'cfg')
+    dest = tools.path_build(base, 'cfg')
 
-    print ('**************************************************************************')
+    print('**************************************************************************')
     print('** Création architecture')
     print('** -----------------------------------------------------------------------')
     print('** Répertoire logs ')

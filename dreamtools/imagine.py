@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 # project/dreamtools/imagine.py
 
+import os
+from io import BytesIO
+
 from PIL import Image
 from PIL.ExifTags import TAGS
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
 
-import os
-from io import BytesIO
 from dreamtools import tools
-
 
 TYPE_IMG_JPEG = 'JPEG'
 TYPE_IMG_PNG = 'PNG'
@@ -54,7 +54,7 @@ class CImagine(object):
             try:
                 self.img = self.white_background
             except Exception as ex:  # pas de fond transparent
-                pass
+                tools.print_err("imagine.init Ajout fond blanc", ex)
 
         self.file = os.path.splitext(dest)[0]  # on s'assure de retirer l'extension
 
@@ -66,20 +66,16 @@ class CImagine(object):
         self.min_size = 250
         self.max_size = 500
 
-
     def __enter__(self):
         return self
-
 
     @property
     def _size(self):
         return self.w, self.h
 
-
     @_size.setter
     def _size(self, s):
         self.w, self.h = s
-
 
     @property
     def white_background(self):
@@ -95,7 +91,7 @@ class CImagine(object):
     def resize(self, s=None, mn=None, mx=None):
         """ Redimensionnement de l'image au format jpg
 
-        :param tuple(int, int): si indiqué, (w,h) de redimensionnement
+        :param tuple(int, int) s: si indiqué, (w,h) de redimensionnement
         :param int mn, default 250: taille maximum (carré), optional
         :param int mx, default 250: taille maximum de l'image, optional
         :return:
@@ -138,12 +134,8 @@ class CImagine(object):
         else:
             img.save(self.file + ".thumb", TYPE_IMG_JPEG)
 
-
-
     def __exit__(self, exc_type, exc_value, traceback):
         self.img.close()
-
-
 
     def protected(self, artist):
         """Ajoute un nom d'artist et le copyright d'une image"""
@@ -160,6 +152,7 @@ class CImagine(object):
 
         self.exif = b"Exif\x00\x00" + out.getvalue()
         self.img.save(self.file, TYPE_IMG_JPEG, exif=self.exif)
+
 
 def treat_dir(s):
     """

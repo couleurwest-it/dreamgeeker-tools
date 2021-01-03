@@ -33,7 +33,6 @@ class CKrypting:
     SALT = cfgloader.app_cfg('SECRET_KEY')
     SALT_EXT = cfgloader.app_cfg('SALT')
 
-
     @staticmethod
     def __encrypt(ch, prefix):
         if isinstance(ch, bytes):
@@ -46,7 +45,6 @@ class CKrypting:
 
         return crypt.crypt(ch, prefix)
 
-
     @staticmethod
     def encrypt(ch):
         """Crypte une chaine selon la clé privé et le grain de sel paramétrés
@@ -58,21 +56,19 @@ class CKrypting:
 
         return CKrypting.__encrypt(ch, CKrypting.PREFIX + CKrypting.SALT)
 
-
     @staticmethod
     def extern_encrypt(ch):
-        '''
+        """
         Cryptage chaine pour utilisation extrene (suppression prefix)
 
         :param str ch:
         :return: mot de passe crypté - grain de sel
-        '''
+        """
         """This is used in place of `mkpasswd --sha-512`"""
         s = CKrypting.__encrypt(ch, CKrypting.PREFIX + CKrypting.SALT_EXT)
         i = len(CKrypting.SALT_EXT)
 
         return s[i:]
-
 
     @staticmethod
     def compare(enc, s):

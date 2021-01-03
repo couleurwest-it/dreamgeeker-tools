@@ -7,7 +7,7 @@ import dreamtools
 from dreamtools import cfgloader
 from dreamtools import tools
 
-#enregistrement des sources de bases (yaml)
+# enregistrement des sources de bases (yaml)
 directory = tools.dirproject()
 mydir = tools.path_build(directory, 'cfg')
 source = {}
@@ -21,7 +21,7 @@ with open(mysource, encoding='utf-8', mode='w') as src:
 cfg = ["cfg/*.yml"]
 with open('README.md') as readme:
     long_description = readme.read()
-#setup------------------------------
+# setup------------------------------
 setup(
 
     name='dreamtools-dreamgeeker',
@@ -34,8 +34,7 @@ setup(
 
     # liste de dépendances pour votre lib
     # install_requires=["gunicorn", "docutils >= 0.3", "lxml==0.5a7"] ,
-    install_requires=['setuptools','pyaml','requests', 'cerberus>= 1.3.2', 'pillow', 'pytz'
-                      ,"urllib3", "whois==0.9.7","Cerberus== 1.3.2","Pillow == 8.0.1",  ],
+    install_requires=['setuptools', 'pyaml', 'requests', 'cerberus>= 1.3.2', 'pillow', 'pytz', "urllib3", "whois==0.9.7", "Cerberus== 1.3.2", "Pillow == 8.0.1", ],
 
     # Active la prise en compte du fichier MANIFEST.in
     include_package_data=True,
@@ -51,14 +50,11 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: Software Development",
     ],
-    packages=find_packages(),
     package_data={'dreamtools': cfg},
-    include_package_data=True,
-    python_requires='>=3.8',
-    entry_points= {
+    entry_points={
         'console_scripts': [
             'tools-installer = scripts.__main__:setproject'
-        ],
+        ]
     }
 )
 
@@ -75,3 +71,4 @@ setup(
 # python3 -m pip install --user --upgrade setuptools wheel
 # python3 setup.py sdist bdist_wheel
 # python3 -m twine upload --repository dreamtools dist/*
+

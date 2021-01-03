@@ -79,7 +79,7 @@ class CError(Exception, CReponder):
         Exception.__init__(self, message)
         CReponder.__init__(self, status, msg=message)
 
-        self.__setattr__('title', title)
+        self.title = title
 
 
 class CTracker:
@@ -119,21 +119,19 @@ class CTracker:
         """
         logging.log(log_level, msg, extra={'title': title, 'code': code})
 
-
     @staticmethod
-    def alert_tracking(msg, title, code=''):
+    def alert_tracking(msg, title, code=0):
         """ Message d'alerte (WARNING)
 
         :param str msg: message à ecrire dans logs
         :param str title: Titre ou référence associé au message
-        :param code: Code numérique
+        :param int code: Code numérique
         """
 
         CTracker.msg_tracking(msg, title, logging.WARNING, code)
 
-
     @staticmethod
-    def info_tracking(msg, title, code=''):
+    def info_tracking(msg, title, code=0):
         """ Message d'info (INFO)
 
         :param str msg: message à ecrire dans logs
@@ -142,7 +140,6 @@ class CTracker:
         """
 
         CTracker.msg_tracking(msg, title, logging.INFO, code)
-
 
     @staticmethod
     def error_tracking(msg, title, code=500):
@@ -155,17 +152,15 @@ class CTracker:
 
         CTracker.msg_tracking(msg, title, logging.ERROR, code)
 
-
     @staticmethod
-    def critical_tracking(msg, title, code=''):
+    def critical_tracking(msg, title, code=0):
         """ Message dcritique (CRITIQUE)
 
         :param str msg: message à ecrire dans logs
         :param str title: Titre ou référence associé au message
-        :param code: Code numérique
+        :param int code: Code numérique
         """
         CTracker.msg_tracking(msg, title, logging.CRITICAL, code)
-
 
     @staticmethod
     def flag(trace):
@@ -174,7 +169,6 @@ class CTracker:
         :param str trace: Action à enregistrer
         """
         CTracker.LOG_TRACKED = trace
-
 
     @staticmethod
     def exception_tracking(ex, title):
@@ -199,7 +193,7 @@ class CTracker:
         except Exception as sex:
             tools.print_err('Erreur intercepté : ', ex)
             tools.print_err('Erreur module logmng : ', sex)
-            return CError(status=500)
+            return CError(ex, status=500)
 
     @staticmethod
     def fntracker(fn, action, *args, **kwargs):
@@ -213,13 +207,11 @@ class CTracker:
 
         :Exemple:
             >>> from dreamtools.logmng import CTracker
-            >>> def fn(param)::
-            >>>     return int(param)
-
+            >>> def fn(arg)::
+            >>>     return int(arg)
             >>> r = CTracker.fntracker(fn, 'Test de convertion int', 'j')
             >>> r.response
             {'message': "invalid literal for int() with base 10: 'j'", 'data': None, 'status_code': 500}
-
             >>> r = CTracker.fntracker(fn, 'Test de convertion int', '589321')
             >>> r.response
             {'message': None, 'data': 589321, 'status_code': 200}
