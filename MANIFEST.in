@@ -1,2 +1,4 @@
-include script README.md
+include README.md *.png
 recursive-include cfg *.yml
+exclude requirements.txt undoc.sh
+

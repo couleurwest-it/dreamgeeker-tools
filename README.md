@@ -1,4 +1,4 @@
-![Logo Couleur West IT](https://github.com/couleurwest/dreamgeeker-tools/blob/main/logo.png)
+![Logo Couleur West IT](https://couleurwest-it.com/static/images/ban)
 
 # Dreamtools
 
@@ -16,7 +16,7 @@ Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://git
 * cerberus
 * pyaml
 * pillow 
-* pycrypt (uniquement sous Linux)
+* pycrypt *(Module Krypt uniquement sous Linux)*
 * requests
 
 ## Installation
