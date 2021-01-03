@@ -16,7 +16,7 @@ class CConfig():
         """
 
         tools.APP_NAME = app
-        tools.PROJECT_DIR = tools.get_dir_path()
+        tools.PROJECT_DIR = tools.dirproject()
         tools.APP_DIR = tools.path_build(tools.PROJECT_DIR, tools.APP_NAME)
         tools.TMP_DIR = tools.path_build(tools.PROJECT_DIR, 'tmp')
 

@@ -91,7 +91,7 @@ class CMailer(object):
             return True
 
 
-    staticmethod
+    @staticmethod
     def presend(email, code, name='', **data_field):
         """ Preparation pour envoi d'un message mail 
         

@@ -312,13 +312,13 @@ def aleatoire(end, s=1):
     return randint(s, end)
 
 
-def dir_worked():
+def dirproject():
     """ Répertoire d'execution """
 
     return os.getcwd()
 
 
-def dir_parent(path):
+def dirparent(path):
     """  Renvoie du repertoire parent
 
     :param str path: repertoire
@@ -329,7 +329,7 @@ def dir_parent(path):
     return os.path.dirname(os.path.realpath(path))
 
 
-def dir_parser(directory, pattern="*"):
+def dirparser(directory, pattern="*"):
     """Récupération des fichiers d'un répertoire
 
     :param str directory: repertoire
@@ -338,7 +338,7 @@ def dir_parser(directory, pattern="*"):
     :Exemple:
         >>> directory = 'C:\\Users\\public\\Documents\'
         >>> pattern='*.txt'
-        >>> for filename, path_file in dir_parser(directory, pattern):
+        >>> for filename, path_file in dirparser(directory, pattern):
         ...    print(path_file)
         'C:\\Users\\public\\Documents\\fichier.txt'
         'C:\\Users\\public\\Documents\\autre_fichier.txt'
@@ -424,7 +424,7 @@ def clean_dir(directory, pattern='*'):
     """
     i_count = 0
 
-    for filename, path_file in dir_parser(directory, pattern):
+    for filename, path_file in dirparser(directory, pattern):
         remove_file(path_file)
         i_count += 1
     return i_count

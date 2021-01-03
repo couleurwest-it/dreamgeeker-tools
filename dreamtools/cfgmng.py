@@ -34,7 +34,7 @@ class CFGEngine(object):
     """
     cfg engine
     """
-    __dir_path = None
+    __dirpath = None
 
     @staticmethod
     def initial(baz_dir='cfg'):
@@ -43,12 +43,12 @@ class CFGEngine(object):
         :param str baz_dir:
         :return:
         """
-        CFGEngine.__dir_path = tools.path_build(tools.PROJECT_DIR, baz_dir)
+        CFGEngine.__dirpath = tools.path_build(tools.PROJECT_DIR, baz_dir)
 
     @staticmethod
     def working_directory(sub_dir):
         CFGEngine.initial()
-        return tools.path_build(CFGEngine.__dir_path, sub_dir)
+        return tools.path_build(CFGEngine.__dirpath, sub_dir)
 
     @staticmethod
     def loading(p, ref=None, m='r'):
@@ -89,7 +89,7 @@ class CFGEngine(object):
         :param str m, default (write): mode "w|a", optional
         :return:
         """
-        tools.makedirs(tools.dir_parent(f))
+        tools.makedirs(tools.dirparent(f))
 
         with open(f, m) if 'b' in m else  open(f, mode=m, encoding='utf-8') as f_yml:
             yaml.dump(d, stream=f_yml, allow_unicode=True)

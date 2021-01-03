@@ -8,11 +8,11 @@ from dreamtools import cfgloader
 from dreamtools import tools
 
 #enregistrement des sources de bases (yaml)
-directory = tools.dir_projet()
+directory = tools.dirproject()
 mydir = tools.path_build(directory, 'cfg')
 source = {}
 
-for file, path_file in tools.dir_parser(mydir):
+for file, path_file in tools.dirparser(mydir):
     source[file] = f"{cfgloader.loading(path_file)}"
 
 mysource = tools.path_build(directory, 'source.py')

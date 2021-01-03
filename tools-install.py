@@ -7,7 +7,7 @@ from dreamtools import tools
 from source import source
 
 def set_project ():
-    base = tools.get_dir_path()
+    base = tools.dirproject()
 
     print('[dreamtools-install] Création architecture')
 
