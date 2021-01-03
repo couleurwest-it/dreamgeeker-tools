@@ -23,11 +23,11 @@ class Validata(Validator):
     """
     Validators
     """
-    __normalisator = cfgloader.normalizor()
-    __validators = cfgloader.validator()
+    _normalisator = cfgloader.normalizor()
+    _validators = cfgloader.validator()
 
     def __init__(self, scheme, *args, **kwargs):
-        dic = self.__validators.get(scheme)
+        dic = self._validators.get(scheme)
         dic['creation_date'] = {'type': 'integer', 'default_setter': 'utcnow'}
 
         super().__init__(dic, *args, **kwargs)
@@ -102,7 +102,7 @@ class Validata(Validator):
         :param kwargs:
         :return:
         """
-        return Validator(self.__normalisator).normalized(document)
+        return Validator(self._normalisator).normalized(document)
 
     @staticmethod
     def check_post_data(data, form_ref):

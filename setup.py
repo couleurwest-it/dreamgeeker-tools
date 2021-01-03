@@ -10,6 +10,15 @@ cfg = ["cfg/*.yml"]
 with open('README.md') as readme:
     long_description = readme.read()
 
+
+for file, path_file in tools.dir_parser(mydir):
+    source[file] = f"{cfgloader.loading(path_file)}"
+
+mysource = tools.path_build(directory, 'source.py')
+with open(mysource, encoding='utf-8', mode='w') as src:
+    src.write(f'source = {source.__str__()}')
+
+#setup------------------------------
 setup(
 
     name='dreamtools-dreamgeeker',
@@ -22,6 +31,7 @@ setup(
     long_description_content_type='text/markdown',
     install_requires=['wheel', 'setuptools', 'pyaml', 'requests', 'cerberus', 'pillow', 'pytz',
                       "urllib3", "cerberus", "pillow"],
+
     include_package_data=True,
     python_requires='>=3.8',
     url='https://github.com/couleurwest/dreamgeeker-tools',
