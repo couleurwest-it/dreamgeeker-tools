@@ -9,7 +9,6 @@ from . import cfgloader
 from . import dtemng
 from . import tools
 from . import tracker
-from .features import test_http_link
 from .logmng import CError
 
 schema_registry.add('email scheme', {'email': {'type': 'string', 'regex': tools.RGX_EMAIL}})
@@ -23,11 +22,11 @@ class Validata(Validator):
     """
     Validators
     """
-    _normalisator = cfgloader.normalizor()
-    _validators = cfgloader.validator()
+    __normalisator = cfgloader.normalizor()
+    __validators = cfgloader.validator()
 
     def __init__(self, scheme, *args, **kwargs):
-        dic = self._validators.get(scheme)
+        dic = self.__validators.get(scheme)
         dic['creation_date'] = {'type': 'integer', 'default_setter': 'utcnow'}
 
         super().__init__(dic, *args, **kwargs)
@@ -102,7 +101,7 @@ class Validata(Validator):
         :param kwargs:
         :return:
         """
-        return Validator(self._normalisator).normalized(document)
+        return Validator(self.__normalisator).normalized(document)
 
     @staticmethod
     def check_post_data(data, form_ref):

@@ -114,10 +114,7 @@ class CFGBases(CFGEngine):
         """
         Récupération des parametres de configuration du fichier <filepath> section <r>
 
-        :param str filepath: Fichier de configuration
-        :param str code: référence parametres à récupérer, optionnel
-        :param str mode: bytes par defaut
-        :return: configuration | None
+        :param str filename: Fichier de configuration
         """
         filepath = tools.path_build(CFGBases.CFG_DIR, f'{filename}.yml')
         return CFGEngine.loading(filepath, *args, **kwargs)

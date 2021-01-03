@@ -25,3 +25,21 @@ twine upload --repository testpypi dist/*1.0.4*
 #echo "\tVersion PROD !"
 #twine upload --repository dreamtools dist/*
 pause
+
+
+# tester
+#sphinx-quickstart
+# make html
+# sphinx-build -b rinoh source _build/rinoh
+# python setup.py install
+# publier sur pypi
+# $ python setup.py register
+# Puis, il faut créer une distribution source (sdist) et le mettre en ligne (upload):
+# python setup.py sdist upload
+# mise a jour apres changement de version ! :-)
+
+# pip install twine
+# #python3 -m pip install --user --upgrade setuptools wheel
+# python3 setup.py sdist bdist_wheel
+# python3 -m twine upload --repository dreamtools dist/*
+

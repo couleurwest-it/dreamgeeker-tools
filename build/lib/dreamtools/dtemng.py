@@ -12,7 +12,7 @@ Constantes globales
 -------------------
 
 Liste des jours de la semaine
-I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,0
+I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,7
 
 Fonctions
 -------------
@@ -123,7 +123,7 @@ def datestr(dte=None, fm='%Y-%m-%dT%H:%M:%S'):
         dte = maintenant()
 
     return dte.strftime(fm)
-  
+
 
 def today(fm='%d/%m/%Y'):
     """ Renvoie la date du jour

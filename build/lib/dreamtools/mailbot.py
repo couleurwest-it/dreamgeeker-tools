@@ -21,6 +21,7 @@ Pré-Requis
      pw: password_auth
      h_s : name_sender <email>
 
+
 .. warning::
 
     Les mails sont à définir dans le ficchier <PROJECT_NAME>/cfg/mailing.yml au format suivant

@@ -1,5 +1,3 @@
-# Example Package
-
-This is a simple example package. You can use
-[Dreamtoolsn](https://github.com/couleurwest/dreamgeeker-tools/)
-to write your content.
+include README.md *.png
+recursive-include cfg *.yml
+exclude requirements.txt undoc.sh
