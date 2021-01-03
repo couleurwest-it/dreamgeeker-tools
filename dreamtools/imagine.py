@@ -1,12 +1,15 @@
+# !/usr/bin/python3
 # -*- coding: utf-8 -*-
 # project/dreamtools/imagine.py
-
-import os
-from io import BytesIO
 
 from PIL import Image
 from PIL.ExifTags import TAGS
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
+
+import os
+from io import BytesIO
+from dreamtools import tools
+
 
 TYPE_IMG_JPEG = 'JPEG'
 TYPE_IMG_PNG = 'PNG'
@@ -28,6 +31,11 @@ class CImagine(object):
 
     def __init__(self, src, dest, with_ext=False):
         """
+        Preparation image  pour traitement
+        ==================================
+        Les images sont convertit au format JPEG
+
+        :parametres:
         :param str src: pathfile image d'origine
         :param src dest: path destionantion image
         :param bool with_ext: Avec ou sans extension, False par défaut
@@ -75,12 +83,14 @@ class CImagine(object):
 
     @property
     def white_background(self):
-        """Fond blanc, utilisé pour remplacer un fond transparent """
+        """
+        Ajout d'un fond transparent
+        :return:
+        """
         bg = Image.new("RGB", self._size, (255, 255, 255))
         bg.paste(self.img, self.img)
 
         return bg
-
 
     def resize(self, s=None, mn=None, mx=None):
         """ Redimensionnement de l'image au format jpg
@@ -112,7 +122,6 @@ class CImagine(object):
 
         img = self.img.resize(s)
         img.save(self.file, TYPE_IMG_JPEG)
-
 
     def thumbed(self, s=None):
         """ Thumb Image

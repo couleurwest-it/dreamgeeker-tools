@@ -18,7 +18,9 @@ for file, path_file in tools.dirparser(mydir):
 mysource = tools.path_build(directory, 'source.py')
 with open(mysource, encoding='utf-8', mode='w') as src:
     src.write(f'source = {source.__str__()}')
-
+cfg = ["cfg/*.yml"]
+with open('README.md') as readme:
+    long_description = readme.read()
 #setup------------------------------
 setup(
 
@@ -28,11 +30,18 @@ setup(
     author="dreamgeeker",
     author_email="dreamgeeker@couleurwest-it.com",
     description="outils de developpement de base",
-    long_description=open('README.md').read(),
-    install_requires=["PyYAML==5.3.1", "requests==2.25.0", "urllib3==1.26.2", "whois==0.9.7",
-                      "Cerberus== 1.3.2","Pillow == 8.0.1",  ],
+    long_description=long_description,
+
+    # liste de dépendances pour votre lib
+    # install_requires=["gunicorn", "docutils >= 0.3", "lxml==0.5a7"] ,
+    install_requires=['setuptools','pyaml','requests', 'cerberus>= 1.3.2', 'pillow', 'pytz'
+                      ,"urllib3", "whois==0.9.7","Cerberus== 1.3.2","Pillow == 8.0.1",  ],
+
+    # Active la prise en compte du fichier MANIFEST.in
     include_package_data=True,
     python_requires='>=3.8',
+
+    # Une url qui pointe vers la page officielle de votre lib
     url='https://github.com/couleurwest/dreamgeeker-tools',
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -42,9 +51,15 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: Software Development",
     ],
-
-    # La syntaxe est "nom-de-commande-a-creer = package.module:fonction".
-
+    packages=find_packages(),
+    package_data={'dreamtools': cfg},
+    include_package_data=True,
+    python_requires='>=3.8',
+    entry_points= {
+        'console_scripts': [
+            'tools-installer = scripts.__main__:setproject'
+        ],
+    }
 )
 
 # tester

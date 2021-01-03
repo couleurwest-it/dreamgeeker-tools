@@ -11,7 +11,7 @@ __author__ = "Ketsia LENTIN"
 __copyright__ = "Copyright 2020, Couleur West IT"
 __credits__ = "Ketsia LENTIN"
 __license__ = "MIT"
-__version__ = "1.0.1"
+__version__ = "1.0.0"
 __email__ = "contact@couleurwest-it"
 __status__ = "Production"
 __docformat__ = 'reStructuredText'
@@ -19,6 +19,8 @@ __docformat__ = 'reStructuredText'
 from dreamtools import tools
 from dreamtools.cfgmng import CFGBases as cfgloader
 from dreamtools.logmng import CTracker as tracker
+
+
 
 if __name__ == "__main__":
     import doctest

@@ -1,2 +1,2 @@
-.. automodule:: toolbox.dtemng
+.. automodule:: dreamtools.dtemng
    :members:

@@ -54,6 +54,7 @@ RGX_URL = r'https?:\/\/(www\.)?[-a-z0-9@:%._\+~#=]{1,256}\.[a-z0-9()]{1,6}\b([-a
 
 PROJECT_DIR = ''
 APP_NAME =''
+PROJECT_DIR =''
 APP_DIR =''
 TMP_DIR = ''
 
@@ -329,7 +330,17 @@ def dirparent(path):
     return os.path.dirname(os.path.realpath(path))
 
 
-def dirparser(directory, pattern="*"):
+def dir_projet():
+    """Répertoire pour le fichier en cours
+
+    :rtype: str
+
+    """
+
+    return dir_parent(__file__)
+
+
+def dir_parser(directory, pattern="*"):
     """Récupération des fichiers d'un répertoire
 
     :param str directory: repertoire
@@ -338,7 +349,7 @@ def dirparser(directory, pattern="*"):
     :Exemple:
         >>> directory = 'C:\\Users\\public\\Documents\'
         >>> pattern='*.txt'
-        >>> for filename, path_file in dirparser(directory, pattern):
+        >>> for filename, path_file in dir_parser(directory, pattern):
         ...    print(path_file)
         'C:\\Users\\public\\Documents\\fichier.txt'
         'C:\\Users\\public\\Documents\\autre_fichier.txt'
@@ -424,7 +435,7 @@ def clean_dir(directory, pattern='*'):
     """
     i_count = 0
 
-    for filename, path_file in dirparser(directory, pattern):
+    for filename, path_file in dir_parser(directory, pattern):
         remove_file(path_file)
         i_count += 1
     return i_count

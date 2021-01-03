@@ -7,8 +7,17 @@ Installation
 ------------
 .. code-block:: BASH
 
-    $ pip install deamtools
-    $ tools-install
+    $ pip install dreamtools
+    $ tools-installer
+    **************************************************************************
+    ** Création architecture
+    ** -----------------------------------------------------------------------
+    **  Répertoire logs
+    **      >> Répertoire créé :  C:\Users\Ohanna\Geekspace\testpack\logs
+    **  Répertoire configuration
+    **      >> Répertoire créé :  C:\Users\Ohanna\Geekspace\testpack\cfg
+    **=======================================================================-
+
 
 Le répertoire de configuration 'cfg' sera créé à la racine du projet.
 
@@ -19,10 +28,10 @@ Configuration
 --------------
 .. code-block:: PYTHON3
 
-    import toolbox
+    import dreamtools
 
     app_name = "AMON_APP"   #nom de votre application
-    toolbox.config(app_name, mode='DEBUG')  # par défaut mode ='PROD'
+    dreamtools.config(app_name, mode='DEBUG')  # par défaut mode ='PROD'
 
 .. warning::
     Le paquet comprend un module de cryptage non supporté par Winddows
