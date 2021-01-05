@@ -22,7 +22,7 @@ Vous pouvez télécharger depuis notre dépôt Github:  [Dreamtools](https://git
 ## Installation
 
 <pre>
-$ pip install dreamtools-dreamgeeker
+$ pip install [--upgrade] dreamtools-dreamgeeker
 $ tools-installer
 </pre>
 
