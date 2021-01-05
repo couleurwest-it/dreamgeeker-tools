@@ -14,8 +14,6 @@ def setproject():
     """
 
     base = tools.dirproject()
-    print(base)
-    return False
     dest = tools.path_build(base, 'cfg')
 
     print('**************************************************************************')
