@@ -477,7 +477,7 @@ def dictlist(k, v, d):
 
 
 def str_dic(chaine):
-    """Convertion d'une chaine en distionnaire
+    """Convertion d'une chaine en dictionnaire
 
     :param str chaine:
     :rtype: dic
@@ -502,3 +502,11 @@ def pop_dic(l_ids, dic):
     if dic:
         for s in l_ids:
             if s in dic: del dic[s]
+
+def dicFindKey (value, dic):
+    """Recherche une clé d'un dictionnaire à partir de sa valeur"""
+    for k, v in dic.items():
+        if v == value:
+            return k
+    else:
+        return None

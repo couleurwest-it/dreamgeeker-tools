@@ -9,7 +9,6 @@ from . import cfgloader
 from . import dtemng
 from . import tools
 from . import tracker
-from .features import test_http_link
 from .logmng import CError
 
 schema_registry.add('email scheme', {'email': {'type': 'string', 'regex': tools.RGX_EMAIL}})
@@ -120,7 +119,7 @@ class Validata(Validator):
             :return:
             """
             o = Validata(form_ref, purge_unknown=True)
-            d = {k: unquote(str(v)) for k, v in data.items()}
+            d = {k: unquote(tools.clean_space(v)) for k, v in data.items()}
 
             d = o.validation(d)
             if d: return d

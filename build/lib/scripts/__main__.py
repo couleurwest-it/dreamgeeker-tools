@@ -5,6 +5,8 @@
 import shutil
 import sys
 
+import pkg_resources
+
 from dreamtools import tools
 
 
@@ -14,8 +16,7 @@ def setproject():
     """
 
     base = tools.dirproject()
-    print(base)
-    return False
+
     dest = tools.path_build(base, 'cfg')
 
     print('**************************************************************************')
