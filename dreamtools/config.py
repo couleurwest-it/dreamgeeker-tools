@@ -5,7 +5,9 @@ from . import tracker
 class CConfig:
 
     def __init__(self, app, mode="PROD"):
-        """ Configuration des parametres d'accès relatif au projet en cours
+        """
+        Configuration des parametres d'accès relatif au projet en cours
+        ==============================================================
 
         Parametres
         -----------
