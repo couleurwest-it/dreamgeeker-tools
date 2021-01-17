@@ -16,7 +16,6 @@ def setproject():
     """
 
     base = tools.dirproject()
-
     dest = tools.path_build(base, 'cfg')
 
     print('**************************************************************************')
