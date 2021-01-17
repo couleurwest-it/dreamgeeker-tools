@@ -10,7 +10,7 @@ pathfile : dreamtools/tools
 Pré-Requis
 ----------------------
 Une clé privé et un grain de sel doivent être défini dans le fichier "de parapetre d'application"
-**PROJECT_DIR/cfg/.app.yml**
+**DIRPROJECT/cfg/.app.yml**
 * SECRET_KEY
 * SALT_EXT
 
@@ -30,8 +30,8 @@ class CKrypting:
     Gestion kryptage des données
     """
     PREFIX = "$5$"
-    SALT = cfgloader.app_cfg('SECRET_KEY')
-    SALT_EXT = cfgloader.app_cfg('SALT')
+    SALT = cfgloader.loadcfgapp('SECRET_KEY')
+    SALT_EXT = cfgloader.loadcfgapp('SALT')
 
     @staticmethod
     def __encrypt(ch, prefix):

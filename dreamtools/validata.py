@@ -9,7 +9,6 @@ from . import cfgloader
 from . import dtemng
 from . import tools
 from . import tracker
-from .features import test_http_link
 from .logmng import CError
 
 schema_registry.add('email scheme', {'email': {'type': 'string', 'regex': tools.RGX_EMAIL}})
@@ -23,8 +22,8 @@ class Validata(Validator):
     """
     Validators
     """
-    _normalisator = cfgloader.normalizor()
-    _validators = cfgloader.validator()
+    _normalisator = cfgloader.lloadcfgnormalizor()
+    _validators = cfgloader.loadcfgvalidator()
 
     def __init__(self, scheme, *args, **kwargs):
         dic = self._validators.get(scheme)
@@ -96,10 +95,7 @@ class Validata(Validator):
 
     def normalisation(self, document):
         """
-
         :param document:
-        :param args:
-        :param kwargs:
         :return:
         """
         return Validator(self._normalisator).normalized(document)
@@ -120,13 +116,20 @@ class Validata(Validator):
             :return:
             """
             o = Validata(form_ref, purge_unknown=True)
-            d = {k: unquote(str(v)) for k, v in data.items()}
+            d = {}
+            for k, v in data.items():
+                if tools.clean_space(v) in ['', 'None']:
+                    continue
+                elif type(v).__name__ == str:
+                    d[k] = unquote(v)
+                else:
+                    d[k] = v
 
             d = o.validation(d)
             if d: return d
 
             d = o.normalisation(o.errors)
-            print(d)
+
             raise CError(','.join(d.keys()), 400, "VALIDATA.CHECK_POST_DATA")
 
         reponce = tracker.fntracker(fn, 'VALIDATA.CHECK_POST_DATA')

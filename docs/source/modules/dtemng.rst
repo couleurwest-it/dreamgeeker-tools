@@ -1,2 +1,0 @@
-.. automodule:: dreamtools.dtemng
-   :members:

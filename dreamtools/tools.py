@@ -20,18 +20,18 @@ Constantes globales
     * RGX_PWD = Expression régulière pour un mot de passe de 8 à 12 avec un car.Special/une Majuscule/Une minuscule
     * RGX_PHONE = Expression réguliere remative à un numéro de téléphon
     * RGX_URL = expression reguliere pour URL
-    * *PROJECT_DIR*  : Repertoire du projet
-    * *APP_NAME* : Nom de l'application
-    * *APP_DIR* : PROJECT_DIR/APP_NAME
-    * *TMP_DIR* : PROJECT_DIR/tmp
+    * *DIRPROJECT*  : Repertoire du projet
+    * *APPNAME* : Nom de l'application
+    * *DIRAPP* : DIRPROJECT/APPNAME
+    * *DIRTMP* : DIRPROJECT/tmp
 
 .. warning::
-    Il faut configurer l'application afin d'avoir accès au variable PROJECT_DIR, APP_NAME, TMP_DIR
+    Il faut configurer l'application afin d'avoir accès au variable DIRPROJECT, APPNAME, DIRTMP
 
     >>> from dreamtools import config
     >>> from dreamtools import tools
     >>> config.CConfig('monapp')
-    >>> print (tools.APP_DIR)
+    >>> print (tools.DIRAPP)
     '../PROJECT/mon_app'
 
 """
@@ -51,11 +51,11 @@ RGX_PHONE = r'^0[1-9]\d{8}$'
 RGX_PUNCT = r'@#!?$&-_'
 RGX_URL = r'https?:\/\/(www\.)?[-a-z0-9@:%._\+~#=]{1,256}\.[a-z0-9()]{1,6}\b([-a-z0-9()@:%_\+.~#?&//=]*)'
 
-APP_NAME = ''
+APPNAME = ''
 # noinspection PyRedeclaration
-PROJECT_DIR = ''
-APP_DIR = ''
-TMP_DIR = ''
+DIRPROJECT = ''
+DIRAPP = ''
+DIRTMP = ''
 
 
 def print_err(*args, **kwargs):
@@ -495,10 +495,38 @@ def str_dic(chaine):
 def pop_dic(l_ids, dic):
     """ Suppression d'une liste d'éléments d'un dictionnaire
 
-    :param list[str] l_ids : liste de clé à supprimer
-    :param dict[str:object] dic: dictionaire à nettoyer
+    :param list(str) l_ids : liste de clé à supprimer
+    :param dict(str:object) dic: dictionaire à nettoyer
 
     """
     if dic:
         for s in l_ids:
             if s in dic: del dic[s]
+
+
+def dirname(pathfile):
+    """Extraction du nom de fichier à partir d'un chemin
+
+    :Parametres:
+    :param str pathfile: chemin fichier à envoyer
+
+    :Exemple:
+        >>> s = '/home/user/documents/file.ext'
+        >>> dirname(s)
+        file.ext
+    """
+    return os.path.basename(pathfile)
+
+
+def switch(dc):
+    """
+    Permute les clé-valeurs d'un dictionnaire
+    :param dict(str, str)dc: dictionnaire à permuter
+
+    :Exemple:
+        >>> d = {'fruits': 'Orange', 'legume': 'tomate', 'animal':'tigre'}
+        >>> switch(d)
+        >>> print (d)
+        {'Orange': 'fruits', 'tomate':'legume', 'tigre': 'animal'}
+    """
+    return {v: k for k, v in dc.items()}

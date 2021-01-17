@@ -16,9 +16,9 @@ class CConfig:
 
         """
 
-        tools.APP_NAME = app
-        tools.PROJECT_DIR = tools.dirproject()
-        tools.APP_DIR = tools.path_build(tools.PROJECT_DIR, tools.APP_NAME)
-        tools.TMP_DIR = tools.path_build(tools.PROJECT_DIR, 'tmp')
+        tools.APPNAME = app
+        tools.DIRPROJECT = tools.dirproject()
+        tools.DIRAPP = tools.path_build(tools.DIRPROJECT, tools.APPNAME)
+        tools.DIRTMP = tools.path_build(tools.DIRPROJECT, 'tmp')
 
         tracker.config(mode)

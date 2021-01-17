@@ -6,7 +6,6 @@ certifi==2020.12.5
 chardet==3.0.4
 cx-Oracle==8.0.1
 docutils==0.16
-dreamtools-dreamgeeker==1.1.0
 idna==2.10
 imagesize==1.2.0
 Jinja2==2.11.2

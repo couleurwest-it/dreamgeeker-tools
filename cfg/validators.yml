@@ -1,6 +1,26 @@
-check_mail:
+check_mail: &checkmail
   required: false
   schema: email scheme
+link: &check_link
+  check_with: url
+  required: false
+media_link: &media_link
+  check_with: medialink
+  coerce: medialink
+  required: false
+txt_optional: &txt_optional
+  coerce: clean_string
+  required: false
+  type: string
+txt_required: &txt_required
+  coerce: clean_string
+  required: true
+  type: string
+valid_mail: &valid_mail
+  check_with: email
+  required: true
+valid_pwd: &valid_password
+  schema: sch_password
 form_example:
   categorie:
     coerce: clean_string
@@ -26,23 +46,3 @@ form_example:
     coerce: clean_string
     required: true
     type: string
-link:
-  check_with: url
-  required: false
-media_link:
-  check_with: medialink
-  coerce: medialink
-  required: false
-txt_optional:
-  coerce: clean_string
-  required: false
-  type: string
-txt_required:
-  coerce: clean_string
-  required: true
-  type: string
-valid_mail:
-  check_with: email
-  required: true
-valid_pwd:
-  schema: sch_password

@@ -90,7 +90,7 @@ class CTracker:
         """Initialisation du gestionnaire de log à partir de la configuration enregistré
 
         .. warning::
-            La configuration doit être configurer dans le fichier <PROJECT_DIR>/cdg/.log.yml
+            La configuration doit être configurer dans le fichier <DIRPROJECT>/cdg/.log.yml
 
         :Exemple:
             >>> CTracker.config()
@@ -100,8 +100,8 @@ class CTracker:
 
         """
         try:
-            tools.makedirs(tools.path_build(tools.PROJECT_DIR, 'logs'))
-            log_config.dictConfig(cfgloader.logs_cfg())
+            tools.makedirs(tools.path_build(tools.DIRPROJECT, 'logs'))
+            log_config.dictConfig(cfgloader.loadcfglogs())
             CTracker.tracker = logging.getLogger(mode)
         except Exception as e:
             tools.print_err(e, ': ', 'Error in Logging Configuration. Using default configs')

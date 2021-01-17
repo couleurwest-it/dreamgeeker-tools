@@ -9,12 +9,12 @@ pathfile : dreamtools/cfgmng.py
 Repertoires par défaut
 ----------------------
 .. note::
-    * PROJECT_DIR/cfg/PROJECT_DIR/cfg/.log.yml : Fichier de configuration des logs
-    * PROJECT_DIR/cfg/.app.yml : Fichier de configuration de l'application
-    * PROJECT_DIR/cfg/categorie.yml : Fichier de liste définie par un code et un libelle
-    * PROJECT_DIR/cfg/mailing.yml : Fichier de mails préparés
-    * PROJECT_DIR/cfg/validators.yml : Fichier de validation(cf CERBERUS)
-    * PROJECT_DIR/cfg/normalizor.yml : Fichier de normalization(cf CERBERUS)
+    * DIRPROJECT/cfg/DIRPROJECT/cfg/.log.yml : Fichier de configuration des logs
+    * DIRPROJECT/cfg/.app.yml : Fichier de configuration de l'application
+    * DIRPROJECT/cfg/categorie.yml : Fichier de liste définie par un code et un libelle
+    * DIRPROJECT/cfg/mailing.yml : Fichier de mails préparés
+    * DIRPROJECT/cfg/validators.yml : Fichier de validation(cf CERBERUS)
+    * DIRPROJECT/cfg/normalizor.yml : Fichier de normalization(cf CERBERUS)
 
 Class CFBases
 -------------
@@ -43,7 +43,7 @@ class CFGEngine(object):
         :param str baz_dir:
         :return:
         """
-        CFGEngine.__dirpath = tools.path_build(tools.PROJECT_DIR, baz_dir)
+        CFGEngine.__dirpath = tools.path_build(tools.DIRPROJECT, baz_dir)
 
     @staticmethod
     def working_directory(sub_dir):
@@ -79,7 +79,7 @@ class CFGEngine(object):
             return config
 
     @staticmethod
-    def save_cfg(d, f, m="w"):
+    def saving(d, f, m="w"):
         """
         Enregistrement d' un fichier
         ========================================
@@ -101,35 +101,44 @@ class CFGBases(CFGEngine):
     """
     Cette class permet de gere des fichiers de configuration disponibles dans le repertoire <PROJET_DIR>/cfg
     """
-    CFG_DIR = CFGEngine.working_directory('')  # databases parameters
-    _logs = tools.path_build(CFG_DIR, 'log.yml')
-    _app = tools.path_build(CFG_DIR, 'app.yml')
-    _categories = tools.path_build(CFG_DIR, 'categorie.yml')
-    _mail = tools.path_build(CFG_DIR, 'mailing.yml')
-    _validator = tools.path_build(CFG_DIR, 'validators.yml')  # databases parameters
-    _normalisator = tools.path_build(CFG_DIR, 'normalizor.yml')  # databases parameters
+    __directory__ = CFGEngine.working_directory('')  # databases parameters
+    _logs = tools.path_build(__directory__, 'log.yml')
+    _app = tools.path_build(__directory__, 'app.yml')
+    _categories = tools.path_build(__directory__, 'categorie.yml')
+    _mail = tools.path_build(__directory__, 'mailing.yml')
+    _validator = tools.path_build(__directory__, 'validators.yml')  # databases parameters
+    _normalisator = tools.path_build(__directory__, 'normalizor.yml')  # databases parameters
 
     @staticmethod
     def loadingbyref(filename, *args, **kwargs):
         """
         Récupération des parametres de configuration du fichier <filepath> section <r>
 
-        :param str filepath: Fichier de configuration
-        :param str code: référence parametres à récupérer, optionnel
-        :param str mode: bytes par defaut
+        :param str filename: Nom fichier sans extension
         :return: configuration | None
         """
-        filepath = tools.path_build(CFGBases.CFG_DIR, f'{filename}.yml')
+        filepath = tools.path_build(CFGBases.__directory__, f'{filename}.yml')
         return CFGEngine.loading(filepath, *args, **kwargs)
 
     @staticmethod
-    def logs_cfg():
+    def savingbyref(datas, filename, *args, **kwargs):
+        """
+        Récupération des parametres de configuration du fichier <filepath> section <r>
+
+        :param str filename: Fichier de configuration
+        """
+        filepath = tools.path_build(CFGBases.__directory__, f'{filename}.yml')
+        return CFGEngine.saving(datas, filepath, *args, **kwargs)
+
+
+    @staticmethod
+    def loadcfglogs():
         """ Configuration des logs
 
         :Exemple:
             >>> import import logging.config as log_config
             >>> import logging
-            >>> log_config.dictConfig(CFGBases.logs_cfg())
+            >>> log_config.dictConfig(CFGBases.loadcfglogs())
             >>> tracker = logging.getLogger('PROD|TEST')
             >>> tracker.info("Exemple dun message d'information")
 
@@ -138,7 +147,7 @@ class CFGBases(CFGEngine):
         return CFGBases.loading(CFGBases._logs)
 
     @staticmethod
-    def app_cfg(code=None):
+    def loadcfgapp(code=None):
         """ Parametres application
 
         :param str code: clé a retourner (filtre)
@@ -147,13 +156,13 @@ class CFGBases(CFGEngine):
         return CFGBases.loading(CFGBases._app, code)
 
     @staticmethod
-    def validator():
+    def loadcfgvalidator():
         """ Parametres de validation de formulaire
         """
         return CFGBases.loading(CFGBases._validator)
 
     @staticmethod
-    def normalizor():
+    def lloadcfgnormalizor():
         """ Parametres de normalisation de formulaire
         :return: parametres de normaisation
         :rtype: dict
@@ -161,7 +170,7 @@ class CFGBases(CFGEngine):
         return CFGBases.loading(CFGBases._normalisator)
 
     @staticmethod
-    def mailing_lib(code):
+    def loadcfgmailing(code):
         """ Mail préparé
 
         :param str code: référence du mail à envoyer
@@ -171,7 +180,7 @@ class CFGBases(CFGEngine):
         return CFGBases.loading(CFGBases._mail, code)
 
     @staticmethod
-    def categorie_lib(code=None):
+    def loadcategories(code=None):
         """ Liste de definition
 
         :param str code: référence du de la liste

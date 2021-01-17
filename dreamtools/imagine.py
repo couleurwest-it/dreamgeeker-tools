@@ -92,8 +92,8 @@ class CImagine(object):
         """ Redimensionnement de l'image au format jpg
 
         :param tuple(int, int) s: si indiqué, (w,h) de redimensionnement
-        :param int mn,optional: taille maximum (carré), default 250
-        :param int mx,optional: taille maximum de l'image,  default 250
+        :param int mn: taille maximum (carré), default 250
+        :param int mx: taille maximum de l'image,  default 250
         :return:
         """
 

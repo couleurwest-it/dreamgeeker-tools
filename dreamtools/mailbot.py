@@ -44,12 +44,12 @@ import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from . import cfgloader, tracker
+from dreamtools import cfgloader, tracker
 
 
 class CMailer(object):
-    smtp = cfgloader.app_cfg('smtp')
-    footers = cfgloader.mailing_lib('footer')
+    smtp = cfgloader.loadcfgapp('smtp')
+    footers = cfgloader.loadcfgmailing('footer')
 
     @staticmethod
     def __send_mail(subject, receivers, d_msg, to_receiver=None):
@@ -102,7 +102,7 @@ class CMailer(object):
         
         """
         tracker.flag('[dreamtools.mailbot] PRESEND:Loading template {}'.format(code))
-        mail = cfgloader.mailing_lib(code)
+        mail = cfgloader.loadcfgmailing(code)
 
         tracker.flag('[dreamtools.mailbot] PRESEND: Preparation')
 
