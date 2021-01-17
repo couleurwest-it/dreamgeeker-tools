@@ -23,7 +23,7 @@ class Validata(Validator):
     """
     Validators
     """
-    _normalisator = cfgloader.lloadcfgnormalizor()
+    _normalisator = cfgloader.loadcfgnormalizor()
     _validators = cfgloader.loadcfgvalidator()
 
     def __init__(self, scheme, *args, **kwargs):
