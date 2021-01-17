@@ -7,16 +7,9 @@ import dreamtools
 
 cfg = ["cfg/*.yml"]
 
-with open('README.md') as readme:
+with open('README.md', encoding='utf-8') as readme:
     long_description = readme.read()
 
-
-for file, path_file in tools.dir_parser(mydir):
-    source[file] = f"{cfgloader.loading(path_file)}"
-
-mysource = tools.path_build(directory, 'source.py')
-with open(mysource, encoding='utf-8', mode='w') as src:
-    src.write(f'source = {source.__str__()}')
 
 #setup------------------------------
 setup(

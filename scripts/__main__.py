@@ -5,6 +5,8 @@
 import shutil
 import sys
 
+import pkg_resources
+
 from dreamtools import tools
 
 
