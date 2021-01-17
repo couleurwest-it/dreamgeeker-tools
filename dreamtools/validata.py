@@ -9,7 +9,6 @@ from . import cfgloader
 from . import dtemng
 from . import tools
 from . import tracker
-from .features import test_http_link
 from .logmng import CError
 
 schema_registry.add('email scheme', {'email': {'type': 'string', 'regex': tools.RGX_EMAIL}})

@@ -162,7 +162,7 @@ class CFGBases(CFGEngine):
         return CFGBases.loading(CFGBases._validator)
 
     @staticmethod
-    def lloadcfgnormalizor():
+    def loadcfgnormalizor():
         """ Parametres de normalisation de formulaire
         :return: parametres de normaisation
         :rtype: dict
