@@ -495,38 +495,10 @@ def str_dic(chaine):
 def pop_dic(l_ids, dic):
     """ Suppression d'une liste d'éléments d'un dictionnaire
 
-    :param list(str) l_ids : liste de clé à supprimer
-    :param dict(str:object) dic: dictionaire à nettoyer
+    :param list[str] l_ids : liste de clé à supprimer
+    :param dict[str:object] dic: dictionaire à nettoyer
 
     """
     if dic:
         for s in l_ids:
             if s in dic: del dic[s]
-
-
-def dirname(pathfile):
-    """Extraction du nom de fichier à partir d'un chemin
-
-    :Parametres:
-    :param str pathfile: chemin fichier à envoyer
-
-    :Exemple:
-        >>> s = '/home/user/documents/file.ext'
-        >>> dirname(s)
-        file.ext
-    """
-    return os.path.basename(pathfile)
-
-
-def switch(dc):
-    """
-    Permute les clé-valeurs d'un dictionnaire
-    :param dict(str, str)dc: dictionnaire à permuter
-
-    :Exemple:
-        >>> d = {'fruits': 'Orange', 'legume': 'tomate', 'animal':'tigre'}
-        >>> switch(d)
-        >>> print (d)
-        {'Orange': 'fruits', 'tomate':'legume', 'tigre': 'animal'}
-    """
-    return {v: k for k, v in dc.items()}

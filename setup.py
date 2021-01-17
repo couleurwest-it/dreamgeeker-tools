@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import dreamtools
+
 from setuptools import setup, find_packages
 
-
+import dreamtools
 
 cfg = ["cfg/*.yml"]
 
-with open('README.md') as readme:
+with open('README.md', encoding='utf-8') as readme:
     long_description = readme.read()
+
 
 #setup------------------------------
 setup(
