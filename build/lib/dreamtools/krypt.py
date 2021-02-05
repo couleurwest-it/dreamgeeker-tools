@@ -1,4 +1,4 @@
-# !/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # krypt.py
 
@@ -21,17 +21,15 @@ Class CKrypting
 """
 
 import crypt
-
-from . import cfgloader
-
+import os
 
 class CKrypting:
     """
     Gestion kryptage des données
     """
     PREFIX = "$5$"
-    SALT = cfgloader.app_cfg('SECRET_KEY')
-    SALT_EXT = cfgloader.app_cfg('SALT')
+    SALT = os.getenv('SECRET_KEY')
+    SALT_EXT = os.getenv('EXTERN_SECRET_KEY')
 
     @staticmethod
     def __encrypt(ch, prefix):

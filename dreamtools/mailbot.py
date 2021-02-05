@@ -14,12 +14,11 @@ Pré-Requis
 
 .. code-block:: YAML
 
-    smtp:
-     h: smtp-host_adresse
-     po: port_smtp
-     m: mail_authen
-     pw: password_auth
-     h_s : name_sender <email>
+    SMTP_HOST: smtp-host_adresse
+    SMTP_PORT: port_smtp
+    SMTP_AUTHMAIL: mail_authen
+    SMTP_AUTHPWD: password_auth
+    SMTP_USERNAME : name_sender <email>
 
 .. warning::
 
@@ -35,24 +34,32 @@ Pré-Requis
       text : <Le mail au format texte>
       objt : <Objet du mail>
 
-Class CMailer
---------------
-"""
 
+"""
+import os
 import smtplib
 import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from . import cfgloader, tracker
+from . import cfgmng
+from .logmng import CTracker as tracker
 
 
-class CMailer(object):
-    smtp = cfgloader.app_cfg('smtp')
-    footers = cfgloader.mailing_lib('footer')
+class CSMTP(object):
+    SMTP_USERNAME : os.getenv('SMTP_USERNAME')
+    SMTP_HOST: os.getenv('SMTP_HOST')
+    SMTP_PORT: os.getenv('SMTP_PORT')
+    SMTP_AUTHMAIL: os.getenv('SMTP_AUTHMAIL')
+    SMTP_AUTHPWD: os.getenv('SMTP_AUTHPWD')
+    SMTP_USERNAME: f"{os.getenv('SMTP_USERNAME')} {os.getenv('SMTP_AUTHMAIL')}"
 
-    @staticmethod
-    def __send_mail(subject, receivers, d_msg, to_receiver=None):
+
+class CMailer(CSMTP):
+    footers = cfgmng.mailing_lib('footer')
+
+    @classmethod
+    def __send_mail(cls, subject, receivers, d_msg, to_receiver=None):
         """ Envoie du mail
 
         :param subject: Sujet du mail
@@ -68,30 +75,30 @@ class CMailer(object):
         tracker.flag("[dreamtools.mailbot] SEND_MAIL:Parametrage message MIME")
         message = MIMEMultipart("alternative")
         message["Subject"] = subject
-        message["From"] = CMailer.smtp['h_s']
+        message["From"] = cls.SMTP_USERNAME
         message["To"] = to_receiver or receivers
 
         tracker.flag("[dreamtools.mailbot] SEND_MAIL:Parametrage contenu mail")
-        content = d_msg.get('text') + CMailer.footers['txt']
+        content = d_msg.get('text') + cls.footers['txt']
         content = MIMEText(content)
         message.attach(content)
 
         if d_msg.get('html'):
-            content = d_msg.get('html') + CMailer.footers['html']
+            content = d_msg.get('html') + cls.footers['html']
             content = MIMEText(content, "html")
             message.attach(content)
 
         tracker.flag("[dreamtools.mailbot] SEND_MAIL:Coonnexion SMTP")
-        with smtplib.SMTP_SSL(CMailer.smtp['h'], CMailer.smtp['po'], context=context) as server:
+        with smtplib.SMTP_SSL(cls.SMTP_HOST, cls.SMTP_PORT, context=context) as server:
             tracker.flag("[dreamtools.mailbot] SEND_MAIL:Authentification")
-            server.login(CMailer.smtp['m'], CMailer.smtp['pw'])
+            server.login(cls.SMTP_AUTHMAIL, cls.SMTP_AUTHPWD)
             tracker.flag("[dreamtools.mailbot] SEND_MAIL: Sending")
-            server.sendmail(CMailer.smtp['m'], receivers, message.as_string())
+            server.sendmail(cls.SMTP_AUTHMAIL, receivers, message.as_string())
 
             return True
 
-    @staticmethod
-    def presend(email, code, name='', **data_field):
+    @classmethod
+    def presend(cls, email, code, name='', **data_field):
         """ Preparation pour envoi d'un message mail 
         
         :param str email: email destinataire
@@ -102,7 +109,7 @@ class CMailer(object):
         
         """
         tracker.flag('[dreamtools.mailbot] PRESEND:Loading template {}'.format(code))
-        mail = cfgloader.mailing_lib(code)
+        mail = cfgmng.mailing_lib(code)
 
         tracker.flag('[dreamtools.mailbot] PRESEND: Preparation')
 
@@ -111,7 +118,7 @@ class CMailer(object):
         to_receiver = r'{} <{mail}>'.format(name, mail=email)
 
         tracker.flag('[dreamtools.mailbot] PRESEND: Envoi ({}) -> {}'.format(code, email))
-        send = tracker.fntracker(CMailer.__send_mail, 'Envoi ({}) -> {}'.format(code, email), mail.get('objt'),
+        send = tracker.fntracker(cls.__send_mail, 'Envoi ({}) -> {}'.format(code, email), mail.get('object'),
                                  email, {'text': part1, 'html': part2}, to_receiver)
 
         return send.ok

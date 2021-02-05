@@ -5,28 +5,27 @@ from urllib.parse import unquote
 
 from cerberus.validator import Validator, schema_registry
 
-from . import cfgloader
+from . import cfgmng
 from . import dtemng
 from . import tools
-from . import tracker
+from .logmng import Ctracker
 from .logmng import CError
 
 schema_registry.add('email scheme', {'email': {'type': 'string', 'regex': tools.RGX_EMAIL}})
-schema_registry.add('passowrd scheme', {'password': {'type': 'string', 'regex': tools.RGX_PWD}})
+schema_registry.add('password scheme', {'password': {'type': 'string', 'regex': tools.RGX_PWD}})
 schema_registry.add('phone scheme', {'phone': {'type': 'string', 'regex': tools.RGX_PHONE}})
-
-liste_categorie = []
 
 
 class Validata(Validator):
     """
     Validators
     """
-    __normalisator = cfgloader.normalizor()
-    __validators = cfgloader.validator()
+    _normalisator = cfgloader.normalizor()
+    _validators = cfgloader.validator()
+    liste_categorie = []
 
     def __init__(self, scheme, *args, **kwargs):
-        dic = self.__validators.get(scheme)
+        dic = self._validators.get(scheme)
         dic['creation_date'] = {'type': 'integer', 'default_setter': 'utcnow'}
 
         super().__init__(dic, *args, **kwargs)
@@ -61,25 +60,29 @@ class Validata(Validator):
 
             return dte
         except Exception as ex:
-            tracker.exception_tracking(ex, 'validata.validata._normalize_coerce_event')
+            Ctracker.exception_tracking(ex, 'validata.validata._normalize_coerce_event')
             return None
 
-    def _check_with_validte(self, field, value):
+    def _check_with_validate(self, field, value):
         if dtemng.datestr(value) is None:
             self._error(field, "Date not valid")
 
     def _check_with_categorie(self, field, value):
-        if value not in liste_categorie:
+        """Verifie si l'element figure dans une liste à configurer"""
+        if value not in self.liste_categorie:
             self._error(field, "value not valid")
 
     def _check_with_url(self, field, value):
         from dreamtools import features
-        try:
-            if value and not features.test_http_link(value):
-                self._error(field, "lient url non valid")
-        except Exception as ex:
+
+        if value and not features.test_http_link(value):
             self._error(field, "lient url non valid")
-            tracker.exception_tracking(ex, 'validata.validata._normalize_coerce_event')
+
+    def _check_with_email(self, field, value):
+        from verify_email import verify_email
+
+        if not verify_email(value):
+           self._error(field, "Adresse non valid")
 
     def validation(self, document, *args, **kwargs):
         """
@@ -101,10 +104,10 @@ class Validata(Validator):
         :param kwargs:
         :return:
         """
-        return Validator(self.__normalisator).normalized(document)
+        return Validator(self._normalisator).normalized(document)
 
-    @staticmethod
-    def check_post_data(data, form_ref):
+    @classmethod
+    def check_post_data(cls, data, form_ref):
         """ verification donnees formulaire recu
 
         :param dict data: formulaire de données
@@ -118,17 +121,16 @@ class Validata(Validator):
             function interne
             :return:
             """
-            o = Validata(form_ref, purge_unknown=True)
+            o = cls(form_ref, purge_unknown=True)
             d = {k: unquote(tools.clean_space(v)) for k, v in data.items()}
 
             d = o.validation(d)
             if d: return d
 
             d = o.normalisation(o.errors)
-            print(d)
             raise CError(','.join(d.keys()), 400, "VALIDATA.CHECK_POST_DATA")
 
-        reponce = tracker.fntracker(fn, 'VALIDATA.CHECK_POST_DATA')
+        reponce = Ctracker.fnCtracker(fn, 'VALIDATA.CHECK_POST_DATA')
 
         if not reponce.ok and type(reponce.message).__name__ == 'dict':
             reponce.message = reponce.message.values()

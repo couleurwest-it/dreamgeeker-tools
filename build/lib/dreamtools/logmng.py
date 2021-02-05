@@ -4,7 +4,7 @@
 import logging
 import logging.config as log_config
 
-from . import cfgloader
+from . import cfgmng
 from . import tools
 
 
@@ -100,8 +100,8 @@ class CTracker:
 
         """
         try:
-            tools.makedirs(tools.path_build(tools.PROJECT_DIR, 'logs'))
-            log_config.dictConfig(cfgloader.logs_cfg())
+            profiler.makedirs(profiler.path_build(tools.PROJECT_DIR, 'logs'))
+            log_config.dictConfig(cfgmng.logs_cfg())
             CTracker.tracker = logging.getLogger(mode)
         except Exception as e:
             tools.print_err(e, ': ', 'Error in Logging Configuration. Using default configs')

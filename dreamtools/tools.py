@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# dreamtools/tools.py
 
 """
 Module de fonctions basiques
@@ -37,22 +35,21 @@ Constantes globales
 """
 
 import ast
-import fnmatch
-import os
 import re
 import sys
 from random import choice, randint
 from string import punctuation, ascii_letters, digits
 
+from . import tools
+
 RGX_ACCENTS = 'àâäãéèêëîïìôöòõùüûÿñç'
 RGX_EMAIL = r'^[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-.]+$'
-RGX_PWD = r'/.*(?=.{8,12})(?=.*[àâäãéèêëîïìôöòõùüûÿñça-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&?]).*/'
+RGX_PUNCT = '#!?$%&_@*+-'
+RGX_PWD = fr'.*(?=.{{8,12}})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[{RGX_PUNCT}]).*'
 RGX_PHONE = r'^0[1-9]\d{8}$'
-RGX_PUNCT = r'@#!?$&-_'
 RGX_URL = r'https?:\/\/(www\.)?[-a-z0-9@:%._\+~#=]{1,256}\.[a-z0-9()]{1,6}\b([-a-z0-9()@:%_\+.~#?&//=]*)'
 
 APP_NAME = ''
-# noinspection PyRedeclaration
 PROJECT_DIR = ''
 APP_DIR = ''
 TMP_DIR = ''
@@ -94,7 +91,7 @@ def clean_space(ch):
 
     """
     s = string_me(ch)
-    return re.sub(r'[ ][ ]+', ' ', s.strip())
+    return re.sub(r'\s{2,}', ' ', s.strip())
 
 
 def clean_allspace(ch, very_all=True):
@@ -313,134 +310,6 @@ def aleatoire(end, s=1):
     return randint(s, end)
 
 
-def dirproject():
-    """ Répertoire d'execution """
-
-    return os.getcwd()
-
-
-def dirparent(path):
-    """  Renvoie du repertoire parent
-
-    :param str path: repertoire
-    :rtype: str
-
-    """
-
-    return os.path.dirname(os.path.realpath(path))
-
-
-def dirprojet():
-    """Répertoire pour le fichier en cours
-
-    :rtype: str
-
-    """
-
-    return dirparent(__file__)
-
-
-def dirparser(directory, pattern="*"):
-    """Récupération des fichiers d'un répertoire
-
-    :param str directory: repertoire
-    :param str pattern: '*' pour tous type de fichier par défaut
-
-    :Exemple:
-        >>> directory = 'C:\\Users\\public\\Documents\'
-        >>> pattern='*.txt'
-        >>> for filename, path_file in dirparser(directory, pattern):
-        ...    print(path_file)
-        'C:\\Users\\public\\Documents\\fichier.txt'
-        'C:\\Users\\public\\Documents\\autre_fichier.txt'
-
-    """
-
-    for root, dirs, files in os.walk(directory):
-        for filename in files:
-            if fnmatch.fnmatch(filename, pattern):
-                yield filename, os.path.join(root, filename)
-
-
-def path_build(directory, ps_complement):
-    """ Construction d'un pathfile
-
-    :param str directory: repertoire
-    :param str ps_complement: complement permettant de generer le chemin
-    :rtype: str
-
-    :Exemple:
-        >>> path = 'c:\\Users\\public\\directory'
-        >>> path_build(path, '..\\other_dir')
-        'c:\\Users\\public\\other_dir'
-
-    """
-
-    return os.path.abspath(os.path.join(directory, ps_complement))
-
-
-def file_ext(ps_file):
-    """ Retrourne l'extension d'un fichier
-
-    :param ps_file:
-    :return: Extension de fichier
-
-    """
-
-    return os.path.splitext(ps_file)[1]
-
-
-def file_exists(fp):
-    """Vérifie l'existance d'un fichier
-
-    :param str fp: filepath
-    :rtype bool:
-
-    """
-
-    return os.path.exists(fp)
-
-
-def makedirs(path):
-    """ Création du répertoire données
-
-    :param path: chemin du répertoire à créer
-    :rtype bool:
-
-    """
-
-    if not file_exists(path):
-        os.makedirs(path)
-        return file_exists(path)
-
-    return True
-
-
-def remove_file(p):
-    """ Suppression d'un fichier si existant
-
-    :param str p: chemin complet du fichier à supprimer
-    """
-    if file_exists(p):
-        os.remove(p)
-
-
-def clean_dir(directory, pattern='*'):
-    """ Supprimes tous les élements d'un repertoire
-
-    :param str directory: chemin du repertoire
-    :param string pattern: patter des fichier à supprimer (filtre)
-    :return int: nombre de fichier supprimer
-
-    """
-    i_count = 0
-
-    for filename, path_file in dirparser(directory, pattern):
-        remove_file(path_file)
-        i_count += 1
-    return i_count
-
-
 def add_list(v, ll):
     """ Ajout d'un item dans une liste avec gestion des doublons
 
@@ -510,3 +379,15 @@ def dicFindKey (value, dic):
             return k
     else:
         return None
+
+
+def htmltexted (texte):
+    import bs4
+
+    try:
+        bs = bs4.BeautifulSoup(texte, features="html.parser")
+        texte = bs4.UnicodeDammit(bs.get_text()).unicode_markup
+    except:
+        pass
+    finally:
+        return tools.clean_space(texte)

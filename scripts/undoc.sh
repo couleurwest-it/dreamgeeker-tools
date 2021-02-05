@@ -21,7 +21,7 @@ echo "Generation Package"
 #python setup.py install
 #python setup.py register
 python setup.py sdist bdist_wheel
-twine upload dist/*1.1.1*
+twine upload dist/*1.2.0*
 
 #twine upload --repository testpypi dist/*1.0.4*
 #echo "\tVersion PROD !"

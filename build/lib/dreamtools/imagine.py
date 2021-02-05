@@ -9,7 +9,8 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 from PIL.TiffImagePlugin import ImageFileDirectory_v2
 
-from dreamtools import tools
+from . import tools, profiler
+from .logmng import CTracker
 
 TYPE_IMG_JPEG = 'JPEG'
 TYPE_IMG_PNG = 'PNG'
@@ -56,7 +57,7 @@ class CImagine(object):
             except Exception as ex:  # pas de fond transparent
                 tools.print_err("imagine.init Ajout fond blanc", ex)
 
-        self.file = os.path.splitext(dest)[0]  # on s'assure de retirer l'extension
+        self.file = profiler.file_ext_less(dest)     # on s'assure de retirer l'extension
 
         if with_ext:
             self.file += '.jpg'
@@ -137,7 +138,7 @@ class CImagine(object):
     def __exit__(self, exc_type, exc_value, traceback):
         self.img.close()
 
-    def protected(self, artist):
+    def protected(self, artist, description):
         """Ajoute un nom d'artist et le copyright d'une image"""
 
         _TAGS_r = dict(((v, k) for k, v in TAGS.items()))
@@ -146,6 +147,7 @@ class CImagine(object):
         ifd = ImageFileDirectory_v2()
         ifd[_TAGS_r["Artist"]] = artist
         ifd[_TAGS_r["Copyright"]] = 'Tous droits reserves'
+        ifd[_TAGS_r["Description"]] = description
 
         out = BytesIO()
         ifd.save(out)
@@ -153,27 +155,59 @@ class CImagine(object):
         self.exif = b"Exif\x00\x00" + out.getvalue()
         self.img.save(self.file, TYPE_IMG_JPEG, exif=self.exif)
 
+    @classmethod
+    def treat_dir(cls, s):
+        """
+        Redimensionne toutes les images contenu dans un répertoire donné + thumb
+        :param s:
+        """
+        for f in os.listdir(s):
+            f_path = os.path.join(s, f)
+            if os.path.isfile(f_path):
+                cls.treat_img(f_path, f_path)
 
-def treat_dir(s):
-    """
-    Redimensionne toutes les images contenu dans un répertoire donné + thumb
-    :param s:
-    """
-    for f in os.listdir(s):
-        f_path = os.path.join(s, f)
-        if os.path.isfile(f_path):
-            o = CImagine(f_path, os.path.splitext(f_path)[0])
+    @classmethod
+    def treat_img(cls, s, f):
+        """
+        Enregistre une image, la reformat + thumb
+        :param s:
+        :param f:
+        """
+        o = cls(s, f)
+        o.resize()
+        o.thumbed()
 
+    @classmethod
+    def imgrecorder(cls, fs, fp):
+        """
+        Enregistremetn d'une image uploaded (byte)
+
+        :param file fs: filestream from flask request
+        :param str fp: filepath d'enregistrement
+        :return:
+        """
+        import uuid
+
+        tmp = uuid.uuid1().int >> 64
+        tmp = profiler.path_build(tools.TMP_DIR, str(tmp))
+
+        profiler.makedirs(tools.TMP_DIR)
+
+        try:
+            CTracker.flag(f'[tools.imgrecorder] Image temp recording : {tmp}')
+            fs.save(tmp)
+
+            CTracker.flag(f'[tools.imgrecorder] Image treatment: {tmp} | {fp}')
+            o = cls(tmp, fp)
+            CTracker.flag(f'[tools.imgrecorder] Image resizing: {fp}')
             o.resize()
+            CTracker.flag('[tools.imgrecorder] Image thumbing')
             o.thumbed()
 
-
-def treat_img(s, f):
-    """
-    Enregistre une image, la reformat + thumb
-    :param s:
-    :param f:
-    """
-    o = CImagine(s, f)
-    o.resize()
-    o.thumbed()
+            CTracker.flag('[tools.imgrecorder] Temp Cleaning')
+            profiler.makedirs(tmp)
+            return True
+        except Exception as e:
+            CTracker.exception_tracking(e, '[tools.imgrecorder] Aïe')
+            profiler.remove_file(tmp)
+            return False

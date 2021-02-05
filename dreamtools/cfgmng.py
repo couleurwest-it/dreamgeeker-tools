@@ -27,7 +27,7 @@ try:
 except ImportError:
     from yaml import Loader, Dumper, SafeLoader
 
-from . import tools
+from . import tools, profiler
 
 
 class CFGEngine(object):
@@ -43,12 +43,12 @@ class CFGEngine(object):
         :param str baz_dir:
         :return:
         """
-        CFGEngine.__dirpath = tools.path_build(tools.PROJECT_DIR, baz_dir)
+        CFGEngine.__dirpath = profiler.path_build(tools.PROJECT_DIR, baz_dir)
 
     @staticmethod
     def working_directory(sub_dir):
         CFGEngine.initial()
-        return tools.path_build(CFGEngine.__dirpath, sub_dir)
+        return profiler.path_build(CFGEngine.__dirpath, sub_dir)
 
     @staticmethod
     def loading(p, ref=None, m='r'):
@@ -64,7 +64,7 @@ class CFGEngine(object):
         config = None
 
         try:
-            if tools.file_exists(p):
+            if profiler.file_exists(p):
                 with open(p, mode=m) if 'b' in m else open(p, mode=m, encoding='utf-8') as cfg:
                     cfg = yaml.load(cfg, Loader=SafeLoader)
                     if type(cfg).__name__ == "dict":
@@ -89,7 +89,7 @@ class CFGEngine(object):
         :param str m: default (write): mode "w|a", optional
         :return:
         """
-        tools.makedirs(tools.dirparent(f))
+        profiler.makedirs(profiler.dirparent(f))
 
         with open(f, m) if 'b' in m else open(f, mode=m, encoding='utf-8') as f_yml:
             yaml.dump(d, stream=f_yml, allow_unicode=True)
@@ -102,12 +102,12 @@ class CFGBases(CFGEngine):
     Cette class permet de gere des fichiers de configuration disponibles dans le repertoire <PROJET_DIR>/cfg
     """
     CFG_DIR = CFGEngine.working_directory('')  # databases parameters
-    _logs = tools.path_build(CFG_DIR, 'log.yml')
-    _app = tools.path_build(CFG_DIR, 'app.yml')
-    _categories = tools.path_build(CFG_DIR, 'categorie.yml')
-    _mail = tools.path_build(CFG_DIR, 'mailing.yml')
-    _validator = tools.path_build(CFG_DIR, 'validators.yml')  # databases parameters
-    _normalisator = tools.path_build(CFG_DIR, 'normalizor.yml')  # databases parameters
+    _logs = profiler.path_build(CFG_DIR, 'log.yml')
+    _app = profiler.path_build(CFG_DIR, 'app.yml')
+    _categories = profiler.path_build(CFG_DIR, 'categorie.yml')
+    _mail = profiler.path_build(CFG_DIR, 'mailing.yml')
+    _validator = profiler.path_build(CFG_DIR, 'validators.yml')  # databases parameters
+    _normalisator = profiler.path_build(CFG_DIR, 'normalizor.yml')  # databases parameters
 
     @staticmethod
     def loadingbyref(filename, *args, **kwargs):
@@ -119,7 +119,7 @@ class CFGBases(CFGEngine):
         :param str mode: bytes par defaut
         :return: configuration | None
         """
-        filepath = tools.path_build(CFGBases.CFG_DIR, f'{filename}.yml')
+        filepath = profiler.path_build(CFGBases.CFG_DIR, f'{filename}.yml')
         return CFGEngine.loading(filepath, *args, **kwargs)
 
     @staticmethod

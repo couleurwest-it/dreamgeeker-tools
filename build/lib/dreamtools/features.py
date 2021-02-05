@@ -9,12 +9,12 @@ pathfile : dreamtools/features.py
 
 """
 import re
-from urllib.parse import urljoin
-
 import requests
 
-from . import tracker, tools
+from urllib.parse import urljoin
 
+from . import tools
+from .logmng import CTracker
 
 def test_http_link(url):
     """ Vérifie une url et renvoie l'url valide
@@ -36,7 +36,7 @@ def test_http_link(url):
 
         return s if (ret.status_code == requests.codes.ok) else False
 
-    return tracker.fntracker(fn, 'URL Checker').data
+    return CTracker.fntracker(fn, 'URL Checker').data
 
 
 def url_join(domaine, page):

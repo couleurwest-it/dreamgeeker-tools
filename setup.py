@@ -23,7 +23,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     install_requires=['wheel', 'setuptools', 'pyaml', 'requests', 'cerberus', 'pillow', 'pytz',
-                      "urllib3", "cerberus", "pillow"],
+                      "urllib3", "cerberus", "pillow", 'python-dotenv', 'verify_email', 'beautifulsoup'],
 
     include_package_data=True,
     python_requires='>=3.8',

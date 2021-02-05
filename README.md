@@ -31,8 +31,7 @@ $ tools-installer
 <pre>
 import dreamtools
 
-app_name = "AMON_APP"   #nom de votre application
-dreamtools.config(app_name, mode='DEBUG')  # par défaut mode ='PROD'
+dreamtools.config(appname='project', mode='prod')  # Utilise les information contenu dans .ENV MODE DEVELOPMENT ou PRODUCTION | PROJECT_NAME
 </pre>
 
 # Informations 

@@ -12,7 +12,7 @@ Constantes globales
 -------------------
 
 Liste des jours de la semaine
-I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,7
+I_MON, I_TUES, I_WED,I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4,5,6,0
 
 Fonctions
 -------------
@@ -29,7 +29,7 @@ I_MON, I_TUES, I_WED, I_THU, I_FRI, I_SAT, I_SUN = 1, 2, 3, 4, 5, 6, 0
 
 locale.setlocale(locale.LC_TIME, 'fr_FR.utf8')
 
-ISO_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
+ISO_FORMAT = '%Y-%m-%dT%H:%M:%S'
 FR_FORMAT = '%d/%m%/%Y'
 
 FRM_ISO, FRM_TIMESTAMP = 'iso', 'ts'
@@ -123,7 +123,7 @@ def datestr(dte=None, fm='%Y-%m-%dT%H:%M:%S'):
         dte = maintenant()
 
     return dte.strftime(fm)
-
+  
 
 def today(fm='%d/%m/%Y'):
     """ Renvoie la date du jour
@@ -241,7 +241,7 @@ def isotodate(dte):
 
     :return:
     """
-    return strdate(dte, fm='%Y-%m-%dT%H:%M:%S')
+    return strdate(dte, fm=ISO_FORMAT)
 
 
 def datepaques(y):
@@ -322,7 +322,7 @@ def is_workday(dte):
     :rtype bool:
     """
     feries = jours_feries(dte.year)
-    return not (dte in feries or dte.weekday() > I_FRI)
+    return not (dte in feries or dte.weekday() in [I_SAT, I_SUN])
 
 
 def dateadd(dte, nb, fm='d'):
